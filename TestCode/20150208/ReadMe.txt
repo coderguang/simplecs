@@ -1,0 +1,1 @@
+本次server仅能同时和一个client通信
