@@ -18,7 +18,13 @@ string IntToStr(int value){
 		ss<<value;
 		return ss.str();
 		}
-
+int StrToInt(string value){
+		int number;
+		stringstream ss;
+		ss<<value;		//string -->stringstream
+		ss>>number;		//stringstream-->int
+		return number;
+}
 
 
 
