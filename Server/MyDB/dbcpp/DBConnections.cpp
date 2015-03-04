@@ -279,7 +279,12 @@ public:
 				return rNum;
 
 	}
-	 
+	//for InsertResult 
+	//need  update the accounts flag,result*
+	int InsertResult(ResultAll &resultA){
+		
+		
+	}
 
 };
  //must initialize in out of class ,deny would link error!!!
