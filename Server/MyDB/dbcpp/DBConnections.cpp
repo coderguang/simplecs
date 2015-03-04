@@ -5,6 +5,7 @@
 #include <iostream>
 #include <mutex>
 #include "DBErr.h"
+#include "../../include/Func.h"
 extern "C"{
 #include "DBConstant.h"
 }
@@ -211,9 +212,7 @@ public:
 	} 
 	//for regit a accounts
 	int RegitAccount(string account,string passwd,string email,string name,int question,string answer){
-		stringstream ss;
-		ss<<question;
-		string questionStr=ss.str();
+		string questionStr=IntToStr(question);
 		string sql="insert into accounts values(null,'"+account+"','"+passwd+"','"+email+"','"+name+"','"+questionStr+"','"+answer+"',false,null,null,0,1000,0,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000)";
 		 int rNum=MyQuery(REGIT,sql,nullptr);
 		 return rNum;
