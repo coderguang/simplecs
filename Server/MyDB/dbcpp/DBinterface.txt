@@ -1,0 +1,53 @@
+
+常量对照表
+static const int OK=0; 
+static const int UNKNOW=-8999;
+
+static const int SQL_NULL=-9999;
+static const int TYPE_ERROR=-9998;
+static const int NO_FREE_CONN=-9997;
+static const int HAD_REGIT=-9996;
+
+数据库接口描述：
+
+检测账号是否已经被注册了
+	参数：账户名
+	返回值：
+		OK	该账号可被注册
+		HAD_REGIT  该账号已被注册
+	int CheckAccount(string account){
+	} 
+	
+注册一个新账号
+	参数:账户名，密码（暂未加密）,email,角色名，安全问题ID，问题答案
+	返回值：
+		OK:注册成功
+		其他：数据库错误码
+	int RegitAccount(string account,string passwd,string email,string name,int question,string answer){
+	}
+	
+忘记密码：
+	参数:账户名，email,问题ID，问题答案
+	返回值：成功与否
+	int  ForgetPasswd(string account,string email,int questionID,string answer)
+	
+更新密码：
+	参数：账户名，新密码
+	返回值：成功与否
+	int ResetPasswd(string account,string newPasswd)
+	
+	
+登录
+	参数：账户名，密码
+	返回值：一个登录结果结构
+	int Lanuch(string account,string passwd)
+	
+插入战绩:
+	参数:一个战绩结构，里面有10个人物战绩结构
+	返回值：成功与否
+	int InsertResult(Result result)
+	
+	
+查战绩：
+	参数：战绩ID,存放战绩结构的指针或者引用
+	返回值：成功与否
