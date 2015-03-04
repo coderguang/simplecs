@@ -14,6 +14,6 @@ static const int HAD_REGIT=-9996;
 
 static const int ERR_IDENTITY=-9995;
 
-
+static const int NO_THIS_ACCOUNT=-9994;
 
 #endif

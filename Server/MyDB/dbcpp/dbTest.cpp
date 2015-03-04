@@ -20,7 +20,7 @@ int main()
 	int regit2=DBConnections::GetInstance()->RegitAccount("regit2","regit2pw","coderguang163","regit2N",1000,"haha");
 	cout<<"regit2="<<regit2<<endl;
 	
-*/
+
 	int forget=DBConnections::GetInstance()->ForgetPasswd("sg1","coderguang@gmail.com",1000,"sg1answe");
 	cout<<"forget="<<forget<<endl;
 	int forget1=DBConnections::GetInstance()->ForgetPasswd("sg1","coderguanggmail.com",1000,"sg1answe");
@@ -30,6 +30,13 @@ int main()
 	cout<<"reset1="<<reset1<<endl;
 	int reset2=DBConnections::GetInstance()->ResetPasswd("sg15","newPasswd1");
 	cout<<"reset2="<<reset2<<endl;
-
+*/
+	Lanuch lan;
+	int lan1=DBConnections::GetInstance()->Lanuch("sg7","sg7passwd",lan);
+	cout<<"lan1="<<lan1<<endl;
+	cout<<"lan.name="<<lan.name<<endl;
+	cout<<"lan.lastlanuch="<<lan.lastlanuch<<endl;
+	cout<<"lan.lastIP="<<lan.lastIP<<endl;
+	cout<<"lan.setting="<<lan.setting<<endl;
 
 }

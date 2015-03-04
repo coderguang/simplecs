@@ -5,6 +5,9 @@
 #include <iostream>
 #include "DBErr.h"
 #include "../../include/Func.h"
+#include "../../include/struct/lanuch.h"
+#include "../../include/struct/result.h"
+#include "../../include/struct/resultAll.h"
 extern "C"{
 #include "DBConstant.h"
 }
@@ -197,11 +200,11 @@ public:
 	//regit
 	//for check the account when regit
 	int CheckAccount(string account){
-		MYSQL_RES *mres;
+		MYSQL_RES *res;
 		string sql="select account from accounts where account='"+account+"'";
-		int returnNum=MyQuery(REGIT,sql,&mres);
+		int returnNum=MyQuery(REGIT,sql,&res);
 		if(0==returnNum){
-			if((int)mysql_num_rows(mres)==0)	{
+			if((int)mysql_num_rows(res)==0)	{
 				return OK;
 			}else
 				return HAD_REGIT;
@@ -242,18 +245,41 @@ public:
 			MYSQL_RES *res;
 			int rNum=MyQuery(SECURE,sql,&res);
 			if(0==rNum){
-					if(1==(int)mysql_num_rows(res))			
+			//can't use the result?
+			//		if(1==(int)mysql_num_rows(res))			
 									return OK;
-					else{
-								Log("something bad");
-								return (int)mysql_num_rows(res);
-					}
+			//		else{
+			//					Log("something bad");
+			//					return (int)mysql_num_rows(res);
+			//		}
 			}else{
 							Log("reset fail");
 							return rNum;
-
 			}
 	}
+	//for lanuch
+	int Lanuch(string account,string passwd,Lanuch &lanResult){
+			string sql="select name,lastlanuch,lastIP,setting from accounts where account='"+account+"' AND passwd='"+passwd+"'";
+			MYSQL_RES *res;
+			int rNum=MyQuery(LANUCH,sql,&res);
+			if(0==rNum){
+				if(1==(int)mysql_num_rows(res)){
+						MYSQL_ROW row;			
+						if(NULL!=(row=mysql_fetch_row(res))){
+								lanResult.name=row[0];
+								lanResult.lastlanuch=row[1];
+								lanResult.lastIP=row[2];
+								lanResult.setting=StrToInt(row[3]);
+								return OK;
+						}else
+								return ERROR;
+				}else	
+						return NO_THIS_ACCOUNT;
+			}else 
+				return rNum;
+
+	}
+	 
 
 };
  //must initialize in out of class ,deny would link error!!!
