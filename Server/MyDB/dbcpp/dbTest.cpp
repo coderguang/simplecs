@@ -26,7 +26,10 @@ int main()
 	int forget1=DBConnections::GetInstance()->ForgetPasswd("sg1","coderguanggmail.com",1000,"sg1answe");
 	cout<<"forget1="<<forget1<<endl;
 
-
+	int reset1=DBConnections::GetInstance()->ResetPasswd("sg1","newPasswd1");
+	cout<<"reset1="<<reset1<<endl;
+	int reset2=DBConnections::GetInstance()->ResetPasswd("sg15","newPasswd1");
+	cout<<"reset2="<<reset2<<endl;
 
 
 }

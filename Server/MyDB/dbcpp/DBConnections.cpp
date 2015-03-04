@@ -229,15 +229,30 @@ public:
 							return OK;
 				else if(0==(int)mysql_num_rows(res))
 							return ERR_IDENTITY; 
+				else 
+							return (int)mysql_num_rows(res);
 			}else
 				return rNum;
 	
 	}
 
 //for reset the passwd
-	int ResetPasswd(string account,string string newPasswd){
+	int ResetPasswd(string account,string newPasswd){
 			string sql="update accounts set passwd='"+newPasswd+"' where account='"+account+"'";
-			return MyQuery(SECURE,sql,nullptr);
+			MYSQL_RES *res;
+			int rNum=MyQuery(SECURE,sql,&res);
+			if(0==rNum){
+					if(1==(int)mysql_num_rows(res))			
+									return OK;
+					else{
+								Log("something bad");
+								return (int)mysql_num_rows(res);
+					}
+			}else{
+							Log("reset fail");
+							return rNum;
+
+			}
 	}
 
 };

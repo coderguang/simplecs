@@ -1,0 +1,1 @@
+clang++ -g -o dc $(mysql_config --cflags) dbTest.cpp $(mysql_config --libs) -std=c++11
