@@ -219,11 +219,13 @@ public:
 		 return rNum;
 			
 	}
-	//for lanuch need update the last IP,lastLanuch,times,status 
-	//result for name,lastlanuch,lastIP,setting
-//	int Lanuch(string account,string passwd,string lastLanuch,string lastIP,string *result){
-		  
-//	}
+	
+//for forget the passwd	
+	int ForgetPasswd(string account,string email,int questionID,string answer){
+			
+			
+			}
+	
 	
 };
  //must initialize in out of class ,deny would link error!!!
