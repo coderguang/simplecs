@@ -229,11 +229,17 @@ public:
 							return OK;
 				else if(0==(int)mysql_num_rows(res))
 							return ERR_IDENTITY; 
-			}
-		else
+			}else
 				return rNum;
 	
-};
+	}
+
+//for reset the passwd
+	int ResetPasswd(string account,string string newPasswd){
+			string sql="update accounts set passwd='"+newPasswd+"' where account='"+account+"'";
+			return MyQuery(SECURE,sql,nullptr);
+	}
+
 };
  //must initialize in out of class ,deny would link error!!!
 DBConnections *DBConnections::instance=nullptr;
