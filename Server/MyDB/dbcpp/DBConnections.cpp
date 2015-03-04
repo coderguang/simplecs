@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <sstream>
 #include <iostream>
-#include <mutex>
 #include "DBErr.h"
 #include "../../include/Func.h"
 extern "C"{
@@ -109,7 +108,7 @@ protected:
 				for(int i=0;i<REGITMAX;i++){
 					if(0==regit[i]->flag){//free
 						//lock();
-						cout<<"regit "<<i<<"is use"<<endl; 
+						//cout<<"regit "<<i<<"is use"<<endl; 
 					 	regit[i]->flag=1;//set flag become busy	
 						return regit[i];
 					}
@@ -180,7 +179,7 @@ protected:
 		 	return errNum;	
 		 
 		}
-		if(type==REGIT||type==LANUCH||type==GETRESULT){ 
+		if(type==REGIT||type==LANUCH||type==GETRESULT||type==SECURE){ 
 			if(nullptr!=res)
 			    *res=mysql_store_result(temp->conn);
 		}	
@@ -220,12 +219,21 @@ public:
 	}
 	
 //for forget the passwd	
-	int ForgetPasswd(string account,string email,int questionID,string answer){
-			
-			
+	int ForgetPasswd(string account,string email,int question,string answer){
+		string questionStr=IntToStr(question);
+		string sql="select account from accounts where account='"+account+"' AND  email='"+email+"' AND question='"+questionStr+"' AND answer='"+answer+"'";
+		MYSQL_RES *res;
+		int rNum=MyQuery(SECURE,sql,&res);
+		if(0==rNum){
+				if(1==(int)mysql_num_rows(res))
+							return OK;
+				else if(0==(int)mysql_num_rows(res))
+							return ERR_IDENTITY; 
 			}
+		else
+				return rNum;
 	
-	
+};
 };
  //must initialize in out of class ,deny would link error!!!
 DBConnections *DBConnections::instance=nullptr;

@@ -1,4 +1,4 @@
-mysql -u root -psimplecs@db<<EOF  2>>log  1>>info
+mysql -u root -psimplecs@db <<EOF  2>>log  1>>info
 use simplecs;
 
 #insert into questions
@@ -46,5 +46,5 @@ insert into accounts values(null,'sg5','sg5passwd','coderguang@gmail.com','sg5',
 insert into accounts values(null,'sg6','sg6passwd','coderguang@gmail.com','sg6',1000,'sg6answer',true,null,null,0,1000,0,null,null,null,null,null,null,null,null,null,null);
 insert into accounts values(null,'sg7','sg7passwd','coderguang@gmail.com','sg7',1000,'sg7answer',true,null,null,0,1000,0,null,null,null,null,null,null,null,null,null,null);
 
-
+EOF
 
