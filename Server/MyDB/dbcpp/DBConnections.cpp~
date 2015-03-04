@@ -217,7 +217,7 @@ public:
 		string sql="insert into accounts values(null,'"+account+"','"+passwd+"','"+email+"','"+name+"','"+questionStr+"','"+answer+"',false,null,null,0,1000,0,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000)";
 		 int rNum=MyQuery(REGIT,sql,nullptr);
 		 return rNum;
-			
+
 	}
 	//for lanuch need update the last IP,lastLanuch,times,status 
 	//result for name,lastlanuch,lastIP,setting
