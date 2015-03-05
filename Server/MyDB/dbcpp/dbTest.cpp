@@ -38,5 +38,6 @@ int main()
 	cout<<"lan.lastlanuch="<<lan.lastlanuch<<endl;
 	cout<<"lan.lastIP="<<lan.lastIP<<endl;
 	cout<<"lan.setting="<<lan.setting<<endl;
+	
 
 }
