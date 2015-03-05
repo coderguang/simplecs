@@ -29,7 +29,7 @@ alter table accounts add name char(10) default null unIque;
 alter table accounts add question int(4) not null; 
 alter table accounts add answer char(8) not null; 
 alter table accounts add status bool not null default false; 
-alter table accounts add lastlanuch date;
+alter table accounts add lastlanuch char(30) not null default 'Thu Jan  1 00:01:03 2015';
 alter table accounts add lastIP char(15) default '127.0.0.1';
 alter table accounts add times int(4) not null default 0;
 alter table accounts add setting int(4) not null default 1000;
