@@ -16,4 +16,6 @@ static const int ERR_IDENTITY=-9995;
 
 static const int NO_THIS_ACCOUNT=-9994;
 
+static const int RESULT_NOT_EXIST=-9993;
+
 #endif

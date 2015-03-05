@@ -289,6 +289,114 @@ public:
 		}else{
 			return rNum;
 		}
+	}
+	//for getResult
+	int GetResult(int resultID,ResultAll &resultA){
+		string sql="select * from results where id='"+IntToStr(resultID)+"'";
+		MYSQL_RES *res;
+		int rNum=MyQuery(GETRESULT,sql,&res);
+		if(0==rNum){
+			MYSQL_ROW row;
+			if(NULL!=(row=mysql_fetch_row(res))){
+				//row[0] is the result id
+				resultA.red1.id=StrToInt(row[1]);
+				resultA.red1.kill=StrToInt(row[2]);
+				resultA.red1.death=StrToInt(row[3]);
+				resultA.red1.assist=StrToInt(row[4]);
+				resultA.red1.harm=StrToInt(row[5]);
+				resultA.red1.getHarm=StrToInt(row[6]);
+				resultA.red1.reHP=StrToInt(row[7]);
+				resultA.red1.nullGun=StrToInt(row[8]);
+
+				resultA.red2.id=StrToInt(row[9]);
+				resultA.red2.kill=StrToInt(row[10]);
+				resultA.red2.death=StrToInt(row[11]);
+				resultA.red2.assist=StrToInt(row[12]);
+				resultA.red2.harm=StrToInt(row[13]);
+				resultA.red2.getHarm=StrToInt(row[14]);
+				resultA.red2.reHP=StrToInt(row[15]);
+				resultA.red2.nullGun=StrToInt(row[16]);
+
+				resultA.red3.id=StrToInt(row[17]);
+				resultA.red3.kill=StrToInt(row[18]);
+				resultA.red3.death=StrToInt(row[19]);
+				resultA.red3.assist=StrToInt(row[20]);
+				resultA.red3.harm=StrToInt(row[21]);
+				resultA.red3.getHarm=StrToInt(row[22]);
+				resultA.red3.reHP=StrToInt(row[23]);
+				resultA.red3.nullGun=StrToInt(row[24]);
+
+				resultA.red4.id=StrToInt(row[25]);
+				resultA.red4.kill=StrToInt(row[26]);
+				resultA.red4.death=StrToInt(row[27]);
+				resultA.red4.assist=StrToInt(row[28]);
+				resultA.red4.harm=StrToInt(row[29]);
+				resultA.red4.getHarm=StrToInt(row[30]);
+				resultA.red4.reHP=StrToInt(row[31]);
+				resultA.red4.nullGun=StrToInt(row[32]);
+
+				resultA.red5.id=StrToInt(row[33]);
+				resultA.red5.kill=StrToInt(row[34]);
+				resultA.red5.death=StrToInt(row[35]);
+				resultA.red5.assist=StrToInt(row[36]);
+				resultA.red5.harm=StrToInt(row[37]);
+				resultA.red5.getHarm=StrToInt(row[38]);
+				resultA.red5.reHP=StrToInt(row[39]);
+				resultA.red5.nullGun=StrToInt(row[40]);
+
+				resultA.blue1.id=StrToInt(row[41]);
+				resultA.blue1.kill=StrToInt(row[42]);
+				resultA.blue1.death=StrToInt(row[43]);
+				resultA.blue1.assist=StrToInt(row[44]);
+				resultA.blue1.harm=StrToInt(row[45]);
+				resultA.blue1.getHarm=StrToInt(row[46]);
+				resultA.blue1.reHP=StrToInt(row[47]);
+				resultA.blue1.nullGun=StrToInt(row[48]);
+
+				resultA.blue2.id=StrToInt(row[49]);
+				resultA.blue2.kill=StrToInt(row[50]);
+				resultA.blue2.death=StrToInt(row[51]);
+				resultA.blue2.assist=StrToInt(row[52]);
+				resultA.blue2.harm=StrToInt(row[53]);
+				resultA.blue2.getHarm=StrToInt(row[54]);
+				resultA.blue2.reHP=StrToInt(row[55]);
+				resultA.blue2.nullGun=StrToInt(row[56]);
+
+				resultA.blue3.id=StrToInt(row[57]);
+				resultA.blue3.kill=StrToInt(row[58]);
+				resultA.blue3.death=StrToInt(row[59]);
+				resultA.blue3.assist=StrToInt(row[60]);
+				resultA.blue3.harm=StrToInt(row[61]);
+				resultA.blue3.getHarm=StrToInt(row[62]);
+				resultA.blue3.reHP=StrToInt(row[63]);
+				resultA.blue3.nullGun=StrToInt(row[64]);
+
+				resultA.blue4.id=StrToInt(row[65]);
+				resultA.blue4.kill=StrToInt(row[66]);
+				resultA.blue4.death=StrToInt(row[67]);
+				resultA.blue4.assist=StrToInt(row[68]);
+				resultA.blue4.harm=StrToInt(row[69]);
+				resultA.blue4.getHarm=StrToInt(row[70]);
+				resultA.blue4.reHP=StrToInt(row[71]);
+				resultA.blue4.nullGun=StrToInt(row[72]);
+
+				resultA.blue5.id=StrToInt(row[73]);
+				resultA.blue5.kill=StrToInt(row[74]);
+				resultA.blue5.death=StrToInt(row[75]);
+				resultA.blue5.assist=StrToInt(row[76]);
+				resultA.blue5.harm=StrToInt(row[77]);
+				resultA.blue5.getHarm=StrToInt(row[78]);
+				resultA.blue5.reHP=StrToInt(row[79]);
+				resultA.blue5.nullGun=StrToInt(row[80]);
+
+				return OK;
+			}else{
+				return RESULT_NOT_EXIST;
+			}
+			
+		}else{
+			return rNum;
+		}
 
 	}
 	
