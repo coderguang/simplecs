@@ -10,7 +10,7 @@ int CheckAccount(string account){
 }
 
 int RegitAccount(string account,string passwd,string email,string name,int questionID,string answer){
-	int rNum=DBConnections::GetInstance()_>RegitAccount(account,passwd,email,name,questionID,answer);
+	int rNum=DBConnections::GetInstance()->RegitAccount(account,passwd,email,name,questionID,answer);
 	return rNum;
 }
 
@@ -29,7 +29,7 @@ int LanuchAccount(string account,string passwd,Lanuch &lanResult){
 	return rNum;
 }
 
-int InsertReuslt(ResultAll &result){
+int InsertResult(ResultAll &result){
 	int rNum=DBConnections::GetInstance()->InsertResult(result);
 	return rNum;
 }

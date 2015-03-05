@@ -1,6 +1,5 @@
 #include <iostream> 
 #include <unistd.h>
-#include "DBConnections.cpp"
 #include "DBInterface.h"
 using namespace std;
 int main()
@@ -11,25 +10,25 @@ int main()
 	int lj= CheckAccount("lj");
 	cout<<"lj="<<lj<<endl;
 
-	int regit1= RegitAccount("regit1","regit1pw","coderguang@163","regit1N",1000,"haha");
+	int regit1=RegitAccount("regit1","regit1pw","coderguang@163","regit1N",1000,"haha");
 	
 	cout<<"regit1="<<regit1<<endl;
-	int regit2= RegitAccount("regit2","regit2pw","coderguang163","regit2N",1000,"haha");
+	int regit2=RegitAccount("regit2","regit2pw","coderguang163","regit2N",1000,"haha");
 	cout<<"regit2="<<regit2<<endl;
 	
 
-	int forget= ForgetPasswd("sg1","coderguang@gmail.com",1000,"sg1answe");
+	int forget=ForgetPasswd("sg1","coderguang@gmail.com",1000,"sg1answe");
 	cout<<"forget="<<forget<<endl;
-	int forget1= ForgetPasswd("sg1","coderguanggmail.com",1000,"sg1answe");
+	int forget1=ForgetPasswd("sg1","coderguanggmail.com",1000,"sg1answe");
 	cout<<"forget1="<<forget1<<endl;
 
-	int reset1= ResetPasswd("sg1","newPasswd1");
+	int reset1=ResetPasswd("sg1","newPasswd1");
 	cout<<"reset1="<<reset1<<endl;
-	int reset2= ResetPasswd("sg15","newPasswd1");
+	int reset2=ResetPasswd("sg15","newPasswd1");
 	cout<<"reset2="<<reset2<<endl;
 
 	Lanuch lan;
-	int lan1= Lanuch("sg7","sg7passwd",lan);
+	int lan1=LanuchAccount("sg7","sg7passwd",lan);
 	cout<<"lan1="<<lan1<<endl;
 	cout<<"lan.name="<<lan.name<<endl;
 	cout<<"lan.lastlanuch="<<lan.lastlanuch<<endl;
@@ -48,14 +47,14 @@ int main()
 	Result blue5={1010,55,20,30,22545,10654,1740,100};
 
 	ResultAll ra={red1,red2,red3,red4,red5,blue1,blue2,blue3,blue4,blue5};
-	int ra1= InsertResult(ra);
+	int ra1=InsertResult(ra);
 	cout<<"resultAll1="<<ra1<<endl;
 
 	
 	ResultAll r2;
-	int gresult2= GetResult(100,r2);
+	int gresult2=GetResult(100,r2);
 	cout<<"gesult2="<<gresult2<<endl;
-	int gresult3= GetResult(1002,r2);
+	int gresult3=GetResult(1002,r2);
 	
 	cout<<"get result2="<<gresult3<<endl;
 
