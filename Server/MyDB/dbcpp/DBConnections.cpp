@@ -282,7 +282,7 @@ public:
 	//for InsertResult 
 	//need  update the accounts flag,result*
 	int InsertResult(ResultAll &resultA){
-		
+			string sql="insert into results values('"+IntToStr(resultA.red1.id)+"','"+IntToStr(resultA.red1.kill)+"','"+IntToStr(resultA.red1.death)+"','"+IntToStr(rsultA.red1.assist)+"','"+InToStr(resultA.red1.harm)+"','"+IntToStr(resultA.red1.getHarm)+"','"+IntToStr(resultA.red1.reHP)+"','"+IntToStr(resultA.red1.nullGun)+"','"+
 		
 	}
 
