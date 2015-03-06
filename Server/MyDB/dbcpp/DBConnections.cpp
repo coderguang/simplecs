@@ -30,9 +30,6 @@ protected:
 		cout<<log<<endl;
 	};
 
-	DBConnections(){
-		initDB();
-	};
  	void initDB(){ 
 		if(mysql_server_init(sizeof(server_args)/sizeof(char*),server_args,server_groups)){ 
 			Log("unknow error");
@@ -158,7 +155,6 @@ protected:
 			Log("no free conn for use");
 			return nullptr;
 	}
-	static DBConnections *instance;
 
 	//interface for query
 	/**
@@ -189,6 +185,12 @@ protected:
 		temp->flag=0;
 		return OK;
 	}
+	DBConnections(){
+		initDB();
+	};
+	DBConnections(DBConnections &)=delete;
+	static DBConnections *instance;
+	
 //public
 public:
 	static DBConnections *GetInstance(){
