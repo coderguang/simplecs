@@ -242,12 +242,12 @@ public:
 			if(1==(int)mysql_num_rows(res)){
 				Log(UpdatePasswdLog,INFO,"identity "+account+" success");
 				return OK;
-			}else if(0==(int)mysql_num_rows(res)){
-				Log(UpdatePasswdLog,INFO,"identity "+account+" failed!");
-				return ERR_IDENTITY; 
-			}else 
-				return (int)mysql_num_rows(res);
-		}else
+			}else if(0==(int)mysql_num_rows(res))
+							Log(UpdatePasswdLog,INFO,"identity "+account+" failed!");
+							return ERR_IDENTITY; 
+				else 
+							return (int)mysql_num_rows(res);
+			}else
 				return rNum;
 	
 	}
