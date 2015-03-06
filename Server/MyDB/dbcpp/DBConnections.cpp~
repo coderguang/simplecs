@@ -154,6 +154,11 @@ protected:
 			return nullptr;
 
 	}
+	
+	void FreeResult(MYSQL_RES **res){
+		if(nullptr!=res)
+			mysql_free_result(*res);
+	}
 
 	//interface for query
 	/**
@@ -189,6 +194,9 @@ protected:
 			else if(GETRESULT==type)
 				Log(GetResultLog,INFO,err);
 			temp->flag=0;
+
+			//if error happen,free the res here
+			FreeResult(res);
 		 	return errNum;	
 		 
 		}
@@ -220,14 +228,16 @@ public:
 	int CheckAccount(string account){
 		MYSQL_RES *res;
 		string sql="select account from accounts where account='"+account+"'";
-		int returnNum=MyQuery(REGIT,sql,&res);
-		if(0==returnNum){
-			if((int)mysql_num_rows(res)==0)	{
+		int rNum=MyQuery(REGIT,sql,&res);
+		if(0==rNum){
+			int rowLength=(int)mysql_num_rows(res);
+			FreeResult(&res);
+			if(0==rowLength)	{
 				return OK;
 			}else
 				return HAD_REGIT;
 		}else
-			return returnNum;
+			return rNum;
 	} 
 
 	//for regit a accounts
@@ -253,14 +263,16 @@ public:
 		MYSQL_RES *res;
 		int rNum=MyQuery(SECURE,sql,&res);
 		if(0==rNum){
-			if(1==(int)mysql_num_rows(res)){
+			int rowLength=(int)mysql_num_rows(res);
+			FreeResult(&res);
+			if(1==rowLength){
 				Log(UpdatePasswdLog,INFO,"identity "+account+" success");
 				return OK;
-			}else if(0==(int)mysql_num_rows(res)){
+			}else if(0==rowLength){
 				Log(UpdatePasswdLog,INFO,"identity "+account+" failed!");
 				return ERR_IDENTITY; 
 			}else 
-				return (int)mysql_num_rows(res);
+				return rowLength;
 		}else
 				return rNum;
 	
@@ -269,8 +281,7 @@ public:
 //for reset the passwd
 	int ResetPasswd(string account,string newPasswd){
 			string sql="update accounts set passwd='"+newPasswd+"' where account='"+account+"'";
-			MYSQL_RES *res;
-			int rNum=MyQuery(SECURE,sql,&res);
+			int rNum=MyQuery(SECURE,sql,nullptr);
 			if(0==rNum){
 				Log(UpdatePasswdLog,INFO,"reset "+account+" passwd");
 				return OK;
@@ -285,23 +296,27 @@ public:
 			MYSQL_RES *res;
 			int rNum=MyQuery(LANUCH,sql,&res);
 			if(0==rNum){
-				if(1==(int)mysql_num_rows(res)){
-						MYSQL_ROW row;			
-						if(NULL!=(row=mysql_fetch_row(res))){
-								lanResult.name=row[0];
-								lanResult.lastlanuch=row[1];
-								lanResult.lastIP=row[2];
-								lanResult.setting=StrToInt(row[3]);
-								Log(LanuchLog,INFO,"lanuch "+account+"  success!");
-								return OK;
-						}else{
-								Log(LanuchLog,WARN,"failed to get lanuch account="+account);
-								return DBERROR;
-						}
-				}else{	
-						Log(LanuchLog,INFO,"no this account:"+account);
-						return NO_THIS_ACCOUNT;
+				int rowLegth=(int)mysql_num_rows(res);
+				if(1==rowLegth){
+					MYSQL_ROW row;			
+					if(NULL!=(row=mysql_fetch_row(res))){
+						lanResult.name=row[0];
+						lanResult.lastlanuch=row[1];
+						lanResult.lastIP=row[2];
+						lanResult.setting=StrToInt(row[3]);
+						Log(LanuchLog,INFO,"lanuch "+account+"  success!");
+						FreeResult(&res);
+						return OK;
+					}else{
+						Log(LanuchLog,WARN,"failed to get lanuch account="+account);
+						FreeResult(&res);
+						return DBERROR;
 					}
+				}else if(0==rowLegth){	
+					FreeResult(&res);
+					Log(LanuchLog,INFO,"account:"+account+" not match the passwd");
+					return ACCOUNT_PASSWD_ERROR;
+				}
 			}else 
 				return rNum;
 
@@ -419,9 +434,11 @@ public:
 				resultA.blue5.reHP=StrToInt(row[79]);
 				resultA.blue5.nullGun=StrToInt(row[80]);
 
-				Log(GetResultLog,INFO,"get result "+IntToStr(resultID)+" success!";
+				Log(GetResultLog,INFO,"get result "+IntToStr(resultID)+" success!");
+				FreeResult(&res);
 				return OK;
 			}else{
+				FreeResult(&res);
 				Log(GetResultLog,INFO,"the result "+IntToStr(resultID)+" faile,result no exist!");
 				return RESULT_NOT_EXIST;
 			}
