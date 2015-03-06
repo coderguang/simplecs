@@ -262,7 +262,7 @@ public:
 				return OK;
 			}else{
 				Log(UpdatePasswdLog,INFO,"reset "+account+" fail");
-					return rNum;
+				return rNum;
 			}
 	}
 	//for lanuch
