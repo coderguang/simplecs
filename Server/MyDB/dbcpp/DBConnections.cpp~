@@ -177,8 +177,17 @@ protected:
 		int errNum;
 		if(0!=(errNum=mysql_query(temp->conn,sql.c_str()))){
 			string err="do sql query error! ";
-			err=err+sql+"\nmysql_error(temp->conn);
-			Log(DBLog,DEBUG,err);
+			err=err+sql+"\n  "+mysql_error(temp->conn);
+			if(REGIT==type)
+				Log(RegitLog,INFO,err);
+			else if(SECURE==type)
+				Log(UpdatePasswdLog,INFO,err);
+			else if(LANUCH==type)
+				Log(LanuchLog,INFO,err);
+			else if(RESULT==type)
+				Log(ResultLog,INFO,err);
+			else if(GETRESULT==type)
+				Log(GetResultLog,INFO,err);
 			temp->flag=0;
 		 	return errNum;	
 		 
@@ -226,9 +235,14 @@ public:
 		string questionStr=IntToStr(question);
 		string t=GetTimeNow();
 		string sql="insert into accounts values(null,'"+account+"','"+passwd+"','"+email+"','"+name+"','"+questionStr+"','"+answer+"',false,'"+t+"',null,0,1000,0,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000)";
-		Log(RegitLog,INFO,"regit:"+account);
 		int rNum=MyQuery(REGIT,sql,nullptr);
-		return rNum;
+		if(0==rNum){
+			Log(RegitLog,INFO,"regit "+account+"  success!");
+			return OK;
+		}else{	
+			Log(RegitLog,INFO,"regit "+account+"  failed!");
+			return rNum;
+		}
 			
 	}
 	
@@ -278,21 +292,33 @@ public:
 								lanResult.lastlanuch=row[1];
 								lanResult.lastIP=row[2];
 								lanResult.setting=StrToInt(row[3]);
+								Log(LanuchLog,INFO,"lanuch "+account+"  success!");
 								return OK;
-						}else
+						}else{
+								Log(LanuchLog,WARN,"failed to get lanuch account="+account);
 								return DBERROR;
-				}else	
+						}
+				}else{	
+						Log(LanuchLog,INFO,"no this account:"+account);
 						return NO_THIS_ACCOUNT;
+					}
 			}else 
 				return rNum;
 
 	}
 	//for InsertResult 
 	//need  update the accounts flag,result*
-	int InsertResult(ResultAll &resultA){ string sql="insert into results values(DEFAULT,'"+IntToStr(resultA.red1.id)+"','"+IntToStr(resultA.red1.kill)+"','"+IntToStr(resultA.red1.death)+"','"+IntToStr(resultA.red1.assist)+"','"+IntToStr(resultA.red1.harm)+"','"+IntToStr(resultA.red1.getHarm)+"','"+IntToStr(resultA.red1.reHP)+"','"+IntToStr(resultA.red1.nullGun)+"','"+IntToStr(resultA.red2.id)+"','"+IntToStr(resultA.red2.kill)+"','"+IntToStr(resultA.red2.death)+"','"+IntToStr(resultA.red2.assist)+"','"+IntToStr(resultA.red2.harm)+"','"+IntToStr(resultA.red2.getHarm)+"','"+IntToStr(resultA.red2.reHP)+"','"+IntToStr(resultA.red2.nullGun)+"','"+IntToStr(resultA.red3.id)+"','"+IntToStr(resultA.red3.kill)+"','"+IntToStr(resultA.red3.death)+"','"+IntToStr(resultA.red3.assist)+"','"+IntToStr(resultA.red3.harm)+"','"+IntToStr(resultA.red3.getHarm)+"','"+IntToStr(resultA.red3.reHP)+"','"+IntToStr(resultA.red3.nullGun)+"','"+IntToStr(resultA.red4.id)+"','"+IntToStr(resultA.red4.kill)+"','"+IntToStr(resultA.red4.death)+"','"+IntToStr(resultA.red4.assist)+"','"+IntToStr(resultA.red4.harm)+"','"+IntToStr(resultA.red4.getHarm)+"','"+IntToStr(resultA.red4.reHP)+"','"+IntToStr(resultA.red4.nullGun)+"','"+IntToStr(resultA.red5.id)+"','"+IntToStr(resultA.red5.kill)+"','"+IntToStr(resultA.red5.death)+"','"+IntToStr(resultA.red5.assist)+"','"+IntToStr(resultA.red5.harm)+"','"+IntToStr(resultA.red5.getHarm)+"','"+IntToStr(resultA.red5.reHP)+"','"+IntToStr(resultA.red5.nullGun)+"','"+IntToStr(resultA.blue1.id)+"','"+IntToStr(resultA.blue1.kill)+"','"+IntToStr(resultA.blue1.death)+"','"+IntToStr(resultA.blue1.assist)+"','"+IntToStr(resultA.blue1.harm)+"','"+IntToStr(resultA.blue1.getHarm)+"','"+IntToStr(resultA.blue1.reHP)+"','"+IntToStr(resultA.blue1.nullGun)+"','"+IntToStr(resultA.blue2.id)+"','"+IntToStr(resultA.blue2.kill)+"','"+IntToStr(resultA.blue2.death)+"','"+IntToStr(resultA.blue2.assist)+"','"+IntToStr(resultA.blue2.harm)+"','"+IntToStr(resultA.blue2.getHarm)+"','"+IntToStr(resultA.blue2.reHP)+"','"+IntToStr(resultA.blue2.nullGun)+"','"+IntToStr(resultA.blue3.id)+"','"+IntToStr(resultA.blue3.kill)+"','"+IntToStr(resultA.blue3.death)+"','"+IntToStr(resultA.blue3.assist)+"','"+IntToStr(resultA.blue3.harm)+"','"+IntToStr(resultA.blue3.getHarm)+"','"+IntToStr(resultA.blue3.reHP)+"','"+IntToStr(resultA.blue3.nullGun)+"','"+IntToStr(resultA.blue4.id)+"','"+IntToStr(resultA.blue4.kill)+"','"+IntToStr(resultA.blue4.death)+"','"+IntToStr(resultA.blue4.assist)+"','"+IntToStr(resultA.blue4.harm)+"','"+IntToStr(resultA.blue4.getHarm)+"','"+IntToStr(resultA.blue4.reHP)+"','"+IntToStr(resultA.blue4.nullGun)+"','"+IntToStr(resultA.blue5.id)+"','"+IntToStr(resultA.blue5.kill)+"','"+IntToStr(resultA.blue5.death)+"','"+IntToStr(resultA.blue5.assist)+"','"+IntToStr(resultA.blue5.harm)+"','"+IntToStr(resultA.blue5.getHarm)+"','"+IntToStr(resultA.blue5.reHP)+"','"+IntToStr(resultA.blue5.nullGun)+"')"; int rNum=MyQuery(RESULT,sql,nullptr);				if(0==rNum){ return OK;
+	int InsertResult(ResultAll &resultA){ 
+	string sql="insert into results values(DEFAULT,'"+IntToStr(resultA.red1.id)+"','"+IntToStr(resultA.red1.kill)+"','"+IntToStr(resultA.red1.death)+"','"+IntToStr(resultA.red1.assist)+"','"+IntToStr(resultA.red1.harm)+"','"+IntToStr(resultA.red1.getHarm)+"','"+IntToStr(resultA.red1.reHP)+"','"+IntToStr(resultA.red1.nullGun)+"','"+IntToStr(resultA.red2.id)+"','"+IntToStr(resultA.red2.kill)+"','"+IntToStr(resultA.red2.death)+"','"+IntToStr(resultA.red2.assist)+"','"+IntToStr(resultA.red2.harm)+"','"+IntToStr(resultA.red2.getHarm)+"','"+IntToStr(resultA.red2.reHP)+"','"+IntToStr(resultA.red2.nullGun)+"','"+IntToStr(resultA.red3.id)+"','"+IntToStr(resultA.red3.kill)+"','"+IntToStr(resultA.red3.death)+"','"+IntToStr(resultA.red3.assist)+"','"+IntToStr(resultA.red3.harm)+"','"+IntToStr(resultA.red3.getHarm)+"','"+IntToStr(resultA.red3.reHP)+"','"+IntToStr(resultA.red3.nullGun)+"','"+IntToStr(resultA.red4.id)+"','"+IntToStr(resultA.red4.kill)+"','"+IntToStr(resultA.red4.death)+"','"+IntToStr(resultA.red4.assist)+"','"+IntToStr(resultA.red4.harm)+"','"+IntToStr(resultA.red4.getHarm)+"','"+IntToStr(resultA.red4.reHP)+"','"+IntToStr(resultA.red4.nullGun)+"','"+IntToStr(resultA.red5.id)+"','"+IntToStr(resultA.red5.kill)+"','"+IntToStr(resultA.red5.death)+"','"+IntToStr(resultA.red5.assist)+"','"+IntToStr(resultA.red5.harm)+"','"+IntToStr(resultA.red5.getHarm)+"','"+IntToStr(resultA.red5.reHP)+"','"+IntToStr(resultA.red5.nullGun)+"','"+IntToStr(resultA.blue1.id)+"','"+IntToStr(resultA.blue1.kill)+"','"+IntToStr(resultA.blue1.death)+"','"+IntToStr(resultA.blue1.assist)+"','"+IntToStr(resultA.blue1.harm)+"','"+IntToStr(resultA.blue1.getHarm)+"','"+IntToStr(resultA.blue1.reHP)+"','"+IntToStr(resultA.blue1.nullGun)+"','"+IntToStr(resultA.blue2.id)+"','"+IntToStr(resultA.blue2.kill)+"','"+IntToStr(resultA.blue2.death)+"','"+IntToStr(resultA.blue2.assist)+"','"+IntToStr(resultA.blue2.harm)+"','"+IntToStr(resultA.blue2.getHarm)+"','"+IntToStr(resultA.blue2.reHP)+"','"+IntToStr(resultA.blue2.nullGun)+"','"+IntToStr(resultA.blue3.id)+"','"+IntToStr(resultA.blue3.kill)+"','"+IntToStr(resultA.blue3.death)+"','"+IntToStr(resultA.blue3.assist)+"','"+IntToStr(resultA.blue3.harm)+"','"+IntToStr(resultA.blue3.getHarm)+"','"+IntToStr(resultA.blue3.reHP)+"','"+IntToStr(resultA.blue3.nullGun)+"','"+IntToStr(resultA.blue4.id)+"','"+IntToStr(resultA.blue4.kill)+"','"+IntToStr(resultA.blue4.death)+"','"+IntToStr(resultA.blue4.assist)+"','"+IntToStr(resultA.blue4.harm)+"','"+IntToStr(resultA.blue4.getHarm)+"','"+IntToStr(resultA.blue4.reHP)+"','"+IntToStr(resultA.blue4.nullGun)+"','"+IntToStr(resultA.blue5.id)+"','"+IntToStr(resultA.blue5.kill)+"','"+IntToStr(resultA.blue5.death)+"','"+IntToStr(resultA.blue5.assist)+"','"+IntToStr(resultA.blue5.harm)+"','"+IntToStr(resultA.blue5.getHarm)+"','"+IntToStr(resultA.blue5.reHP)+"','"+IntToStr(resultA.blue5.nullGun)+"')"; 
+	int rNum=MyQuery(RESULT,sql,nullptr);				
+		if(0==rNum){ 
+			Log(ResultLog,INFO,"insert result success!\n"+sql);
+			return OK;
 		}else{
+			Log(ResultLog,INFO,"insert result failed!\n"+sql);
 			return rNum;
 		}
+
 	}
 	//for getResult
 	int GetResult(int resultID,ResultAll &resultA){
@@ -393,8 +419,10 @@ public:
 				resultA.blue5.reHP=StrToInt(row[79]);
 				resultA.blue5.nullGun=StrToInt(row[80]);
 
+				Log(GetResultLog,INFO,"get result "+IntToStr(resultID)+" success!";
 				return OK;
 			}else{
+				Log(GetResultLog,INFO,"the result "+IntToStr(resultID)+" faile,result no exist!");
 				return RESULT_NOT_EXIST;
 			}
 			

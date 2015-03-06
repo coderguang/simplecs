@@ -22,7 +22,7 @@ enum Level{FATAL,ERROR,WARN,INFO,DEBUG};
 /**
  *this is the log file typle*
  */
-enum LogType{DBLog,LanuchLog,RegitLog,UpdatePasswdLog};
+enum LogType{DBLog,LanuchLog,RegitLog,UpdatePasswdLog,ResultLog,GetResultLog};
 
 
 #endif 

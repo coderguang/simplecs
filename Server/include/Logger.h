@@ -22,6 +22,12 @@ private:
 	string lanuchFile="log/lanuchLog";
 	ofstream lanuchLog;
 
+	string resultFile="log/resultLog";
+	ofstream resultLog;
+
+	string getResultFile="log/getResultLog";
+	ofstream getResultLog;
+
 	void Init(){
 		dbLog.open(dbFile.c_str());
 		if(!dbLog.is_open()){
@@ -41,6 +47,18 @@ private:
 		if(!lanuchLog.is_open()){
 			cout<<"lanuchFile open failed"<<endl;
 		}
+		
+		resultLog.open(resultFile.c_str());
+		if(!resultLog.is_open()){
+			cout<<"resultFile open failed!"<<endl;
+		}
+
+		getResultLog.open(getResultFile.c_str());
+		if(!getResultLog.is_open()){
+			cout<<"getResultFile open failed"<<endl;
+		}
+		
+
 	}
 
 	void LogMsg(LogType type,string &msg,string typeMsg){
@@ -57,6 +75,12 @@ private:
 				break;
 			case LanuchLog:
 				lanuchLog<<time<<" "<<typeMsg<<":"<<msg<<endl;
+				break;
+			case ResultLog:
+				resultLog<<time<<" "<<typeMsg<<":"<<msg<<endl;
+				break;
+			case GetResultLog:
+				getResultLog<<time<<" "<<typeMsg<<":"<<msg<<endl;
 				break;
 		}
 	}
