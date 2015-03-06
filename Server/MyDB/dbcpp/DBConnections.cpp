@@ -8,6 +8,7 @@
 #include "../../include/struct/lanuch.h"
 #include "../../include/struct/result.h"
 #include "../../include/struct/resultAll.h"
+#include "../../include/LogInterface.h"
 extern "C"{
 #include "DBConstant.h"
 }
@@ -26,13 +27,10 @@ protected:
 	MMYSQL *result[RESULTMAX];
 	MMYSQL *getResult[GETRESULTMAX];
 
-	void Log(string log){
-		cout<<log<<endl;
-	};
 
  	void initDB(){ 
 		if(mysql_server_init(sizeof(server_args)/sizeof(char*),server_args,server_groups)){ 
-			Log("unknow error");
+			DBLog(FATAL,"database init failed!");
 			exit(1);
 		};
 
@@ -44,8 +42,8 @@ protected:
 			regit[i]->conn=mysql_init(NULL);
 			//connect to database.c_str()
 			if(!mysql_real_connect(regit[i]->conn,server.c_str(),regitUser.c_str(),regitPasswd.c_str(),database.c_str(),0,NULL,0)){
-				Log("regit connections false!");
-				Log(mysql_error(regit[i]->conn));
+				DBLog(FATAL,"regitUser  connec failed!");
+				DBLog(FATAL,mysql_error(regit[i]->conn));
 				exit(1);
 			}
 		}
@@ -56,8 +54,8 @@ protected:
 			lanuch[i]->conn=mysql_init(NULL);
 			//connect to database.c_str()
 			if(!mysql_real_connect(lanuch[i]->conn,server.c_str(),lanuchUser.c_str(),lanuchPasswd.c_str(),database.c_str(),0,NULL,0)){
-				Log("lanuch connections false!");
-				Log(mysql_error(lanuch[i]->conn));
+				DBLog(FATAL,"lanuchUser connec failed!");
+				DBLog(FATAL,mysql_error(lanuch[i]->conn));
 				exit(1);
 			}
 		}
@@ -69,8 +67,8 @@ protected:
 			secure[i]->conn=mysql_init(NULL);
 			//connect to database.c_str()
 			if(!mysql_real_connect(secure[i]->conn,server.c_str(),secureUser.c_str(),securePasswd.c_str(),database.c_str(),0,NULL,0)){
-				Log("secure connections false!");
-				Log(mysql_error(secure[i]->conn));
+				DBLog(FATAL,"secureUser connec failed!");
+				DBLog(FATAL,mysql_error(secure[i]->conn));
 				exit(1);
 			}
 		}
@@ -82,8 +80,8 @@ protected:
 			result[i]->conn=mysql_init(NULL);
 			//connect to database.c_str()
 			if(!mysql_real_connect(result[i]->conn,server.c_str(),resultUser.c_str(),resultPasswd.c_str(),database.c_str(),0,NULL,0)){
-				Log("result connections false!");
-				Log(mysql_error(result[i]->conn));
+				DBLog(FATAL,"resultUser connec failed!");
+				DBLog(FATAL,mysql_error(result[i]->conn));
 				exit(1);
 			}
 		}
@@ -95,8 +93,8 @@ protected:
 			getResult[i]->conn=mysql_init(NULL);
 			//connect to database.c_str()
 			if(!mysql_real_connect(getResult[i]->conn,server.c_str(),getResultUser.c_str(),getResultPasswd.c_str(),database.c_str(),0,NULL,0)){
-				Log("getResult connections false!");
-				Log(mysql_error(getResult[i]->conn));
+				DBLog(FATAL,"getReusltUser connec failed!");
+				DBLog(FATAL,mysql_error(getReuslt[i]->conn));
 				exit(1);
 			}
 		}
@@ -152,8 +150,9 @@ protected:
 				break;
 			} 
 			//if no conn,return nullptr
-			Log("no free conn for use");
+			DBLog(DEBUG,"no free connects for sql");
 			return nullptr;
+
 	}
 
 	//interface for query
@@ -163,17 +162,22 @@ protected:
 	res:result
 	*/
 	int MyQuery(TYPE type,string sql,MYSQL_RES **res){
-		if(0==sql.length())
+		if(0==sql.length()){
+			DBLog(DEBUG,"the sql.length=0");
 			return SQL_NULL;
+		}
 		//illegal type
-		if(type!=REGIT&&type!=LANUCH&&type!=SECURE&&type!=RESULT&&type!=GETRESULT)
+		if(type!=REGIT&&type!=LANUCH&&type!=SECURE&&type!=RESULT&&type!=GETRESULT){
+			DBLog(DEBUG,"the sql type is error");
 			return TYPE_ERROR; 
+		}
 		MMYSQL *temp=GetFree(type); 
 		if(temp==NULL)
 			return NO_FREE_CONN;	
 		int errNum;
 		if(0!=(errNum=mysql_query(temp->conn,sql.c_str()))){
-			Log(mysql_error(temp->conn));
+			string errStr="query error!"+mysql_error(temp->conn);
+			DBLog(DEBUG,errStr);
 			temp->flag=0;
 		 	return errNum;	
 		 
@@ -195,6 +199,7 @@ protected:
 public:
 	static DBConnections *GetInstance(){
 		if(nullptr==instance) {
+			DBLog(INFO,"DBConnections init");
 			instance=new DBConnections();
 		}
 		return instance;
@@ -212,7 +217,8 @@ public:
 				return HAD_REGIT;
 		}else
 			return returnNum;
-		
+	
+
 	} 
 	//for regit a accounts
 	int RegitAccount(string account,string passwd,string email,string name,int question,string answer){
