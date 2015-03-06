@@ -4,10 +4,10 @@
 using namespace std;
 
 int main(){
-	MLog(DBLog,FATAL,"hello Fatal! dblog");
-	MLog(DBLog,ERROR,"hello,ERROR,dblog");
-	MLog(RegitLog,WARN,"this is warming,regit");
-	MLog(UpdatePasswdLog,INFO,"hello,info,updatej");
-	MLog(UpdatePasswdLog,DEBUG,"this is debug,update");
+	Log(DBLog,FATAL,"hello Fatal! dblog");
+	Log(DBLog,ERROR,"hello,ERROR,dblog");
+	Log(RegitLog,WARN,"this is warming,regit");
+	Log(UpdatePasswdLog,INFO,"hello,info,updatej");
+	Log(UpdatePasswdLog,DEBUG,"this is debug,update");
 
 }

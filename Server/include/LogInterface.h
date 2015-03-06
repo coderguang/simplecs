@@ -4,9 +4,8 @@
 #include "LogConstant.h"
 using namespace std;
 
-void MLog(LogType type,Level level,string msg){
-	//cout<<"come to log"<<" "<<msg<<endl;
-	Logger::GetInstance()->MLog(type,level,msg);
+void Log(LogType type,Level level,string msg){
+	Logger::GetInstance()->Log(type,level,msg);
 }
 
 

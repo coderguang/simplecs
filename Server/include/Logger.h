@@ -43,23 +43,19 @@ private:
 		}
 	}
 
-	void LogMsg(LogType type,string msg,string typeMsg){
+	void LogMsg(LogType type,string &msg,string typeMsg){
 		string time=GetTimeNow();
 		switch(type){
 			case DBLog: 
-				cout<<"DBLog write! "<<msg<<endl;
 				dbLog<<time<<" "<<typeMsg<<":"<<msg<<endl;
 				break;
 			case RegitLog:
-				cout<<"regitLog write "<<msg<<endl;
 				regitLog<<time<<" "<<typeMsg<<":"<<msg<<endl;				
 				break;
 			case UpdatePasswdLog:
-				cout<<"passwd write "<<msg<<endl;
 				updatePasswdLog<<time<<" "<<typeMsg<<":"<<msg<<endl;
 				break;
 			case LanuchLog:
-				cout<<"lanuch write "<<msg<<endl;
 				lanuchLog<<time<<" "<<typeMsg<<":"<<msg<<endl;
 				break;
 		}
@@ -79,8 +75,7 @@ public:
 		return instance;
 	}	
 
-	void MLog(LogType type,Level level,string msg){
-		//cout<<"come to MLog"<<" "<<msg<<endl;
+	void Log(LogType type,Level level,string &msg){
 		if(FATAL==level&&FATALFLAG){ 
 			LogMsg(type,msg,"Fatal");
 		}else if(ERROR==level&&ERRORFLAG){ 

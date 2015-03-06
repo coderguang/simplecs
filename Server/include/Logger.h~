@@ -34,7 +34,7 @@ private:
 
 		updatePasswdLog.open(updatePasswdFile.c_str());
 		if(!updatePasswdLog.is_open()){
-			cout<<"updateFile open failed!")<<endl;
+			cout<<"updateFile open failed!"<<endl;
 		}
 
 		lanuchLog.open(lanuchFile.c_str());
@@ -79,8 +79,7 @@ public:
 		return instance;
 	}	
 
-	void MLog(LogType type,Level level,string msg){
-		//cout<<"come to MLog"<<" "<<msg<<endl;
+	void Log(LogType type,Level level,string &msg){
 		if(FATAL==level&&FATALFLAG){ 
 			LogMsg(type,msg,"Fatal");
 		}else if(ERROR==level&&ERRORFLAG){ 
