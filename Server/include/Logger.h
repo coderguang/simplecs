@@ -33,19 +33,19 @@ private:
 		string time=GetTimeNow();
 		switch(type){
 			case DBLog: 
-				cout<<"DBLog write!"<<msg<<endl;
+				cout<<"DBLog write! "<<msg<<endl;
 				dbLog<<time<<" "<<typeMsg<<":"<<msg<<endl;
 				break;
 			case RegitLog:
-				cout<<"regitLog write"<<msg<<endl;
+				cout<<"regitLog write "<<msg<<endl;
 				regitLog<<time<<" "<<typeMsg<<":"<<msg<<endl;				
 				break;
 			case UpdatePasswdLog:
-				cout<<"passwd write"<<msg<<endl;
+				cout<<"passwd write "<<msg<<endl;
 				updatePasswdLog<<time<<" "<<typeMsg<<":"<<msg<<endl;
 				break;
 			case LanuchLog:
-				cout<<"lanuch write"<<msg<<endl;
+				cout<<"lanuch write "<<msg<<endl;
 				lanuchLog<<time<<" "<<typeMsg<<":"<<msg<<endl;
 				break;
 		}
