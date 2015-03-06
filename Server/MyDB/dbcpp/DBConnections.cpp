@@ -30,7 +30,7 @@ protected:
 
  	void initDB(){ 
 		if(mysql_server_init(sizeof(server_args)/sizeof(char*),server_args,server_groups)){ 
-			Log(DBLog,FATAL,"database init failed!");
+			MLog(DBLog,FATAL,"database init failed!");
 			exit(1);
 		};
 
@@ -42,8 +42,8 @@ protected:
 			regit[i]->conn=mysql_init(NULL);
 			//connect to database.c_str()
 			if(!mysql_real_connect(regit[i]->conn,server.c_str(),regitUser.c_str(),regitPasswd.c_str(),database.c_str(),0,NULL,0)){
-				Log(DBLog,FATAL,"regitUser  connec failed!");
-				Log(DBLog,FATAL,mysql_error(regit[i]->conn));
+				MLog(DBLog,FATAL,"regitUser  connec failed!");
+				MLog(DBLog,FATAL,mysql_error(regit[i]->conn));
 				exit(1);
 			}
 		}
@@ -54,8 +54,8 @@ protected:
 			lanuch[i]->conn=mysql_init(NULL);
 			//connect to database.c_str()
 			if(!mysql_real_connect(lanuch[i]->conn,server.c_str(),lanuchUser.c_str(),lanuchPasswd.c_str(),database.c_str(),0,NULL,0)){
-				Log(DBLog,FATAL,"lanuchUser connec failed!");
-				Log(DBLog,FATAL,mysql_error(lanuch[i]->conn));
+				MLog(DBLog,FATAL,"lanuchUser connec failed!");
+				MLog(DBLog,FATAL,mysql_error(lanuch[i]->conn));
 				exit(1);
 			}
 		}
@@ -67,8 +67,8 @@ protected:
 			secure[i]->conn=mysql_init(NULL);
 			//connect to database.c_str()
 			if(!mysql_real_connect(secure[i]->conn,server.c_str(),secureUser.c_str(),securePasswd.c_str(),database.c_str(),0,NULL,0)){
-				Log(DBLog,FATAL,"secureUser connec failed!");
-				Log(DBLog,FATAL,mysql_error(secure[i]->conn));
+				MLog(DBLog,FATAL,"secureUser connec failed!");
+				MLog(DBLog,FATAL,mysql_error(secure[i]->conn));
 				exit(1);
 			}
 		}
@@ -80,8 +80,8 @@ protected:
 			result[i]->conn=mysql_init(NULL);
 			//connect to database.c_str()
 			if(!mysql_real_connect(result[i]->conn,server.c_str(),resultUser.c_str(),resultPasswd.c_str(),database.c_str(),0,NULL,0)){
-				Log(DBLog,FATAL,"resultUser connec failed!");
-				Log(DBLog,FATAL,mysql_error(result[i]->conn));
+				MLog(DBLog,FATAL,"resultUser connec failed!");
+				MLog(DBLog,FATAL,mysql_error(result[i]->conn));
 				exit(1);
 			}
 		}
@@ -93,8 +93,8 @@ protected:
 			getResult[i]->conn=mysql_init(NULL);
 			//connect to database.c_str()
 			if(!mysql_real_connect(getResult[i]->conn,server.c_str(),getResultUser.c_str(),getResultPasswd.c_str(),database.c_str(),0,NULL,0)){
-				Log(DBLog,FATAL,"getReusltUser connec failed!");
-				Log(DBLog,FATAL,mysql_error(getResult[i]->conn));
+				MLog(DBLog,FATAL,"getReusltUser connec failed!");
+				MLog(DBLog,FATAL,mysql_error(getResult[i]->conn));
 				exit(1);
 			}
 		}
@@ -150,7 +150,7 @@ protected:
 				break;
 			} 
 			//if no conn,return nullptr
-			Log(DBLog,DEBUG,"no free connects for sql");
+			MLog(DBLog,DEBUG,"no free connects for sql");
 			return nullptr;
 
 	}
@@ -163,12 +163,12 @@ protected:
 	*/
 	int MyQuery(ConnType type,string sql,MYSQL_RES **res){
 		if(0==sql.length()){
-			Log(DBLog,DEBUG,"the sql.length=0");
+			MLog(DBLog,DEBUG,"the sql.length=0");
 			return SQL_NULL;
 		}
 		//illegal type
 		if(type!=REGIT&&type!=LANUCH&&type!=SECURE&&type!=RESULT&&type!=GETRESULT){
-			Log(DBLog,DEBUG,"the sql type is error");
+			MLog(DBLog,DEBUG,"the sql type is error");
 			return TYPE_ERROR; 
 		}
 		MMYSQL *temp=GetFree(type); 
@@ -178,7 +178,7 @@ protected:
 		if(0!=(errNum=mysql_query(temp->conn,sql.c_str()))){
 			string err="query error!";
 			err=err+mysql_error(temp->conn);
-			Log(DBLog,DEBUG,err);
+			MLog(DBLog,DEBUG,err);
 			temp->flag=0;
 		 	return errNum;	
 		 
@@ -200,7 +200,7 @@ protected:
 public:
 	static DBConnections *GetInstance(){
 		if(nullptr==instance) {
-			Log(DBLog,INFO,"DBConnections init");
+			MLog(DBLog,INFO,"DBConnections init");
 			instance=new DBConnections();
 		}
 		return instance;
@@ -226,7 +226,7 @@ public:
 		string questionStr=IntToStr(question);
 		string t=GetTimeNow();
 		string sql="insert into accounts values(null,'"+account+"','"+passwd+"','"+email+"','"+name+"','"+questionStr+"','"+answer+"',false,'"+t+"',null,0,1000,0,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000)";
-		Log(RegitLog,INFO,"regit:"+account);
+		MLog(RegitLog,INFO,"regit:"+account);
 		int rNum=MyQuery(REGIT,sql,nullptr);
 		return rNum;
 			
@@ -240,10 +240,10 @@ public:
 		int rNum=MyQuery(SECURE,sql,&res);
 		if(0==rNum){
 			if(1==(int)mysql_num_rows(res)){
-				Log(UpdatePasswdLog,INFO,"identity "+account+" success");
+				MLog(UpdatePasswdLog,INFO,"identity "+account+" success");
 				return OK;
 			}else if(0==(int)mysql_num_rows(res)){
-				Log(UpdatePasswdLog,INFO,"identity "+account+" failed!");
+				MLog(UpdatePasswdLog,INFO,"identity "+account+" failed!");
 				return ERR_IDENTITY; 
 			}else 
 				return (int)mysql_num_rows(res);
@@ -258,10 +258,10 @@ public:
 			MYSQL_RES *res;
 			int rNum=MyQuery(SECURE,sql,&res);
 			if(0==rNum){
-				Log(UpdatePasswdLog,INFO,"reset "+account+" passwd");
+				MLog(UpdatePasswdLog,INFO,"reset "+account+" passwd");
 				return OK;
 			}else{
-				Log(UpdatePasswdLog,INFO,"reset "+account+" fail");
+				MLog(UpdatePasswdLog,INFO,"reset "+account+" fail");
 				return rNum;
 			}
 	}
