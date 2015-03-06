@@ -9,7 +9,7 @@ using namespace std;
 
 class Logger{
 
-private:
+protected:
 	string dbFile="log/dbLog";
 	ofstream dbLog;
 
@@ -25,7 +25,7 @@ private:
 	string resultFile="log/resultLog";
 	ofstream resultLog;
 
-	string getReusltFile="log/getResultLog";
+	string getResultFile="log/getResultLog";
 	ofstream getResultLog;
 
 	void Init(){
@@ -59,6 +59,18 @@ private:
 		}
 		
 
+	}
+
+	//for close the filestream
+	void DestroyLog(){
+		dbLog.close();
+		regitLog.close();
+		updatePasswdLog.close();
+		lanuchLog.close();
+		resultLog.close();
+		getResultLog.close();
+
+		delete instance;
 	}
 
 	void LogMsg(LogType type,string &msg,string typeMsg){
@@ -113,7 +125,9 @@ public:
 		}
 	}
 	
-
+	void Destroy(){
+		DestroyLog();
+	}
 
 
 };

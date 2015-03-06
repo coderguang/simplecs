@@ -9,5 +9,6 @@ int main(){
 	Log(RegitLog,WARN,"this is warming,regit");
 	Log(UpdatePasswdLog,INFO,"hello,info,updatej");
 	Log(UpdatePasswdLog,DEBUG,"this is debug,update");
+	LogFileClose();
 
 }
