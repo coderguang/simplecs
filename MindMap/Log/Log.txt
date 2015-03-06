@@ -1,0 +1,20 @@
+
+日志模块描述
+
+日志级别（优先级从高到低）：
+	FATAl	严重错误导致程序退出
+	ERROR	发生错误，但不会导致程序退出
+	WARN	出现警告
+	INFO	消息
+	DEBUG	调试信息
+	
+使用同一日志记录文件Debugger.h来进行日志记录
+通过定义常量
+	FATAlFLAG,ERRORFLAG,WARNFLAG,INFOFLAG,DEBUGFLAG来确定消息是否被记录
+
+日记文件分几个类型(由具体调用模块调用实现类型)
+	数据库日志
+	
+	
+	
+	

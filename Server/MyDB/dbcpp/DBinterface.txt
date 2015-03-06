@@ -40,7 +40,7 @@ static const int HAD_REGIT=-9996;
 登录
 	参数：账户名，密码，存放登录数据结构的指针
 	返回值：成功与否
-	int Lanuch(string account,string passwd,Lanuch &lanuch)
+	int Lanuch(string account,string passwd,Lanuch &lanuch:)
 	
 插入战绩:
 	参数:一个战绩结构，里面有10个人物战绩结构
