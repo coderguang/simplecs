@@ -99,6 +99,11 @@ protected:
 			}
 		}
 	};
+	
+	void DBClose(){
+		
+
+	}
 
 	MMYSQL *GetFree(ConnType type){
 		switch(type){
@@ -312,7 +317,7 @@ public:
 						FreeResult(&res);
 						return DBERROR;
 					}
-				}else if(0==rowLegth){	
+				}else{	
 					FreeResult(&res);
 					Log(LanuchLog,INFO,"account:"+account+" not match the passwd");
 					return ACCOUNT_PASSWD_ERROR;
