@@ -11,16 +11,18 @@ static const bool WARNFLAG=true;
 static const bool INFOFLAG=true;
 static const bool DEBUGFLAG=true;
 
+/**
 static const int FATAL=-1;
 static const int ERROR=-2;
 static const int WARN=-3;
 static const int INFO=-4;
 static const int DEBUG=-5;
-
+*/
+enum Level{FATAL,ERROR,WARN,INFO,DEBUG};
 /**
  *this is the log file typle*
  */
-enum LOGTYPLE{DBLOG,REGITLOG,PASSWDLOGa};
+enum LogType{DBLog,RegitLog,UpdatePasswdLog};
 
 
 #endif 
