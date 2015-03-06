@@ -1,6 +1,2 @@
-Fri Mar  6 19:57:40 2015
+Fri Mar  6 20:57:04 2015
  Info:DBConnections init
-Fri Mar  6 19:57:40 2015
- Debug:query error!Duplicate entry 'regit1' for key 'account'
-Fri Mar  6 19:57:40 2015
- Debug:query error!Duplicate entry 'regit2' for key 'account'
