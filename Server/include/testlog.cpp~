@@ -1,0 +1,13 @@
+#include <iostream>
+#include "Logger.h"
+#include "LogInterface.h"
+using namespace std;
+
+int main(){
+	Log(DBLog,FATAL,"hello Fatal!");
+	Log(DBLog,ERROR,"hello,ERROR");
+	Log(RegitLog,WARN,"this is warming");
+	Log(UpdatePasswdLog,INFO,"hello,info");
+	Log(UpdatePasswdLog,DEBUG,"this is debug");
+
+}

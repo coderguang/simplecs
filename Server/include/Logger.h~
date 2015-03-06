@@ -53,46 +53,46 @@ public:
 		}else if(ERROR==level&&ERRORFLAG){ 
 			switch(type){
 				case DBLog: 
-					dbLog<<time<<" "<<" Error:"<<msg<<endl;
+					dbLog<<time<<" "<<" Fatal:"<<msg<<endl;
 					break;
 				case RegitLog:
-					regitLog<<time<<" "<<" Error:"<<msg<<endl;
+					regitLog<<time<<" "<<" Fatal:"<<msg<<endl;
 					break;
 				case UpdatePasswdLog:
-					updatePasswdLog<<time<<" "<<" Error:"<<msg<<endl;
+					updatePasswdLog<<time<<" "<<" Fatal:"<<msg<<endl;
 			}
 		}else if(WARN==level&&WARNFLAG){
 			switch(type){
 				case DBLog: 
-					dbLog<<time<<" "<<" Warmming:"<<msg<<endl;
+					dbLog<<time<<" "<<" Fatal:"<<msg<<endl;
 					break;
 				case RegitLog:
-					regitLog<<time<<" "<<" Warmming:"<<msg<<endl;
+					regitLog<<time<<" "<<" Fatal:"<<msg<<endl;
 					break;
 				case UpdatePasswdLog:
-					updatePasswdLog<<time<<" "<<" Warmming:"<<msg<<endl;
+					updatePasswdLog<<time<<" "<<" Fatal:"<<msg<<endl;
 			}
 		}else if(INFO==level&&INFOFLAG){
 			switch(type){
 				case DBLog: 
-					dbLog<<time<<" "<<" Info:"<<msg<<endl;
+					dbLog<<time<<" "<<" Fatal:"<<msg<<endl;
 					break;
 				case RegitLog:
-					regitLog<<time<<" "<<" Info:"<<msg<<endl;
+					regitLog<<time<<" "<<" Fatal:"<<msg<<endl;
 					break;
 				case UpdatePasswdLog:
-					updatePasswdLog<<time<<" "<<" Info:"<<msg<<endl;
+					updatePasswdLog<<time<<" "<<" Fatal:"<<msg<<endl;
 			}
 		}else if(DEBUG==level&&DEBUGFLAG){
 			switch(type){
 				case DBLog: 
-					dbLog<<time<<" "<<" Debug:"<<msg<<endl;
+					dbLog<<time<<" "<<" Fatal:"<<msg<<endl;
 					break;
 				case RegitLog:
-					regitLog<<time<<" "<<" Debug:"<<msg<<endl;
+					regitLog<<time<<" "<<" Fatal:"<<msg<<endl;
 					break;
 				case UpdatePasswdLog:
-					updatePasswdLog<<time<<" "<<" Debug:"<<msg<<endl;
+					updatePasswdLog<<time<<" "<<" Fatal:"<<msg<<endl;
 			}
 		}
 	}
