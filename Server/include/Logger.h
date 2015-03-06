@@ -10,23 +10,37 @@ using namespace std;
 class Logger{
 
 private:
-	string dbFile="../log/dbLog";
+	string dbFile="log/dbLog";
 	ofstream dbLog;
 
-	string regitFile="../log/regitLog";
+	string regitFile="log/regitLog";
 	ofstream regitLog;
  
-	string updatePasswdFile="../log/updatePasswdLog";
+	string updatePasswdFile="log/updatePasswdLog";
 	ofstream updatePasswdLog;
 	
-	string lanuchFile="../log/lanuchLog";
+	string lanuchFile="log/lanuchLog";
 	ofstream lanuchLog;
 
 	void Init(){
 		dbLog.open(dbFile.c_str());
+		if(!dbLog.is_open()){
+			cout<<"dbFile open failed!"<<endl;	
+		}
 		regitLog.open(regitFile.c_str());
+		if(!regitLog.is_open()){
+			cout<<"regitFile open failed!"<<endl;
+		}
+
 		updatePasswdLog.open(updatePasswdFile.c_str());
+		if(!updatePasswdLog.is_open()){
+			cout<<"updateFile open failed!"<<endl;
+		}
+
 		lanuchLog.open(lanuchFile.c_str());
+		if(!lanuchLog.is_open()){
+			cout<<"lanuchFile open failed"<<endl;
+		}
 	}
 
 	void LogMsg(LogType type,string msg,string typeMsg){

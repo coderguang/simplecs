@@ -4,31 +4,37 @@
 using namespace std;
 int main()
 {
+    MLog(DBLog,FATAL,"hello Fatal! dblog");
+	MLog(DBLog,ERROR,"hello,ERROR,dblog");
+	MLog(RegitLog,WARN,"this is warming,regit");
+	MLog(UpdatePasswdLog,INFO,"hello,info,updatej");
+	MLog(UpdatePasswdLog,DEBUG,"this is debug,update");
 	int sg3=CheckAccount("sg3");
-	cout<<"sg3="<<sg3<<endl;
+	//cout<<"sg3="<<sg3<<endl;
 	
 	int lj= CheckAccount("lj");
-	cout<<"lj="<<lj<<endl;
+	//cout<<"lj="<<lj<<endl;
 
 	int regit1=RegitAccount("regit1","regit1pw","coderguang@163","regit1N",1000,"haha");
 	
-	cout<<"regit1="<<regit1<<endl;
+	//cout<<"regit1="<<regit1<<endl;
 	int regit2=RegitAccount("regit2","regit2pw","coderguang163","regit2N",1000,"haha");
-	cout<<"regit2="<<regit2<<endl;
+	//cout<<"regit2="<<regit2<<endl;
 	
 
 	int forget=ForgetPasswd("sg1","coderguang@gmail.com",1000,"sg1answe");
-	cout<<"forget="<<forget<<endl;
+	//cout<<"forget="<<forget<<endl;
 	int forget1=ForgetPasswd("sg1","coderguanggmail.com",1000,"sg1answe");
-	cout<<"forget1="<<forget1<<endl;
+	//cout<<"forget1="<<forget1<<endl;
 
 	int reset1=ResetPasswd("sg1","newPasswd1");
-	cout<<"reset1="<<reset1<<endl;
+	//cout<<"reset1="<<reset1<<endl;
 	int reset2=ResetPasswd("sg15","newPasswd1");
-	cout<<"reset2="<<reset2<<endl;
+	//cout<<"reset2="<<reset2<<endl;
 
 	Lanuch lan;
 	int lan1=LanuchAccount("sg7","sg7passwd",lan);
+	/**
 	cout<<"lan1="<<lan1<<endl;
 	cout<<"lan.name="<<lan.name<<endl;
 	cout<<"lan.lastlanuch="<<lan.lastlanuch<<endl;
@@ -87,5 +93,5 @@ int main()
 	
 	cout<<"blue5.id="<<r2.blue5.id<<"  kill="<<r2.blue5.kill<<"  death="<<r2.blue5.death<<"  assist="<<r2.blue5.assist<<" "<<endl;
 	cout<<"  harm="<<r2.blue5.harm<<"  GetHarm="<<r2.blue5.getHarm<<"  reHP="<<r2.blue5.reHP<<"  nullGun="<<r2.blue5.nullGun<<endl;
-
+*/
 }

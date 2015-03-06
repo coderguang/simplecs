@@ -10,42 +10,56 @@ using namespace std;
 class Logger{
 
 private:
-	string dbFile="../log/dbLog";
+	string dbFile="log/dbLog";
 	ofstream dbLog;
 
-	string regitFile="../log/regitLog";
+	string regitFile="log/regitLog";
 	ofstream regitLog;
  
-	string updatePasswdFile="../log/updatePasswdLog";
+	string updatePasswdFile="log/updatePasswdLog";
 	ofstream updatePasswdLog;
 	
-	string lanuchFile="../log/lanuchLog";
+	string lanuchFile="log/lanuchLog";
 	ofstream lanuchLog;
 
 	void Init(){
 		dbLog.open(dbFile.c_str());
+		if(!dbLog.is_open()){
+			cout<<"dbFile open failed!"<<endl;	
+		}
 		regitLog.open(regitFile.c_str());
+		if(!regitLog.is_open()){
+			cout<<"regitFile open failed!"<<endl;
+		}
+
 		updatePasswdLog.open(updatePasswdFile.c_str());
+		if(!updatePasswdLog.is_open()){
+			cout<<"updateFile open failed!")<<endl;
+		}
+
 		lanuchLog.open(lanuchFile.c_str());
+		if(!lanuchLog.is_open()){
+			cout<<"lanuchFile open failed"<<endl;
+		}
 	}
 
 	void LogMsg(LogType type,string msg,string typeMsg){
 		string time=GetTimeNow();
 		switch(type){
 			case DBLog: 
-				cout<<"DBLog write!"<<msg<<endl;
+				cout<<"DBLog write! "<<msg<<endl;
 				dbLog<<time<<" "<<typeMsg<<":"<<msg<<endl;
 				break;
 			case RegitLog:
-				cout<<"regitLog write"<<msg<<endl;
+				cout<<"regitLog write "<<msg<<endl;
 				regitLog<<time<<" "<<typeMsg<<":"<<msg<<endl;				
 				break;
 			case UpdatePasswdLog:
-				cout<<"passwd write"<<msg<<endl;
+				cout<<"passwd write "<<msg<<endl;
 				updatePasswdLog<<time<<" "<<typeMsg<<":"<<msg<<endl;
 				break;
 			case LanuchLog:
-				cout<<"lanuch write"<<msg<<endl;
+				cout<<"lanuch write "<<msg<<endl;
 				lanuchLog<<time<<" "<<typeMsg<<":"<<msg<<endl;
 				break;
 		}
@@ -66,7 +80,7 @@ public:
 	}	
 
 	void MLog(LogType type,Level level,string msg){
-		cout<<"come to MLog"<<" "<<msg<<endl;
+		//cout<<"come to MLog"<<" "<<msg<<endl;
 		if(FATAL==level&&FATALFLAG){ 
 			LogMsg(type,msg,"Fatal");
 		}else if(ERROR==level&&ERRORFLAG){ 
