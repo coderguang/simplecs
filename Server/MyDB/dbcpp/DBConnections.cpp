@@ -176,8 +176,8 @@ protected:
 			return NO_FREE_CONN;	
 		int errNum;
 		if(0!=(errNum=mysql_query(temp->conn,sql.c_str()))){
-			string err="query error!";
-			err=err+mysql_error(temp->conn);
+			string err="do sql query error! ";
+			err=err+sql+"\nmysql_error(temp->conn);
 			Log(DBLog,DEBUG,err);
 			temp->flag=0;
 		 	return errNum;	
