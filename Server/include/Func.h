@@ -10,6 +10,7 @@
 
 #include <sstream>
 #include <iostream>
+#include <ctime>
 using namespace std;
 
 //int to string
@@ -26,6 +27,15 @@ int StrToInt(string value){
 		return number;
 }
 
+//get the time now
+string GetTimeNow(){
+		char *s;
+		time_t now;
+		time(&now);
+		s=ctime(&now);
+		string t=s;
+		return t;	
+}
 
 
 #endif

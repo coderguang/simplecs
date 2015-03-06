@@ -1,4 +1,4 @@
-#ifdef RESULT_ALL_H_
+#ifndef RESULT_ALL_H_
 #define RESULT_ALL_H_
 #include <string>
 #include "result.h"
@@ -15,6 +15,6 @@ struct ResultAll{
 	Result blue3;
 	Result blue4;
 	Result blue5;
-}
+};
 
 #endif

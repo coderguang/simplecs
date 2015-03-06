@@ -215,7 +215,8 @@ public:
 	//for regit a accounts
 	int RegitAccount(string account,string passwd,string email,string name,int question,string answer){
 		string questionStr=IntToStr(question);
-		string sql="insert into accounts values(null,'"+account+"','"+passwd+"','"+email+"','"+name+"','"+questionStr+"','"+answer+"',false,null,null,0,1000,0,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000)";
+		string t=GetTimeNow();
+		string sql="insert into accounts values(null,'"+account+"','"+passwd+"','"+email+"','"+name+"','"+questionStr+"','"+answer+"',false,'"+t+"',null,0,1000,0,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000)";
 		 int rNum=MyQuery(REGIT,sql,nullptr);
 		 return rNum;
 			
