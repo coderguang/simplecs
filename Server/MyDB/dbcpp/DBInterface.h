@@ -39,5 +39,9 @@ int GetResult(int resultID,ResultAll &result){
 	return rNum;
 }
 
+void DBClose(){
+	DBConnections::GetInstance()->Close();
+
+}
 
 #endif

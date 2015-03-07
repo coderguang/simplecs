@@ -100,9 +100,30 @@ protected:
 		}
 	};
 	
+	//close all conn
 	void DBClose(){
+		for(int i=0;i<REGITMAX;i++){
+			mysql_close(regit[i]->conn);
+		}
 		
-
+		for(int i=0;i<LANUCHMAX;i++){
+			mysql_close(lanuch[i]->conn);
+		}
+		
+		for(int i=0;i<SECUREMAX;i++){
+			mysql_close(secure[i]->conn);
+		}
+		for(int i=0;i<RESULTMAX;i++){
+			mysql_close(result[i]->conn);
+		}
+		for(int i=0;i<GETRESULTMAX;i++){
+			mysql_close(getResult[i]->conn);
+		}
+				
+		mysql_server_end();
+		delete instance;
+		Log(DBLog,INFO,"DBclose success!");
+	
 	}
 
 	MMYSQL *GetFree(ConnType type){
@@ -453,6 +474,9 @@ public:
 
 	}
 	
+	void Close(){
+		DBClose();
+	}
 
 };
  //must initialize in out of class ,deny would link error!!!
