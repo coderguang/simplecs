@@ -94,7 +94,7 @@ protected:
 		}
 
 		//dbThread=thread{&LogDBMsg,this};
-
+		/**
 		ths.push_back(thread{LogDBMsg});
 		ths.push_back(thread{LogRegitMsg});
 		ths.push_back(thread{LogUpdatePasswdMsg});
@@ -102,7 +102,7 @@ protected:
 		ths.push_back(thread{LogResultMsg});
 		ths.push_back(thread{LogGetResultMsg});
 		//thread dbThread(LogDBMsg);
-		
+		*/	
 		
 	}
 
@@ -126,10 +126,10 @@ protected:
 		//lanuchThread.join();
 		//resultThread.join();
 		//getResultThread.join();
-
+		/**
 		for(auto &t:ths)
 			t.join();
-			
+		*/	
 
 		dbLog.close();
 		regitLog.close();
