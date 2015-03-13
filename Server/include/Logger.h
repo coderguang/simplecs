@@ -1,5 +1,5 @@
-#ifndef LOG_H_
-#define LOG_H_
+#ifndef M_LOG_H_
+#define M_LOG_H_
 
 #include <iostream>
 #include <fstream>
@@ -21,6 +21,9 @@ protected:
 	mutex dbMutex;
 	condition_variable dbVar;
 	thread dbThread;
+	bool dbStart;
+	mutex dbStartMutex;
+	condition_variable dbStartVar;
 
 	string regitFile="log/regitLog";
 	ofstream regitLog;
@@ -28,6 +31,9 @@ protected:
 	mutex regitMutex;
 	condition_variable regitVar;
 	thread regitThread;
+	bool regitStart;
+	mutex regitStartMutex;
+	condition_variable regitStartVar;
  
 	string updatePasswdFile="log/updatePasswdLog";
 	ofstream updatePasswdLog;
@@ -35,6 +41,9 @@ protected:
 	mutex updatePasswdMutex;
 	condition_variable updatePasswdVar;
 	thread updatePasswdThread;
+	bool updatePasswdStart;
+	mutex updatePasswdStartMutex;
+	condition_variable updatePasswdStartVar;
 	
 	string lanuchFile="log/lanuchLog";
 	ofstream lanuchLog;
@@ -42,6 +51,9 @@ protected:
 	mutex lanuchMutex;
 	condition_variable lanuchVar;
 	thread lanuchThread;
+	bool lanuchStart;
+	mutex lanuchStartMutex;
+	condition_variable lanuchStartVar;
 
 	string resultFile="log/resultLog";
 	ofstream resultLog;
@@ -49,6 +61,9 @@ protected:
 	mutex resultMutex;
 	condition_variable resultVar;
 	thread resultThread;
+	bool resultStart;
+	mutex resultStartMutex;
+	condition_variable resultStartVar;
 
 	string getResultFile="log/getResultLog";
 	ofstream getResultLog;
@@ -56,11 +71,14 @@ protected:
 	mutex getResultMutex;
 	condition_variable getResultVar;
 	thread getResultThread;
+	bool getResultStart;
+	mutex getResultStartMutex;
+	condition_variable getResultStartVar;
 	
 	bool mExit;//to decide the thread should exit
-	vector<thread> ths;
-
-	void Init()；
+	
+	
+	void Init();
 
 	//for close the filestream
 	void LogFileCloseIner();

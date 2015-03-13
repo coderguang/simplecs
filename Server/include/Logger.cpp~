@@ -166,8 +166,7 @@ void Logger::Logger::Init(){
 
 	void Logger::LogLanuchMsg(){
 		unique_lock<mutex> lock(lanuchMutex);
-		lanuchStart=true;
-		lanuchStartVar.notify_all();
+		lanuchVar.notify_all();
 		while(true){
 			lanuchVar.wait(lock);
 			lock.unlock();
@@ -189,8 +188,7 @@ void Logger::Logger::Init(){
 
 	void Logger::LogResultMsg(){
 		unique_lock<mutex> lock(resultMutex);
-		resultStart=true;
-		resultStartVar.notify_all();
+		resultVar.notify_all();
 		while(true){
 			resultVar.wait(lock);
 			lock.unlock();
@@ -213,8 +211,7 @@ void Logger::Logger::Init(){
 
 	void Logger::LogGetResultMsg(){
 		unique_lock<mutex> lock(getResultMutex);
-		getResultStart=true;
-		getResultStartVar.notify_all();
+		getResultVar.notify_all();
 		while(true){
 			getResultVar.wait(lock);
 			lock.unlock();
