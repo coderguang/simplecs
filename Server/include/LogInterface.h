@@ -4,12 +4,13 @@
 #include "LogConstant.h"
 using namespace std;
 
-void Log(LogType type,Level level,string msg){
+static void Log(LogType type,Level level,string msg){
 	Logger::GetInstance()->Log(type,level,msg);
 }
-void LogFileClose(){
+/**
+static void LogFileClose(){
 	Logger::GetInstance()->LogFileClose();
 }
-
+*/
 
 #endif 

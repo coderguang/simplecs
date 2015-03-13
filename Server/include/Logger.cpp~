@@ -3,9 +3,10 @@
 using namespace std;
 
 Logger Logger::*instance;
-void Logger::Logger::Init(){
+void Logger::Init(){
 		
-		//mExit=false;
+		cout<<"come to init"<<endl;
+		mExit=false;
 		dbLog.open(dbFile.c_str());
 		if(!dbLog.is_open()){
 			cout<<"dbFile open failed!"<<endl;	
@@ -34,10 +35,14 @@ void Logger::Logger::Init(){
 		if(!getResultLog.is_open()){
 			cout<<"getResultFile open failed"<<endl;
 		}
+		
+		cout<<"start to create thread"<<endl;
 
 		dbThread=thread{&Logger::LogDBMsg,this};
 		unique_lock<mutex> dblock(dbStartMutex);
 		dbStartVar.wait(dblock,[&](){return dbStart==true;});
+
+		cout<<"create dbThread success"<<endl;
 
 		regitThread=thread{&Logger::LogRegitMsg,this};
 		unique_lock<mutex> regitlock(regitStartMutex);
@@ -62,8 +67,10 @@ void Logger::Logger::Init(){
 	}
 
 	//for close the filestream
-	void Logger::LogFileCloseIner(){
+	//void Logger::LogFileCloseIner(){
+	Logger::~Logger(){
 	
+		cout<<"exit the thread"<<endl;
 		mExit=true;//to exit the background thread
 		
 		//to Notify all condition
@@ -93,6 +100,7 @@ void Logger::Logger::Init(){
 	}
 	//db background thread work
 	void Logger::LogDBMsg(){
+		cout<<"come to LogDBMsg"<<endl;
 		//start loop
 		unique_lock<mutex> lock(dbMutex);
 		
@@ -100,18 +108,22 @@ void Logger::Logger::Init(){
 		dbStartVar.notify_all();
 
 		while(true){
+			cout<<"come to loop"<<endl;
 			dbVar.wait(lock);
 			lock.unlock();
 			while(true){
 				lock.lock();
 				if(dbQueue.empty()){
+					cout<<"dbqueue is empty"<<endl;
 					break;
 				}else{
 					dbLog<<dbQueue.front()<<endl;
+					cout<<dbQueue.front()<<endl;
 					dbQueue.pop();
 				}
 				lock.unlock();
 			}
+			
 			if(mExit)
 				break;
 		}
@@ -166,7 +178,8 @@ void Logger::Logger::Init(){
 
 	void Logger::LogLanuchMsg(){
 		unique_lock<mutex> lock(lanuchMutex);
-		lanuchVar.notify_all();
+		lanuchStart=true;
+		lanuchStartVar.notify_all();
 		while(true){
 			lanuchVar.wait(lock);
 			lock.unlock();
@@ -188,7 +201,8 @@ void Logger::Logger::Init(){
 
 	void Logger::LogResultMsg(){
 		unique_lock<mutex> lock(resultMutex);
-		resultVar.notify_all();
+		resultStart=true;
+		resultStartVar.notify_all();
 		while(true){
 			resultVar.wait(lock);
 			lock.unlock();
@@ -211,7 +225,8 @@ void Logger::Logger::Init(){
 
 	void Logger::LogGetResultMsg(){
 		unique_lock<mutex> lock(getResultMutex);
-		getResultVar.notify_all();
+		getResultStart=true;
+		getResultStartVar.notify_all();
 		while(true){
 			getResultVar.wait(lock);
 			lock.unlock();
@@ -232,11 +247,13 @@ void Logger::Logger::Init(){
 	}
 
 	void Logger::LogMsg(LogType type,string &msg,string typeMsg){
+		cout<<"come to LogMsg :"<<msg<<endl;
 		string time=GetTimeNow();
 		string mMsg=time+" "+typeMsg+":"+msg;
 		switch(type){
 			case DBLog:{
 					unique_lock<mutex> lock(dbMutex);
+					cout<<"push msg to dbqueue"<<endl;
 					dbQueue.push(mMsg);
 					dbVar.notify_all();
 				}
@@ -287,7 +304,9 @@ void Logger::Logger::Init(){
 	}	
 
 	void Logger::Log(LogType type,Level level,string &msg){
+		cout<<"come to log func"<<endl;
 		if(FATAL==level&&FATALFLAG){ 
+			cout<<"case to Fatal"<<endl;
 			LogMsg(type,msg,"Fatal");
 		}else if(ERROR==level&&ERRORFLAG){ 
 			LogMsg(type,msg,"Error");
@@ -299,8 +318,8 @@ void Logger::Logger::Init(){
 			LogMsg(type,msg,"Debug");
 		}
 	}
-	
+	/**
 	void Logger::LogFileClose(){
 		LogFileCloseIner();
-	}
+	}*/
 

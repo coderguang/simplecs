@@ -1,1 +1,1 @@
-g++ -g dbI.cpp -o dt $(mysql_config --cflags) $(mysql_config --libs) -std=c++11
+g++ -g dbI.cpp -o dt $(mysql_config --cflags) $(mysql_config --libs) -std=c++11 -lpthread

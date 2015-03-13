@@ -31,6 +31,9 @@ protected:
 	mutex regitMutex;
 	condition_variable regitVar;
 	thread regitThread;
+	bool regitStart;
+	mutex regitStartMutex;
+	condition_variable regitStartVar;
  
 	string updatePasswdFile="log/updatePasswdLog";
 	ofstream updatePasswdLog;
@@ -38,6 +41,9 @@ protected:
 	mutex updatePasswdMutex;
 	condition_variable updatePasswdVar;
 	thread updatePasswdThread;
+	bool updatePasswdStart;
+	mutex updatePasswdStartMutex;
+	condition_variable updatePasswdStartVar;
 	
 	string lanuchFile="log/lanuchLog";
 	ofstream lanuchLog;
@@ -45,6 +51,9 @@ protected:
 	mutex lanuchMutex;
 	condition_variable lanuchVar;
 	thread lanuchThread;
+	bool lanuchStart;
+	mutex lanuchStartMutex;
+	condition_variable lanuchStartVar;
 
 	string resultFile="log/resultLog";
 	ofstream resultLog;
@@ -52,6 +61,9 @@ protected:
 	mutex resultMutex;
 	condition_variable resultVar;
 	thread resultThread;
+	bool resultStart;
+	mutex resultStartMutex;
+	condition_variable resultStartVar;
 
 	string getResultFile="log/getResultLog";
 	ofstream getResultLog;
@@ -59,6 +71,9 @@ protected:
 	mutex getResultMutex;
 	condition_variable getResultVar;
 	thread getResultThread;
+	bool getResultStart;
+	mutex getResultStartMutex;
+	condition_variable getResultStartVar;
 	
 	bool mExit;//to decide the thread should exit
 	
@@ -83,7 +98,7 @@ protected:
 
 	void LogMsg(LogType type,string &msg,string typeMsg);
 
-	Logger();
+	//Logger();
 
 	Logger(Logger&)=delete;
 	static Logger *instance;
@@ -92,8 +107,10 @@ public:
 	static Logger *GetInstance();
 	
 	void Log(LogType type,Level level,string &msg);
-	
-	void LogFileClose();
+	Logger();
+	//void LogMsg(LogType type,string &msg,string typeMsg);
+	//void LogFileClose();
+	virtual ~Logger();
 
 };
 #endif 

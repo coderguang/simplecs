@@ -98,7 +98,7 @@ protected:
 
 	void LogMsg(LogType type,string &msg,string typeMsg);
 
-	Logger();
+	//Logger();
 
 	Logger(Logger&)=delete;
 	static Logger *instance;
@@ -107,8 +107,10 @@ public:
 	static Logger *GetInstance();
 	
 	void Log(LogType type,Level level,string &msg);
-	
-	void LogFileClose();
+	Logger();
+	//void LogMsg(LogType type,string &msg,string typeMsg);
+	//void LogFileClose();
+	virtual ~Logger();
 
 };
 #endif 

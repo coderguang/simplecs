@@ -7,8 +7,8 @@ using namespace std;
 void Log(LogType type,Level level,string msg){
 	Logger::GetInstance()->Log(type,level,msg);
 }
-void DestryLog(){
-	Logger::GetInstance()->Destroy();
+void LogFileClose(){
+	Logger::GetInstance()->LogFileClose();
 }
 
 
