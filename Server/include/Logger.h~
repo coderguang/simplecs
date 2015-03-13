@@ -4,6 +4,10 @@
 #include <iostream>
 #include <fstream>
 #include "Func.h"
+#include <mutex>
+#include <condition_variable>
+#include <queue>
+#include <thread>
 #include "LogConstant.h"
 using namespace std;
 
@@ -12,21 +16,45 @@ class Logger{
 protected:
 	string dbFile="log/dbLog";
 	ofstream dbLog;
+	queue<string> dbQueue;
+	mutex dbMutex;
+	condition_variable dbVar;
+	thread dbThread;
 
 	string regitFile="log/regitLog";
 	ofstream regitLog;
+	queue<string> regitQueue;
+	mutex regitMutex;
+	condition_variable regitVar;
+	thread regitThread;
  
 	string updatePasswdFile="log/updatePasswdLog";
 	ofstream updatePasswdLog;
+	queue<string> updatePasswdQueue;
+	mutex updatePasswdMutex;
+	condition_variable updatePasswdVar;
+	thread updatePasswdThread;
 	
 	string lanuchFile="log/lanuchLog";
 	ofstream lanuchLog;
+	queue<string> lanuchQueue;
+	mutex lanuchMutex;
+	condition_variable lanuchVar;
+	thread lanuchThread;
 
 	string resultFile="log/resultLog";
 	ofstream resultLog;
+	queue<string> resultQueue;
+	mutex resultMutex;
+	condition_variable resultVar;
+	thread resultThread;
 
 	string getResultFile="log/getResultLog";
 	ofstream getResultLog;
+	queue<string> getResultQueue;
+	mutex getResultMutex;
+	condition_variable getResultVar;
+	thread getResultThread;
 
 	void Init(){
 		dbLog.open(dbFile.c_str());
@@ -62,7 +90,7 @@ protected:
 	}
 
 	//for close the filestream
-	void DestroyLog(){
+	void LogFileCloseIner(){
 		dbLog.close();
 		regitLog.close();
 		updatePasswdLog.close();
@@ -125,8 +153,8 @@ public:
 		}
 	}
 	
-	void Destroy(){
-		DestroyLog();
+	void LogFileClose(){
+		LogFileCloseIner();
 	}
 
 

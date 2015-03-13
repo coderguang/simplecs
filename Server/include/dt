@@ -1,2 +1,2 @@
-clang++ -o logt testlog.cpp -std=c++11
+clang++ -o logc testlog.cpp -std=c++11
 
