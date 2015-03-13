@@ -5,7 +5,7 @@ using namespace std;
 Logger Logger::*instance;
 void Logger::Init(){
 		
-		cout<<"come to init"<<endl;
+	//	cout<<"come to init"<<endl;
 		mExit=false;
 		dbLog.open(dbFile.c_str());
 		if(!dbLog.is_open()){
@@ -36,13 +36,13 @@ void Logger::Init(){
 			cout<<"getResultFile open failed"<<endl;
 		}
 		
-		cout<<"start to create thread"<<endl;
+		//cout<<"start to create thread"<<endl;
 
 		dbThread=thread{&Logger::LogDBMsg,this};
 		unique_lock<mutex> dblock(dbStartMutex);
 		dbStartVar.wait(dblock,[&](){return dbStart==true;});
 
-		cout<<"create dbThread success"<<endl;
+		//cout<<"create dbThread success"<<endl;
 
 		regitThread=thread{&Logger::LogRegitMsg,this};
 		unique_lock<mutex> regitlock(regitStartMutex);
@@ -70,7 +70,7 @@ void Logger::Init(){
 	//void Logger::LogFileCloseIner(){
 	Logger::~Logger(){
 	
-		cout<<"exit the thread"<<endl;
+		//cout<<"exit the thread"<<endl;
 		mExit=true;//to exit the background thread
 		
 		//to Notify all condition
@@ -100,7 +100,7 @@ void Logger::Init(){
 	}
 	//db background thread work
 	void Logger::LogDBMsg(){
-		cout<<"come to LogDBMsg"<<endl;
+		//cout<<"come to LogDBMsg"<<endl;
 		//start loop
 		unique_lock<mutex> lock(dbMutex);
 		
@@ -108,17 +108,17 @@ void Logger::Init(){
 		dbStartVar.notify_all();
 
 		while(true){
-			cout<<"come to loop"<<endl;
+		//	cout<<"come to loop"<<endl;
 			dbVar.wait(lock);
 			lock.unlock();
 			while(true){
 				lock.lock();
 				if(dbQueue.empty()){
-					cout<<"dbqueue is empty"<<endl;
+		//			cout<<"dbqueue is empty"<<endl;
 					break;
 				}else{
 					dbLog<<dbQueue.front()<<endl;
-					cout<<dbQueue.front()<<endl;
+					cout<<"write to log "<<endl<<dbQueue.front()<<endl;
 					dbQueue.pop();
 				}
 				lock.unlock();
@@ -156,7 +156,7 @@ void Logger::Init(){
 	void Logger::LogUpdatePasswdMsg(){
 		unique_lock<mutex> lock(updatePasswdMutex);
 		updatePasswdStart=true;
-		updatePasswdVar.notify_all();
+		updatePasswdStartVar.notify_all();
 		while(true){
 			updatePasswdVar.wait(lock);
 			lock.unlock();
@@ -247,13 +247,13 @@ void Logger::Init(){
 	}
 
 	void Logger::LogMsg(LogType type,string &msg,string typeMsg){
-		cout<<"come to LogMsg :"<<msg<<endl;
+	//	cout<<"come to LogMsg :"<<msg<<endl;
 		string time=GetTimeNow();
 		string mMsg=time+" "+typeMsg+":"+msg;
 		switch(type){
 			case DBLog:{
 					unique_lock<mutex> lock(dbMutex);
-					cout<<"push msg to dbqueue"<<endl;
+					cout<<"push msg to dbqueue£º"<<msg<<endl;
 					dbQueue.push(mMsg);
 					dbVar.notify_all();
 				}
@@ -304,9 +304,9 @@ void Logger::Init(){
 	}	
 
 	void Logger::Log(LogType type,Level level,string &msg){
-		cout<<"come to log func"<<endl;
+	//	cout<<"come to log func"<<endl;
 		if(FATAL==level&&FATALFLAG){ 
-			cout<<"case to Fatal"<<endl;
+	//		cout<<"case to Fatal"<<endl;
 			LogMsg(type,msg,"Fatal");
 		}else if(ERROR==level&&ERRORFLAG){ 
 			LogMsg(type,msg,"Error");
