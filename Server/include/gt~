@@ -1,0 +1,2 @@
+g++ -g testlog.cpp -o logg -std=c++11 -pthread
+
