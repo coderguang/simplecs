@@ -1,2 +1,2 @@
-g++ -g testlog.cpp -o logg -std=c++11
+g++ -g testlog.cpp -o logg -std=c++11 -pthread -D_GLIBCXX_USE_NANOSLEEP
 

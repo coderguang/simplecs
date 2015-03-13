@@ -1,2 +1,0 @@
-clang++ -o logc testlog.cpp -std=c++11
-
