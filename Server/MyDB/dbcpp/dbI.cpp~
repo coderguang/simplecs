@@ -29,7 +29,7 @@ int main()
 
 	Lanuch lan;
 	int lan1=LanuchAccount("sg7","sg7passwd",lan);
-	/**
+	
 	cout<<"lan1="<<lan1<<endl;
 	cout<<"lan.name="<<lan.name<<endl;
 	cout<<"lan.lastlanuch="<<lan.lastlanuch<<endl;
@@ -88,5 +88,5 @@ int main()
 	
 	cout<<"blue5.id="<<r2.blue5.id<<"  kill="<<r2.blue5.kill<<"  death="<<r2.blue5.death<<"  assist="<<r2.blue5.assist<<" "<<endl;
 	cout<<"  harm="<<r2.blue5.harm<<"  GetHarm="<<r2.blue5.getHarm<<"  reHP="<<r2.blue5.reHP<<"  nullGun="<<r2.blue5.nullGun<<endl;
-*/
+
 }

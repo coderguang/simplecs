@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <sstream>
 #include <iostream>
+#include <mutex>
 #include "DBErr.h"
 #include "../../include/Func.h"
 #include "../../include/struct/lanuch.h"
@@ -27,6 +28,11 @@ protected:
 	MMYSQL *result[RESULTMAX];
 	MMYSQL *getResult[GETRESULTMAX];
 
+	mutex regitMutex[REGITMAX];
+	mutex lanuchMutex[LANUCHMAX];
+	mutex secureMutex[SECUREMAX];
+	mutex resultMutex[RESULTMAX];
+	mutex getResultMutex[GETRESULTMAX];
 
  	void initDB(){ 
 		if(mysql_server_init(sizeof(server_args)/sizeof(char*),server_args,server_groups)){ 
@@ -132,6 +138,7 @@ protected:
 				for(int i=0;i<REGITMAX;i++){
 					if(0==regit[i]->flag){//free
 						//lock();
+						unique_lock<mutex> lock(regitMutex[i]);
 						//cout<<"regit "<<i<<"is use"<<endl; 
 					 	regit[i]->flag=1;//set flag become busy	
 						return regit[i];

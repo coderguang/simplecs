@@ -1,12 +1,12 @@
-Sat Mar  7 11:28:49 2015
- Info:do sql query error! insert into accounts values(null,'regit1','regit1pw','coderguang@163','regit1N','1000','haha',false,'Sat Mar  7 11:28:49 2015
+Fri Mar 13 17:15:09 2015
+ Info:do sql query error! insert into accounts values(null,'regit1','regit1pw','coderguang@163','regit1N','1000','haha',false,'Fri Mar 13 17:15:09 2015
 ',null,0,1000,0,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000)
   Duplicate entry 'regit1' for key 'account'
-Sat Mar  7 11:28:49 2015
+Fri Mar 13 17:15:09 2015
  Info:regit regit1  failed!
-Sat Mar  7 11:28:49 2015
- Info:do sql query error! insert into accounts values(null,'regit2','regit2pw','coderguang163','regit2N','1000','haha',false,'Sat Mar  7 11:28:49 2015
+Fri Mar 13 17:15:09 2015
+ Info:do sql query error! insert into accounts values(null,'regit2','regit2pw','coderguang163','regit2N','1000','haha',false,'Fri Mar 13 17:15:09 2015
 ',null,0,1000,0,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000)
   Duplicate entry 'regit2' for key 'account'
-Sat Mar  7 11:28:49 2015
+Fri Mar 13 17:15:09 2015
  Info:regit regit2  failed!

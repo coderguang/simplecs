@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <sstream>
 #include <iostream>
+#include <mutex>
 #include "DBErr.h"
 #include "../../include/Func.h"
 #include "../../include/struct/lanuch.h"
@@ -27,6 +28,11 @@ protected:
 	MMYSQL *result[RESULTMAX];
 	MMYSQL *getResult[GETRESULTMAX];
 
+	mutex regitMutex[REGITMAX];
+	mutex lanuchMutex[LANUCHMAX];
+	mutex secureMutex[SECUREMAX];
+	mutex resultMutex[RESULTMAX];
+	mutex getResultMutex[GETRESULTMAX];
 
  	void initDB(){ 
 		if(mysql_server_init(sizeof(server_args)/sizeof(char*),server_args,server_groups)){ 
@@ -132,6 +138,7 @@ protected:
 				for(int i=0;i<REGITMAX;i++){
 					if(0==regit[i]->flag){//free
 						//lock();
+						unique_lock<mutex> lock(regitMutex[i]);
 						//cout<<"regit "<<i<<"is use"<<endl; 
 					 	regit[i]->flag=1;//set flag become busy	
 						return regit[i];
@@ -141,6 +148,7 @@ protected:
 			case LANUCH:
 				for(int i=0;i<LANUCHMAX;i++){
 					if(0==lanuch[i]->flag){//free
+						unique_lock<mutex> lock(lanuchMutex[i]);
 						//lock();
 					 	lanuch[i]->flag=1;//set flag become busy	
 						return lanuch[i];
@@ -150,6 +158,7 @@ protected:
 			case SECURE:
 				 for(int i=0;i<SECUREMAX;i++){
 					if(0==secure[i]->flag){//free
+						unique_lock<mutex> lock(secureMutex[i]);
 						//lock();
 					 	secure[i]->flag=1;//set flag become busy	
 						return secure[i];
@@ -159,6 +168,7 @@ protected:
 			case RESULT:
 				 for(int i=0;i<RESULTMAX;i++){
 					if(0==result[i]->flag){//free
+						unique_lock<mutex> lock(resultMutex);
 						//lock();
 					 	result[i]->flag=1;//set flag become busy	
 						return result[i];
@@ -168,6 +178,7 @@ protected:
 			case GETRESULT:
 				 for(int i=0;i<GETRESULTMAX;i++){
 					if(0==getResult[i]->flag){//free
+						unique_lock<mutex> lock(getResultMutex);
 						//lock();
 					 	getResult[i]->flag=1;//set flag become busy	
 						return getResult[i];
