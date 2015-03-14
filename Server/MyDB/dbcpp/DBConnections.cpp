@@ -168,7 +168,7 @@ protected:
 			case RESULT:
 				 for(int i=0;i<RESULTMAX;i++){
 					if(0==result[i]->flag){//free
-						unique_lock<mutex> lock(resultMutex);
+						unique_lock<mutex> lock(resultMutex[i]);
 						//lock();
 					 	result[i]->flag=1;//set flag become busy	
 						return result[i];
@@ -178,7 +178,7 @@ protected:
 			case GETRESULT:
 				 for(int i=0;i<GETRESULTMAX;i++){
 					if(0==getResult[i]->flag){//free
-						unique_lock<mutex> lock(getResultMutex);
+						unique_lock<mutex> lock(getResultMutex[i]);
 						//lock();
 					 	getResult[i]->flag=1;//set flag become busy	
 						return getResult[i];
