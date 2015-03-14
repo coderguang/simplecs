@@ -2,7 +2,7 @@
 #include "Logger.h"
 using namespace std;
 
-Logger Logger::*instance;
+Logger Logger::*logInstance;
 void Logger::Init(){
 		
 	//	cout<<"come to init"<<endl;
@@ -96,7 +96,7 @@ void Logger::Init(){
 		resultLog.close();
 		getResultLog.close();
 
-		delete instance;
+		delete logInstance;
 	}
 	//db background thread work
 	void Logger::LogDBMsg(){
@@ -295,12 +295,12 @@ void Logger::Init(){
 		Logger::Init();
 	}
 
-	Logger *Logger::instance;
+	Logger *Logger::logInstance;
 
 	Logger *Logger::GetInstance(){
-		if(nullptr==Logger::instance)	
-			instance=new Logger();
-		return instance;
+		if(nullptr==Logger::logInstance)	
+			logInstance=new Logger();
+		return logInstance;
 	}	
 
 	void Logger::Log(LogType type,Level level,string &msg){

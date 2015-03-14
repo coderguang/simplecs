@@ -5,9 +5,9 @@ include database user,passwd
 #ifndef DB_CONSTANT
 #define DB_CONSTANT 
 
-#ifdef _cplusplus
-extern "C"{
-#endif
+
+
+
 
 #include <stdlib.h>
 #include <mysql.h>
@@ -60,7 +60,7 @@ const string resultPasswd = "resulter";
 const string getResultUser = "getResultUser";
 const string getResultPasswd = "getResulter";
 
-#ifdef _cplusplus
-}
-#endif
+
+
+
 #endif

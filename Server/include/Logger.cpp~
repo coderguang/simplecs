@@ -118,7 +118,7 @@ void Logger::Init(){
 					break;
 				}else{
 					dbLog<<dbQueue.front()<<endl;
-					cout<<"write to log "<<endl<<dbQueue.front()<<endl<<endl;
+					//cout<<"write to log "<<endl<<dbQueue.front()<<endl<<endl;
 					dbQueue.pop();
 				}
 				lock.unlock();

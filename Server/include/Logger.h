@@ -101,7 +101,7 @@ protected:
 	Logger();
 
 	Logger(Logger&)=delete;
-	static Logger *instance;
+	static Logger *logInstance;
 
 public:
 	static Logger *GetInstance();

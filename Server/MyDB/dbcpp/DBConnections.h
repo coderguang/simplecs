@@ -55,7 +55,7 @@ protected:
 		
 	DBConnections();
 	DBConnections(DBConnections &)=delete;
-	static DBConnections *instance;
+	static DBConnections *dbInstance;
 	
 //public
 public:
@@ -74,12 +74,12 @@ public:
 //for reset the passwd
 	int ResetPasswd(string account,string newPasswd);
 	//for lanuch
-	int Lanuch(string account,string passwd,Lanuch &lanResult);
+	int Lanuch(string account,string passwd,struct Lanuch &lanResult);
 	//for InsertResult 
 	//need  update the accounts flag,result*
-	int InsertResult(ResultAll &resultA);
+	int InsertResult(struct ResultAll &resultA);
 	//for getResult
-	int GetResult(int resultID,ResultAll &resultA);
+	int GetResult(int resultID,struct ResultAll &resultA);
 	
 	void Close();
 };
