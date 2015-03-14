@@ -1,2 +1,4 @@
-g++ -g testlog.cpp -o logg -std=c++11 -lpthread -D_REENTRANT
+cd log
+rm *
+g++ -g testlog.cpp Logger.cpp -o logg -std=c++11 -lpthread -D_REENTRANT
 

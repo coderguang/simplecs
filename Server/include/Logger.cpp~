@@ -7,31 +7,31 @@ void Logger::Init(){
 		
 	//	cout<<"come to init"<<endl;
 		mExit=false;
-		dbLog.open(dbFile.c_str());
+		dbLog.open(dbFile.c_str(),ios_base::app);
 		if(!dbLog.is_open()){
 			cout<<"dbFile open failed!"<<endl;	
 		}
-		regitLog.open(regitFile.c_str());
+		regitLog.open(regitFile.c_str(),ios_base::app);
 		if(!regitLog.is_open()){
 			cout<<"regitFile open failed!"<<endl;
 		}
 
-		updatePasswdLog.open(updatePasswdFile.c_str());
+		updatePasswdLog.open(updatePasswdFile.c_str(),ios_base::app);
 		if(!updatePasswdLog.is_open()){
 			cout<<"updateFile open failed!"<<endl;
 		}
 
-		lanuchLog.open(lanuchFile.c_str());
+		lanuchLog.open(lanuchFile.c_str(),ios_base::app);
 		if(!lanuchLog.is_open()){
 			cout<<"lanuchFile open failed"<<endl;
 		}
 		
-		resultLog.open(resultFile.c_str());
+		resultLog.open(resultFile.c_str(),ios_base::app);
 		if(!resultLog.is_open()){
 			cout<<"resultFile open failed!"<<endl;
 		}
 
-		getResultLog.open(getResultFile.c_str());
+		getResultLog.open(getResultFile.c_str(),ios_base::app);
 		if(!getResultLog.is_open()){
 			cout<<"getResultFile open failed"<<endl;
 		}
@@ -118,7 +118,7 @@ void Logger::Init(){
 					break;
 				}else{
 					dbLog<<dbQueue.front()<<endl;
-					cout<<"write to log "<<endl<<dbQueue.front()<<endl;
+					cout<<"write to log "<<endl<<dbQueue.front()<<endl<<endl;
 					dbQueue.pop();
 				}
 				lock.unlock();
@@ -253,7 +253,7 @@ void Logger::Init(){
 		switch(type){
 			case DBLog:{
 					unique_lock<mutex> lock(dbMutex);
-					cout<<"push msg to dbqueue£º"<<msg<<endl;
+				//	cout<<"push msg to dbqueue£º"<<msg<<endl;
 					dbQueue.push(mMsg);
 					dbVar.notify_all();
 				}

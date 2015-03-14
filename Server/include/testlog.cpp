@@ -7,7 +7,7 @@ using namespace std;
 void logMsg(int i){
 			string s="hello,log";
 			s=s+" from thread  "+IntToStr(i);
-			cout<<s<<endl;
+			//cout<<s<<endl;
 /**
 			log.Log(DBLog,FATAL,s);
 			log.Log(LanuchLog,ERROR,s);
