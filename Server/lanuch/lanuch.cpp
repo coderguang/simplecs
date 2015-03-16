@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include <strings.h>
+#include <string.h>
 #include <iostream>
 #include <sys/types.h> //for sockadd_in
 #include <unistd.h> //for fork execl,
@@ -55,12 +56,20 @@ int main(){
 		
 		//fork the child process
 		if(fork()==0){
-			close(listenfd);
-			char buf[MAXSIZE];
-			int rval;
-			//read the stream
-			if((rval=read(connfd,buf,MAXSIZE))>0){
-		//		cout<<"read the msg "<<buf<<endl;
+			while(true){
+				char buf[MAXSIZE];
+				int rval;
+				//read the stream
+				if((rval=read(connfd,buf,MAXSIZE))>0){
+					cout<<"read the msg "<<buf<<endl;
+				}
+				string msg="hello,welcome to guang server\n";
+				if(send(connfd,msg.c_str(),msg.length(),0)==-1){
+					cout<<"send error!\n"<<endl;
+					close(connfd);
+					exit(0);
+				}
+				
 			}
 
 		}
