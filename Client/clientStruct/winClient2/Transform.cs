@@ -24,6 +24,7 @@ namespace winClient2
             Marshal.Copy(objPtr, bytes, 0, size);
             //释放内存空间
             Marshal.FreeHGlobal(objPtr);
+            Console.WriteLine("bytes[]={0}", bytes.Length);
             return bytes;        
         }
 
