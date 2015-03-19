@@ -10,10 +10,22 @@ using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;//for StructLayoutAttribute
 namespace winClient2
 {
+    [Serializable]
     [StructLayoutAttribute(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
-    public class  Test {
+    public struct  Test {
         public int first;
         public int second;
+        //字符串
+        [MarshalAs(UnmanagedType.ByValArray,SizeConst=10)]
+        public char [] msg;
+        //[MarshalAs(UnmanagedType.ByValTStr,SizeConst=256)]
+        //public string msg ;
+        public Test(int one, int two, string str) {
+            this.first = one;
+            this.second = two;
+            this.msg = str.PadRight(10, '\0').ToCharArray();        
+            //this.msg = str.ToCharArray();
+        }
     }
     class Program
     {
@@ -38,11 +50,15 @@ namespace winClient2
                 //return;
             }
 
-            Test tst=new Test();
+            Test tst=new Test(11,18,"hehe");
+            /**
             tst.first=9;
             tst.second=13;
+            string m = "he";
+            tst.msg =m.ToCharArray();*/
+            //tst.msg = "ha";
             int counts = 0;
-            int MAXTIME = 3;
+            int MAXTIME = 1;
             byte[] msg = Transform.StructToBytes(tst);
             while (counts < MAXTIME)
             {
@@ -59,18 +75,22 @@ namespace winClient2
                     break;
                     
                 }
+             
+                /**
                 try
                 {
+                    Console.WriteLine("wait for receive");
                     byte[] result=new byte[1024];
                     int receiveLength = clientSocket.Receive(result);
                     Type type=typeof(Test);
                     Test rr = (Test)Transform.BytesToStruct(result,type);
-                    Console.WriteLine("接收服务器消息：result.first={0},result.second={1}",rr.first,rr.second );
+                    Console.WriteLine("接收服务器消息：result.first={0},result.second={1},msg={2}",rr.first,rr.second,rr.msg );
                 }
                 catch {
                     Console.WriteLine("接收失败!");
                     break;
                 }
+                 */
                 counts++;
             }
             Console.ReadKey();
