@@ -13,3 +13,6 @@ E:\simpleCS\Client\winClient2\winClient2\obj\Debug\winClient2.csprojResolveAssem
 E:\simpleCS\Client\clientStruct\winClient2\bin\Debug\winClient2.exe.config
 E:\simpleCS\Client\clientStruct\winClient2\obj\Debug\winClient2.exe
 E:\simpleCS\Client\clientStruct\winClient2\obj\Debug\winClient2.pdb
+E:\simpleCS\Client\clientStruct\winClient2\obj\Debug\winClient2.csprojResolveAssemblyReference.cache
+E:\simpleCS\Client\clientStruct\winClient2\bin\Debug\winClient2.exe
+E:\simpleCS\Client\clientStruct\winClient2\bin\Debug\winClient2.pdb

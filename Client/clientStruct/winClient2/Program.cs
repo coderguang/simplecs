@@ -7,19 +7,27 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;//for StructLayoutAttribute
 namespace winClient2
 {
+    [StructLayoutAttribute(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+    struct Test {
+        public int first;
+        public int second;
+    }
     class Program
     {
         private static byte[] result = new byte[1024];
+      
         static void Main(string[] args)
         {
             IPAddress ip = IPAddress.Parse("182.254.233.115");
             Random rd=new Random();
             int mPort = 9201;
             Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        
             try
-            {
+            {  
 //                clientSocket.Connect(new IPEndPoint(ip, mPort)); //配置服务器IP与端口
                 clientSocket.Connect(new IPEndPoint(ip,9201)); //配置服务器IP与端口
                 Console.WriteLine("连接服务器成功");
@@ -30,15 +38,19 @@ namespace winClient2
                 //return;
             }
 
+            Test tst=new Test();
+            tst.first=9;
+            tst.second=13;
             int counts = 0;
-            int MAXTIME = 320000;
+            int MAXTIME = 3;
+            byte[] msg = Transform.StructToBytes(tst);
             while (counts < MAXTIME)
             {
                 Thread.Sleep(2000);
                 try
                 {
                     //string sendMessage = " hello guang server ,I come in at  " + DateTime.Now + "  with times:" + counts;
-                    clientSocket.Send(Encoding.ASCII.GetBytes(sendMessage));
+                    clientSocket.Send(msg);
                     Console.WriteLine("send success at " + counts);
                 }
                 catch (Exception e)
