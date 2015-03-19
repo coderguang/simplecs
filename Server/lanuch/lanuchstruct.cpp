@@ -1,3 +1,5 @@
+#define _UNICODE
+#define UNICODE
 #include <stdio.h>
 #include <errno.h>
 #include <strings.h>
@@ -11,8 +13,10 @@
 #include "../include/LogInterface.h"
 #include "../include/Func.h"
 #include "NetConstant.h"
+#include <iconv.h>
+#pragma comment(lib,"libiconv.lib")
 using namespace std;
-#define _Unicode
+
 
 //when child exit,call this func to protect it become zombie
 void sig_chld_exit(int signo){
@@ -87,7 +91,7 @@ ssize_t writen(int fd,const void *vptr,size_t n){
 //		wcout<<"yes"<<endl;
 
 	}
-	wcout<<"write complete"<<endl;
+	//wcout<<"write complete"<<endl;
 	return n;
 
 }
@@ -137,8 +141,9 @@ int main(){
 		wcout<<"sizeof(string)="<<sizeof(string)<<endl;
 			Test msg;
 			while(true){
-				char buf[MAXSIZE];
-				int rval;
+				memset(&msg,0,sizeof(msg));
+				//char buf[MAXSIZE];
+				//int rval;
 				//read the stream
 				//if((rval=read(connfd,buf,MAXSIZE))>0){
 				//	wcout<<"read the msg "<<buf<<endl;
@@ -156,9 +161,9 @@ int main(){
 				sersum.first=33;
 				sersum.second=44;
 				sersum.msg="hi.this is guang server";
-			
-				writen(connfd,&sersum,sizeof(sersum));
 				*/
+				writen(connfd,&msg,sizeof(msg));
+				
 				/**if(send(connfd,ms.c_str(),ms.length(),0)==-1){
 					wcout<<"send error!\n"<<endl;
 					close(connfd);
