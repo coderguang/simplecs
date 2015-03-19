@@ -26,5 +26,27 @@ namespace winClient2
             Marshal.FreeHGlobal(objPtr);
             return bytes;        
         }
+
+        public static object BytesToStruct(byte[] bytes,Type type) {
+            int size = Marshal.SizeOf(type);
+            //如果bytes数组的长度小于结构体的大小
+            if (size > bytes.Length) {
+                return null;
+            }
+
+            IntPtr objPtr = Marshal.AllocHGlobal(size);
+            Marshal.Copy(bytes, 0, objPtr, size);
+
+            //将数据转换为目标结构体
+            object obj = Marshal.PtrToStructure(objPtr,type);
+
+            Marshal.FreeHGlobal(objPtr);
+
+            return obj;
+        
+        
+        }
+
+
     }
 }

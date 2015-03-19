@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;//for StructLayoutAttribute
 namespace winClient2
 {
     [StructLayoutAttribute(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
-    struct Test {
+    public class  Test {
         public int first;
         public int second;
     }
@@ -28,8 +28,8 @@ namespace winClient2
         
             try
             {  
-//                clientSocket.Connect(new IPEndPoint(ip, mPort)); //配置服务器IP与端口
-                clientSocket.Connect(new IPEndPoint(ip,9201)); //配置服务器IP与端口
+                clientSocket.Connect(new IPEndPoint(ip, mPort)); //配置服务器IP与端口
+                //clientSocket.Connect(new IPEndPoint(ip,9201)); //配置服务器IP与端口
                 Console.WriteLine("连接服务器成功");
             }
             catch
@@ -61,11 +61,14 @@ namespace winClient2
                 }
                 try
                 {
+                    byte[] result=new byte[1024];
                     int receiveLength = clientSocket.Receive(result);
-                    Console.WriteLine("接收服务器消息：{0}", Encoding.ASCII.GetString(result, 0, receiveLength));
+                    Type type=typeof(Test);
+                    Test rr = (Test)Transform.BytesToStruct(result,type);
+                    Console.WriteLine("接收服务器消息：result.first={0},result.second={1}",rr.first,rr.second );
                 }
                 catch {
-                    Console.WriteLine("receive  error!");
+                    Console.WriteLine("接收失败!");
                     break;
                 }
                 counts++;
