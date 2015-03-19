@@ -32,7 +32,11 @@ int main(){
 	struct sockaddr_in servaddr;//server addr
 	
 	//listen
-	listenfd=socket(AF_INET,SOCK_STREAM,0);//use IPv4 and tcp
+	if(-1==listenfd=socket(AF_INET,SOCK_STREAM,0)){//use IPv4 and tcp
+		cout<<"socket init failed"<<endl;
+		exit(1);
+	}
+	
 	bzero(&servaddr,sizeof(servaddr));//zero the server addr
 
 	servaddr.sin_family=AF_INET;
@@ -41,9 +45,15 @@ int main(){
 
 
 	//bind the socket port
-	bind(listenfd,(struct sockaddr*)&servaddr,sizeof(servaddr));
+	if(-1==bind(listenfd,(struct sockaddr*)&servaddr,sizeof(servaddr))){
+		cout<<"bind failed!"<<endl;
+		exit(1);
+	}
 	
-	listen(listenfd,BACKLOG);
+	if(-1==listen(listenfd,BACKLOG)){
+		cout<<"listen failed!"<<endl;
+		exit(1);
+	}
 	
 	signal(SIGCHLD,sig_chld_exit);//recive the child process SIGCHLD signal
 	
@@ -64,7 +74,7 @@ int main(){
 					cout<<"read the msg "<<buf<<endl;
 				}
 				string msg="hello,welcome to guang server\n";
-				if(send(connfd,msg.c_str(),msg.length,0)==-1){
+				if(send(connfd,msg.c_str(),msg.length(),0)==-1){
 					cout<<"send error!\n"<<endl;
 					close(connfd);
 					exit(0);
