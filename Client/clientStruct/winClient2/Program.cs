@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;//for StructLayoutAttribute
 namespace winClient2
 {
     [Serializable]
-    [StructLayoutAttribute(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+    [StructLayoutAttribute(LayoutKind.Sequential,CharSet=CharSet.Unicode,Pack=1)]
     public struct  Test {
         public int first;
         public int second;
@@ -50,7 +50,7 @@ namespace winClient2
                 //return;
             }
 
-            Test tst=new Test(11,18,"hehe");
+            Test tst=new Test(11,18,"hello\r\n");
             /**
             tst.first=9;
             tst.second=13;
@@ -58,7 +58,7 @@ namespace winClient2
             tst.msg =m.ToCharArray();*/
             //tst.msg = "ha";
             int counts = 0;
-            int MAXTIME = 1;
+            int MAXTIME = 3;
             byte[] msg = Transform.StructToBytes(tst);
             while (counts < MAXTIME)
             {
@@ -76,7 +76,7 @@ namespace winClient2
                     
                 }
              
-                /**
+                
                 try
                 {
                     Console.WriteLine("wait for receive");
@@ -84,13 +84,14 @@ namespace winClient2
                     int receiveLength = clientSocket.Receive(result);
                     Type type=typeof(Test);
                     Test rr = (Test)Transform.BytesToStruct(result,type);
-                    Console.WriteLine("接收服务器消息：result.first={0},result.second={1},msg={2}",rr.first,rr.second,rr.msg );
+                    string ss = new string(rr.msg);
+                    Console.WriteLine("接收服务器消息：result.first={0},result.second={1},msg={2}",rr.first,rr.second,ss );
                 }
                 catch {
                     Console.WriteLine("接收失败!");
                     break;
                 }
-                 */
+                
                 counts++;
             }
             Console.ReadKey();
