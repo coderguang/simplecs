@@ -29,10 +29,17 @@ void sig_chld_exit(int signo){
 
 }
 struct Test{
+	int id;
 	int first;
 	int second;
+	int error;
 	char msg[512];
-	//char msg[20];
+
+};
+struct Test2{
+	int id;
+	int first;
+	int second;
 
 };
 ssize_t readn(int fd,void *vptr,size_t n){
@@ -41,6 +48,7 @@ ssize_t readn(int fd,void *vptr,size_t n){
 	char *ptr;
 	
 	ptr=(char*)vptr;
+	//ptr=ptr-sizeof(int);
 	nleft=n;
 
 	while(nleft>0){
@@ -126,58 +134,33 @@ int main(){
 		exit(1);
 	}
 	
-	signal(SIGCHLD,sig_chld_exit);//recive the child process SIGCHLD signal
+	//signal(SIGCHLD,sig_chld_exit);//recive the child process SIGCHLD signal
 	
 	for(;;){
 		socklen_t clilen=sizeof(cliaddr);	
 		
 		connfd=accept(listenfd,(struct sockaddr*)&cliaddr,&clilen);//accept the client connections
-		
-		//cout<<"at time "<<GetTimeNow()<<" "<<inet_ntoa(cliaddr.sin_addr)<<" connectiosn"<<endl;
-		
-		//fork the child process
-		//if(fork()==0){
 			while(true){
 				Test msg;
-				//memset(&msg,0,sizeof(msg));
-				//char buf[MAXSIZE];
-				//int rval;
-				//read the stream
-				//if((rval=read(connfd,buf,MAXSIZE))>0){
-				//	cout<<"read the msg "<<buf<<endl;
-				//}
-				ssize_t n;
-				if((n=readn(connfd,&msg,sizeof(msg)))<0){
+				int id;
+				read(connfd,&id,4);
+				cout<<"id="<<id<<endl;
+				if(readn(connfd,&msg.first,sizeof(msg)-4)<0){
 					cout<<"nread is <0"<<endl;
 				}
 					
 				cout<<"msg.first="<<msg.first<<" ,msg.second="<<msg.second<<endl;
-				//cout<<"msg.msg="<<msg.msg<<endl;
-				//int sum=msg.first+msg.second;
-				//string welcome="hello,welcome to guang server\n";
-				//string ms=welcome+IntToStr(sum);
-				/**
-				Test sersum;
-				sersum.first=33;
-				sersum.second=44;
-				//sersum.msg=msg.msg;
-				memcpy((void*)sersum.msg,(void*)msg.msg,sizeof(msg.msg));
-				writen(connfd,&sersum,sizeof(sersum));
-				*/
+				cout<<"msg.error="<<msg.error<<endl;
+				msg.id=1001;
 				writen(connfd,&msg,sizeof(msg));
 				
-				/**if(send(connfd,ms.c_str(),ms.length(),0)==-1){
-					cout<<"send error!\n"<<endl;
-					close(connfd);
-					exit(0);
-				}*/
 				
 			}
 
-//		}
 		close(connfd);
 	
 
 	}
+	exit(0);
 	
 }
