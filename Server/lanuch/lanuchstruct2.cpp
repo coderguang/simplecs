@@ -1,5 +1,5 @@
-#define _UNICODE
-#define UNICODE
+//#define _UNICODE
+//#define UNICODE
 #include <stdio.h>
 #include <errno.h>
 #include <strings.h>
@@ -31,9 +31,8 @@ void sig_chld_exit(int signo){
 struct Test{
 	int first;
 	int second;
-	//char msg[10];
-	//wchar_t msg[10];
-	string msg;
+	char msg[512];
+	//char msg[20];
 
 };
 ssize_t readn(int fd,void *vptr,size_t n){
@@ -72,26 +71,26 @@ ssize_t writen(int fd,const void *vptr,size_t n){
 
 	const char *ptr;
 	ptr=(char*)vptr;
-	//wcout<<"start write"<<endl;
+	//cout<<"start write"<<endl;
 	nleft=n;
 	
 	while(nleft>0){
 		if((nwritten=write(fd,ptr,nleft))<=0){
 			if(nwritten<0&&errno==EINTR){
-				wcout<<"nwritten<0"<<endl;
+				cout<<"nwritten<0"<<endl;
 				nwritten=0;
 			}else{
-				wcout<<"-1"<<endl;
+				cout<<"-1"<<endl;
 				return (-1);
 			}
 
 		}
 		nleft=nleft-nwritten;
 		ptr=ptr+nwritten;
-//		wcout<<"yes"<<endl;
+//		cout<<"yes"<<endl;
 
 	}
-	//wcout<<"write complete"<<endl;
+	//cout<<"write complete"<<endl;
 	return n;
 
 }
@@ -105,7 +104,7 @@ int main(){
 	
 	//listen
 	if(-1==(listenfd=socket(AF_INET,SOCK_STREAM,0))){//use IPv4 and tcp
-		wcout<<"socket init failed"<<endl;
+		cout<<"socket init failed"<<endl;
 		exit(1);
 	}
 	
@@ -118,61 +117,64 @@ int main(){
 
 	//bind the socket port
 	if(-1==bind(listenfd,(struct sockaddr*)&servaddr,sizeof(servaddr))){
-		wcout<<"bind failed!"<<endl;
+		cout<<"bind failed!"<<endl;
 		exit(1);
 	}
 	
 	if(-1==listen(listenfd,BACKLOG)){
-		wcout<<"listen failed!"<<endl;
+		cout<<"listen failed!"<<endl;
 		exit(1);
 	}
 	
-	//signal(SIGCHLD,sig_chld_exit);//recive the child process SIGCHLD signal
+	signal(SIGCHLD,sig_chld_exit);//recive the child process SIGCHLD signal
 	
 	for(;;){
 		socklen_t clilen=sizeof(cliaddr);	
 		
 		connfd=accept(listenfd,(struct sockaddr*)&cliaddr,&clilen);//accept the client connections
 		
-		//wcout<<"at time "<<GetTimeNow()<<" "<<inet_ntoa(cliaddr.sin_addr)<<" connectiosn"<<endl;
+		//cout<<"at time "<<GetTimeNow()<<" "<<inet_ntoa(cliaddr.sin_addr)<<" connectiosn"<<endl;
 		
 		//fork the child process
-	//	if(fork()==0){
-			wcout<<"sizeof(string)="<<sizeof(string)<<endl;
-			Test msg;
+		//if(fork()==0){
 			while(true){
+				Test msg;
 				//memset(&msg,0,sizeof(msg));
 				//char buf[MAXSIZE];
 				//int rval;
 				//read the stream
 				//if((rval=read(connfd,buf,MAXSIZE))>0){
-				//	wcout<<"read the msg "<<buf<<endl;
+				//	cout<<"read the msg "<<buf<<endl;
 				//}
 				ssize_t n;
-				if((n=readn(connfd,&msg,sizeof(msg)))==0)
-					continue;
-				wcout<<"msg.first="<<msg.first<<" ,msg.second="<<msg.second<<endl;
-				//wcout<<"msg.msg="<<msg.msg<<endl;
+				if((n=readn(connfd,&msg,sizeof(msg)))<0){
+					cout<<"nread is <0"<<endl;
+				}
+					
+				cout<<"msg.first="<<msg.first<<" ,msg.second="<<msg.second<<endl;
+				//cout<<"msg.msg="<<msg.msg<<endl;
 				//int sum=msg.first+msg.second;
 				//string welcome="hello,welcome to guang server\n";
 				//string ms=welcome+IntToStr(sum);
-				
+				/**
 				Test sersum;
 				sersum.first=33;
 				sersum.second=44;
-				sersum.msg="guangs";
+				//sersum.msg=msg.msg;
+				memcpy((void*)sersum.msg,(void*)msg.msg,sizeof(msg.msg));
 				writen(connfd,&sersum,sizeof(sersum));
-				//writen(connfd,&msg,sizeof(msg));
+				*/
+				writen(connfd,&msg,sizeof(msg));
 				
 				/**if(send(connfd,ms.c_str(),ms.length(),0)==-1){
-					wcout<<"send error!\n"<<endl;
+					cout<<"send error!\n"<<endl;
 					close(connfd);
 					exit(0);
 				}*/
 				
 			}
 
-	//	}
+//		}
 		close(connfd);
 	
 
