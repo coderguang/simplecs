@@ -10,34 +10,32 @@ using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;//for StructLayoutAttribute
 namespace winClient2
 {
+
     [Serializable]
     [StructLayoutAttribute(LayoutKind.Sequential,CharSet=CharSet.Unicode,Pack=1)]
     public struct  Test {
         public int first;
         public int second;
         //字符串
-        //[MarshalAs(UnmanagedType.ByValArray,SizeConst=10)]
-        //public char [] msg; 
-        /**public Test(int one, int two, string str) {
+        [MarshalAs(UnmanagedType.ByValArray,SizeConst=512)]
+        public char [] msg; 
+        public Test(int one, int two, string str) {
             this.first = one;
             this.second = two;
-            this.msg = str.PadRight(10, '\0').ToCharArray();        
-            //this.msg = str.ToCharArray();
-        }*/
+            this.msg = str.PadRight(512, '\0').ToCharArray();        
+        }
         //[MarshalAs(UnmanagedType.ByValTStr,SizeConst=256)]
-        public string msg ;
+      /**  public string msg ;
         public Test(int f, int s, string str) {
             this.first = f;
             this.second = s;
             this.msg = str;
         
         }
-       
+       */
     }
     class Program
-    {
-        private static byte[] result = new byte[1024];
-      
+    { 
         static void Main(string[] args)
         {
             IPAddress ip = IPAddress.Parse("182.254.233.115");
@@ -57,13 +55,17 @@ namespace winClient2
                 //return;
             }
 
-            Test tst=new Test(11,18,"hello\r\n");
+            Test tst=new Test(11,18,"hello,this is guang client,你好啊");
             /**
             tst.first=9;
             tst.second=13;
             string m = "he";
             tst.msg =m.ToCharArray();*/
             //tst.msg = "ha";
+            string stt=new string(tst.msg);
+            char[] ttt = stt.ToCharArray();
+           // Console.WriteLine("first={0},second={1},msg={2}", tst.first, tst.second, tst.msg);
+            Console.WriteLine(tst.msg);
             int counts = 0;
             int MAXTIME = 1;
             byte[] msg = Transform.StructToBytes(tst);
@@ -87,11 +89,14 @@ namespace winClient2
                 try
                 {
                     Console.WriteLine("wait for receive");
-                    byte[] result=new byte[1024];
+                    byte[] result=new byte[2048];
                     int receiveLength = clientSocket.Receive(result);
                     Type type=typeof(Test);
                     Test rr = (Test)Transform.BytesToStruct(result,type);
-                    Console.WriteLine("接收服务器消息：result.first={0},result.second={1},msg={2}",rr.first,rr.second,rr.msg );
+                    string ss = new string(rr.msg);
+                   Console.WriteLine("接收服务器消息：result.first={0},result.second={1},msg={2}",rr.first,rr.second,rr.msg.ToString() );
+                   Console.WriteLine("接收服务器消息：result.first={0},result.second={1},msg={2}",rr.first,rr.second,ss);
+                    
                 }
                 catch {
                     Console.WriteLine("接收失败!");
