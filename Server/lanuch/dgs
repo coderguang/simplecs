@@ -1,1 +1,0 @@
-g++ -g lanuchstruct.cpp -o lanuchstruct ../lib/liblog.a -std=c++11
