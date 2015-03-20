@@ -35,7 +35,7 @@ namespace winClient2
             }
 
             IntPtr objPtr = Marshal.AllocHGlobal(size);
-            Marshal.Copy(bytes, 0, objPtr, size);
+            Marshal.Copy(bytes, 0, objPtr+4, size);
 
             //将数据转换为目标结构体
             object obj = Marshal.PtrToStructure(objPtr,type);
@@ -44,31 +44,7 @@ namespace winClient2
 
             return obj;  
         }
-        public static object BytesToStruct2(byte[] bytes, Type type)
-        {
-            object obj = new object();
-            int size = Marshal.SizeOf(type);
-
-            IntPtr objPtr = Marshal.AllocHGlobal(size);
-            try
-            {
-                Marshal.Copy(bytes, 0, objPtr, size);
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                Console.WriteLine(ex.Message);
-
-            }
-            catch (ArgumentNullException ex) {
-                Console.WriteLine(ex.Message);
-            }
-            //将数据转换为目标结构体
-            obj = (object)Marshal.PtrToStructure(objPtr, type);
-
-            Marshal.FreeHGlobal(objPtr);
-
-            return obj;
-        }
+      
 
     }
 }
