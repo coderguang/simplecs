@@ -1,0 +1,1 @@
+g++ -g LogProc.cpp -o LogProc -lrt -lpthread -std=c++11 ../lib/liblog.a
