@@ -1,5 +1,5 @@
 cd log
 rm *
 cd ..
-g++ -g testlog.cpp -o logg ../lib/liblog.a -std=c++11 -lpthread -D_REENTRANT
+g++ -g testlog.cpp -o logg ../lib/liblog.a -std=c++11 -lpthread -D_REENTRANT -lrt
 
