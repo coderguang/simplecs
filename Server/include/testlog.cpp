@@ -14,10 +14,10 @@ using namespace std;
 struct mLogMsg{
 	LogType type;
 	Level level;
-	//string msg;
+	string msg;
 };
-const int MAXLOGQUEUE=100;
-queue<mLogMsg> logQue;
+//const int MAXLOGQUEUE=100;
+//queue<mLogMsg> logQue;
 
 struct shared{
 	sem_t *mmutex;
@@ -27,13 +27,15 @@ struct shared{
 
 int main(){
 	int fd;
-	queue<mLogMsg> *ptr;
+	//queue<mLogMsg> *ptr;
+	mLogMsg *ptr;
 	
 	fd=shm_open("mlogShm",O_RDWR,0644);
 	if(fd<0)
 		cout<<"open share memory faild"<<endl;
 	
-	ptr=(queue<mLogMsg>*)mmap(NULL,sizeof(mLogMsg)*MAXLOGQUEUE,PROT_READ|PROT_WRITE,MAP_SHARED,fd,0);
+	//ptr=(queue<mLogMsg>*)mmap(NULL,sizeof(mLogMsg)*MAXLOGQUEUE,PROT_READ|PROT_WRITE,MAP_SHARED,fd,0);
+	ptr=(mLogMsg*)mmap(NULL,sizeof(mLogMsg),PROT_READ|PROT_WRITE,MAP_SHARED,fd,0);
 	
 	close(fd);
 	
@@ -53,8 +55,11 @@ int main(){
 			string ms="i";
 			ms+=IntToStr((int)pid);
 			//mLogMsg temp={DBLog,ERROR,ms};
-			mLogMsg temp={DBLog,ERROR};
-			ptr->push(temp);
+			//ptr=new mLogMsg{DBLog,ERROR};
+			ptr->type=DBLog;
+			ptr->level=ERROR;
+			ptr->msg=ms;
+			//ptr->push(temp);
 			cout<<"push success"<<endl;
 			sem_post(sharedSem.mmutex);
 			sem_post(sharedSem.producer);

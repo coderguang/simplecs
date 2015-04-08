@@ -20,10 +20,10 @@ using namespace std;
 struct mLogMsg{
 	LogType type;
 	Level level;
-	//string msg;
+	string msg;
 };
-const int MAXLOGQUEUE=100;
-queue<mLogMsg> logQue;//the log queue in share memory
+//const int MAXLOGQUEUE=100;
+//queue<mLogMsg> logQue;//the log queue in share memory
 
 struct shared{
 	sem_t *mmutex;//producer's semaphore when it push msg to queue
@@ -34,8 +34,9 @@ struct shared{
 
 int main(int argc,char **argv){
 	int fd;
-	queue<mLogMsg> *ptr;
-	
+	//queue<mLogMsg> *ptr;
+	mLogMsg *ptr;
+
 	//delete the share memory if it exist!
 	shm_unlink("mlogShm");
 	
@@ -47,9 +48,10 @@ int main(int argc,char **argv){
 	
 	cout<<"the struct length="<<sizeof(mLogMsg)<<endl;
 	
-	ftruncate(fd,sizeof(mLogMsg)*MAXLOGQUEUE);
+	ftruncate(fd,sizeof(mLogMsg));
 	
-	ptr=(queue<mLogMsg>*)mmap(NULL,sizeof(mLogMsg)*MAXLOGQUEUE,PROT_READ|PROT_WRITE,MAP_SHARED,fd,0);
+	//ptr=(queue<mLogMsg>*)mmap(NULL,sizeof(mLogMsg)*MAXLOGQUEUE,PROT_READ|PROT_WRITE,MAP_SHARED,fd,0);
+	ptr=(mLogMsg*)mmap(NULL,sizeof(mLogMsg),PROT_READ|PROT_WRITE,MAP_SHARED,fd,0);
 
 	close(fd);
 
@@ -61,16 +63,17 @@ int main(int argc,char **argv){
 	shared sharedSem;
 	sharedSem.mmutex=sem_open("mlogMutex",O_CREAT|O_EXCL|O_RDWR,0644,1);
 	sharedSem.producer=sem_open("mlogProducer",O_CREAT|O_EXCL|O_RDWR,0644,0);
-	sharedSem.comsumer=sem_open("mlogComsumer",O_CREAT|O_EXCL|O_RDWR,0644,MAXLOGQUEUE);
+	//sharedSem.comsumer=sem_open("mlogComsumer",O_CREAT|O_EXCL|O_RDWR,0644,MAXLOGQUEUE);
+	sharedSem.comsumer=sem_open("mlogComsumer",O_CREAT|O_EXCL|O_RDWR,0644,1);
 
 	//comsumer works
 	while(true){
 		sem_wait(sharedSem.producer);//wait the producer's push msg to the queue
-		mLogMsg temp=ptr->front();//get the front 
+		//mLogMsg temp=ptr->front();//get the front 
 		//Logger::GetInstance()->Log(temp.type,temp.level,temp.msg);//push it to the background thread's queue
-		string m="helo";
-		Logger::GetInstance()->Log(temp.type,temp.level,m);//push it to the background thread's queue
-		ptr->pop();
+		//string m="helo";
+		Logger::GetInstance()->Log(ptr->type,ptr->level,ptr->msg);//push it to the background thread's queue
+		//ptr->pop();
 		sem_post(sharedSem.comsumer);
 	}
 
