@@ -14,7 +14,8 @@ using namespace std;
 struct mLogMsg{
 	LogType type;
 	Level level;
-	string msg;
+	//string msg;
+	char msg[256];
 };
 //const int MAXLOGQUEUE=100;
 //queue<mLogMsg> logQue;
@@ -52,13 +53,14 @@ int main(){
 			cout<<"come to fork "<<pid<<endl;
 			sem_wait(sharedSem.comsumer);
 			sem_wait(sharedSem.mmutex);
-			string ms="i";
-			ms+=IntToStr((int)pid);
+			//string ms="i";
+			//ms+=IntToStr((int)pid);
 			//mLogMsg temp={DBLog,ERROR,ms};
 			//ptr=new mLogMsg{DBLog,ERROR};
 			ptr->type=DBLog;
-			ptr->level=ERROR;
-			ptr->msg=ms;
+			ptr->level=ERROR;	
+			string ms="helo";
+			ptr->msg=ms.c_str();
 			//ptr->push(temp);
 			cout<<"push success"<<endl;
 			sem_post(sharedSem.mmutex);
