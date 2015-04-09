@@ -2,32 +2,59 @@
 
 DBConnections *DBConnections::dbInstance=nullptr;
 void DBConnections::initDB(){ 
+	
+	InitLog();//must init log before use log
 	if(mysql_server_init(sizeof(server_args)/sizeof(char*),server_args,server_groups)){ 
 		Log(DBLog,FATAL,"database init failed!");
 		exit(1);
 	};
 	
 	//lastest version	
+		regit=new MMYSQL;
+		regit->conn=nullptr;
+		regit->flag=0;
+		regit->conn=mysql_init(NULL);
 		if(!mysql_real_connect(regit->conn,server.c_str(),regitUser.c_str(),regitPasswd.c_str(),database.c_str(),0,NULL,0)){
+			cout<<mysql_error(regit->conn);
 			Log(DBLog,FATAL,"regitUser  connec failed!");
 			Log(DBLog,FATAL,mysql_error(regit->conn));
 			exit(1);
 		}
+
+		lanuch=new MMYSQL;
+		lanuch->conn=nullptr;
+		lanuch->flag=0;
+		lanuch->conn=mysql_init(NULL);
 		if(!mysql_real_connect(lanuch->conn,server.c_str(),lanuchUser.c_str(),lanuchPasswd.c_str(),database.c_str(),0,NULL,0)){
 			Log(DBLog,FATAL,"lanuchUser connec failed!");
 			Log(DBLog,FATAL,mysql_error(lanuch->conn));
 			exit(1);
 		}
+
+		secure=new MMYSQL;
+		secure->conn=nullptr;
+		secure->flag=0;
+		secure->conn=mysql_init(NULL);
 		if(!mysql_real_connect(secure->conn,server.c_str(),secureUser.c_str(),securePasswd.c_str(),database.c_str(),0,NULL,0)){
 			Log(DBLog,FATAL,"secureUser connec failed!");
 			Log(DBLog,FATAL,mysql_error(secure->conn));
 				exit(1);
 		}
+
+		result=new MMYSQL;
+		result->conn=nullptr;
+		result->flag=0;
+		result->conn=mysql_init(NULL);
 		if(!mysql_real_connect(result->conn,server.c_str(),resultUser.c_str(),resultPasswd.c_str(),database.c_str(),0,NULL,0)){
 			Log(DBLog,FATAL,"resultUser connec failed!");
 			Log(DBLog,FATAL,mysql_error(result->conn));
 			exit(1);
 		}
+
+		getResult=new MMYSQL;
+		getResult->conn=nullptr;
+		getResult->flag=0;
+		getResult->conn=mysql_init(NULL);
 		if(!mysql_real_connect(getResult->conn,server.c_str(),getResultUser.c_str(),getResultPasswd.c_str(),database.c_str(),0,NULL,0)){
 			Log(DBLog,FATAL,"getReusltUser connec failed!");
 			Log(DBLog,FATAL,mysql_error(getResult->conn));
@@ -210,8 +237,13 @@ MMYSQL *DBConnections::GetFree(ConnType type){
 }
 	
 void DBConnections::FreeResult(MYSQL_RES **res){
-	if(nullptr!=res)
+	cout<<"come to free"<<endl;
+	if(nullptr!=res){
+		cout<<"res not null"<<endl;
 		mysql_free_result(*res);
+	}
+	cout<<"free complete"<<endl;
+	
 }
 
 //interface for query
@@ -221,6 +253,7 @@ sql:the sql query
 res:result
 */
 int DBConnections::MyQuery(ConnType type,string sql,MYSQL_RES **res){
+	cout<<"come to query"<<endl;
 	if(0==sql.length()){
 		Log(DBLog,DEBUG,"the sql.length=0");
 		return SQL_NULL;
@@ -343,11 +376,14 @@ int DBConnections::ResetPasswd(string account,string newPasswd){
 }
 //for lanuch
 int DBConnections::Lanuch(string account,string passwd,struct Lanuch &lanResult){
+		cout<<"come to lanuch"<<endl;
 		string sql="select name,lastlanuch,lastIP,setting from accounts where account='"+account+"' AND passwd='"+passwd+"'";
 		MYSQL_RES *res;
 		int rNum=MyQuery(LANUCH,sql,&res);
+		cout<<"return is "<<rNum<<endl;
 		if(0==rNum){
 			int rowLegth=(int)mysql_num_rows(res);
+			cout<<"return len="<<rowLegth<<endl;
 			if(1==rowLegth){
 				MYSQL_ROW row;			
 				if(NULL!=(row=mysql_fetch_row(res))){
@@ -365,7 +401,9 @@ int DBConnections::Lanuch(string account,string passwd,struct Lanuch &lanResult)
 				}
 			}else{	
 				FreeResult(&res);
+				cout<<"here come"<<endl;
 				Log(LanuchLog,INFO,"account:"+account+" not match the passwd");
+				cout<<"account:"<<account<<" lanuch error"<<endl; 
 				return ACCOUNT_PASSWD_ERROR;
 			}
 		}else 

@@ -120,7 +120,7 @@ static void startProc(int connfd){
 						string account=ptr->account;
 						string passwd=ptr->passwd;
 						cout<<"acc="<<account<<"  passwd="<<passwd<<endl;
-						Lanuch lanResult;
+						struct Lanuch lanResult;
 						int rNum=LanuchAccount(account,passwd,lanResult);
 						cout<<"rNum="<<rNum<<endl;
 					break;

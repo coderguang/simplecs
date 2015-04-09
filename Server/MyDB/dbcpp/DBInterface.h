@@ -25,7 +25,9 @@ static int ResetPasswd(string account,string newPasswd){
 }
 
 static int LanuchAccount(string account,string passwd,Lanuch &lanResult){
+	cout<<"come to dbinterface"<<endl;
 	int rNum=DBConnections::GetInstance()->Lanuch(account,passwd,lanResult);
+	cout<<"return interface is "<<rNum<<endl;
 	return rNum;
 }
 
