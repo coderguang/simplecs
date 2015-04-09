@@ -1,1 +1,136 @@
-﻿
+﻿4/9/2015 6:36:28 PM
+Error  LanuchLog:连接服务器失败..
+4/9/2015 6:37:08 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 6:41:10 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 6:41:36 PM
+Error  LanuchLog:连接服务器失败..
+4/9/2015 7:20:35 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:20:35 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:20:51 PM
+Error  LanuchLog:连接服务器失败..
+4/9/2015 7:20:52 PM
+Info  网络未连接...
+4/9/2015 7:23:39 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:23:39 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:24:31 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:24:31 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:24:47 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:24:47 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:28:32 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:28:32 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:28:52 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:28:52 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:29:02 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:29:02 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:29:13 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:29:13 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:29:17 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:29:17 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:29:19 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:29:19 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:29:22 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:29:22 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:29:24 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:29:24 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:29:25 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:29:25 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:29:28 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:29:28 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:31:28 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:31:28 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:31:43 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:31:43 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:33:34 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:33:34 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:33:40 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:33:40 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:34:34 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:34:34 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:35:07 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:35:07 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:35:15 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:35:15 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:37:21 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:37:21 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:37:29 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:37:29 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:45:50 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:45:50 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:45:55 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:45:55 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:46:04 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:46:04 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:46:09 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:46:09 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:46:12 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:46:12 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:47:00 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:47:00 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:57:01 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:57:01 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000
+4/9/2015 7:57:16 PM
+Info  LanuchLog:连接服务器成功..
+4/9/2015 7:57:16 PM
+Info  Assets.Script.Proto.pLanuch proto send success!protoID=1000

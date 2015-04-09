@@ -21,6 +21,7 @@ namespace Assets.Script.Log
         RegitLog,   
         RoomLog,    
         GameLog,    //in gameing
-        ResultLog    //complete the game
+        ResultLog,    //complete the game
+        ProtoLog    //proto log
     }
 }

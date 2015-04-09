@@ -49,7 +49,11 @@
      <Compile Include="Assets\Script\Log\LogEnum.cs" />
      <Compile Include="Assets\Script\Log\MLogger.cs" />
      <Compile Include="Assets\Script\Log\testlog.cs" />
+     <Compile Include="Assets\Script\MConnection.cs" />
      <Compile Include="Assets\Script\Proto\MTransform.cs" />
+     <Compile Include="Assets\Script\Proto\Message.cs" />
+     <Compile Include="Assets\Script\Proto\pLanuch.cs" />
+     <Compile Include="Assets\Script\Proto\protoID.cs" />
      <Compile Include="Assets\Script\Time\mTimer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
