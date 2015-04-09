@@ -61,7 +61,7 @@ int main(int argc,char **argv){
 		sem_wait(&ptr->mutex);
 		long offset=ptr->msgoff[index];
 		
-		printf("index=%d: %s\n",index,&ptr->msgdata[offset]);
+		//printf("index=%d: %s\n",index,&ptr->msgdata[offset]);
 		string ms=(string)&ptr->msgdata[offset];
 		Logger::GetInstance()->Log(ptr->type[offset],ptr->level[offset],ms);
 		

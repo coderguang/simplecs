@@ -237,12 +237,12 @@ MMYSQL *DBConnections::GetFree(ConnType type){
 }
 	
 void DBConnections::FreeResult(MYSQL_RES **res){
-	cout<<"come to free"<<endl;
+	//cout<<"come to free"<<endl;
 	if(nullptr!=res){
-		cout<<"res not null"<<endl;
+	//	cout<<"res not null"<<endl;
 		mysql_free_result(*res);
 	}
-	cout<<"free complete"<<endl;
+	//cout<<"free complete"<<endl;
 	
 }
 
@@ -253,7 +253,7 @@ sql:the sql query
 res:result
 */
 int DBConnections::MyQuery(ConnType type,string sql,MYSQL_RES **res){
-	cout<<"come to query"<<endl;
+	//cout<<"come to query"<<endl;
 	if(0==sql.length()){
 		Log(DBLog,DEBUG,"the sql.length=0");
 		return SQL_NULL;
@@ -376,14 +376,14 @@ int DBConnections::ResetPasswd(string account,string newPasswd){
 }
 //for lanuch
 int DBConnections::Lanuch(string account,string passwd,struct Lanuch &lanResult){
-		cout<<"come to lanuch"<<endl;
+		//cout<<"come to lanuch"<<endl;
 		string sql="select name,lastlanuch,lastIP,setting from accounts where account='"+account+"' AND passwd='"+passwd+"'";
 		MYSQL_RES *res;
 		int rNum=MyQuery(LANUCH,sql,&res);
-		cout<<"return is "<<rNum<<endl;
+		//cout<<"return is "<<rNum<<endl;
 		if(0==rNum){
 			int rowLegth=(int)mysql_num_rows(res);
-			cout<<"return len="<<rowLegth<<endl;
+			//cout<<"return len="<<rowLegth<<endl;
 			if(1==rowLegth){
 				MYSQL_ROW row;			
 				if(NULL!=(row=mysql_fetch_row(res))){
@@ -401,9 +401,9 @@ int DBConnections::Lanuch(string account,string passwd,struct Lanuch &lanResult)
 				}
 			}else{	
 				FreeResult(&res);
-				cout<<"here come"<<endl;
+			//	cout<<"here come"<<endl;
 				Log(LanuchLog,INFO,"account:"+account+" not match the passwd");
-				cout<<"account:"<<account<<" lanuch error"<<endl; 
+			//	cout<<"account:"<<account<<" lanuch error"<<endl; 
 				return ACCOUNT_PASSWD_ERROR;
 			}
 		}else 
