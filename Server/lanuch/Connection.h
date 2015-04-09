@@ -98,12 +98,12 @@ static void startProc(int connfd){
 				
 			cout<<"the id is "<<id<<endl;
 			
-			Message *ptr;
 			switch(id){
 					case pLanuchID:
 						cout<<"get the lanuch proto"<<endl;
-						ptr=(Message*)new pLanuch();
+						pLanuch *ptr=new pLanuch();
 						readn(connfd,&ptr->account,sizeof(pLanuch)-4);
+						cout<<"accounts="<<ptr->account<<"  passwd="<<ptr->passwd<<endl;
 					break;
 				
 
