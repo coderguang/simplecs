@@ -8,9 +8,7 @@ namespace Assets.Script.Time
     class MTimer
     {
         private static MTimer _instance;
-        private static DateTime time;
         private MTimer() {
-            time = new DateTime();
         }
         public static MTimer GetInstance() {
             if (null == _instance)

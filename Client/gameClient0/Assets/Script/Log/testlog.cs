@@ -11,6 +11,6 @@ public class testlog : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        MLogger.Log(MLogLevel.WARN,MLogType.LanuchLog,  "hello,boy");
+        //MLogger.Log(MLogLevel.WARN,MLogType.LanuchLog,  "hello,boy");
 	}
 }
