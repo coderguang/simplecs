@@ -14,6 +14,7 @@
 #include <iostream>
 #include "../proto/proto.h"
 #include "../MyDB/dbcpp/DBInterface.h"
+#include "../MyDB/dbcpp/DBErr.h"
 using namespace std;
 
 
@@ -106,14 +107,22 @@ static void startProc(int connfd){
 			//cout<<"n="<<n<<endl;	
 			//cout<<"the id is "<<id<<endl;
 			
+
 			switch(id){
 					case pLanuchID:
 						cout<<"get the lanuch proto"<<endl;
 						pLanuch *ptr=new pLanuch();
-						cout<<"&ptr="<<&ptr<<endl;
+						//cout<<"&ptr="<<&ptr<<endl;
 						memset(ptr,'\0',sizeof(pLanuch));
+						ptr->id=id;
 						readn(connfd,&ptr->account,sizeof(pLanuch)-4);
-						cout<<"accounts="<<ptr->account<<"  passwd="<<ptr->passwd<<endl;
+						cout<<"id="<<ptr->id<<"   accounts="<<ptr->account<<"  passwd="<<ptr->passwd<<endl;
+						string account=ptr->account;
+						string passwd=ptr->passwd;
+						cout<<"acc="<<account<<"  passwd="<<passwd<<endl;
+						Lanuch lanResult;
+						int rNum=LanuchAccount(account,passwd,lanResult);
+						cout<<"rNum="<<rNum<<endl;
 					break;
 				
 

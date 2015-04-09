@@ -36,12 +36,13 @@ const string server="localhost";
 const string database = "simplecs";
 
 //conn sum,now all connections max sum is 15
+/**
 const int REGITMAX=15;
 const int LANUCHMAX = 15;
 const int SECUREMAX = 15;
 const int RESULTMAX = 15;
 const int GETRESULTMAX = 15;
-
+*/
 
 
 //all user and passwd

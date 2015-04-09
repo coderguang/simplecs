@@ -14,12 +14,12 @@
 using namespace std;
 
 //int to string
-string IntToStr(int value){
+static string IntToStr(int value){
 		stringstream ss;
 		ss<<value;
 		return ss.str();
 		}
-int StrToInt(string value){
+static int StrToInt(string value){
 		int number;
 		stringstream ss;
 		ss<<value;		//string -->stringstream
@@ -28,7 +28,7 @@ int StrToInt(string value){
 }
 
 //get the time now
-string GetTimeNow(){
+static string GetTimeNow(){
 		char *s;
 		time_t now;
 		time(&now);

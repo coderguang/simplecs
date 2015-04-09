@@ -6,7 +6,34 @@ void DBConnections::initDB(){
 		Log(DBLog,FATAL,"database init failed!");
 		exit(1);
 	};
-
+	
+	//lastest version	
+		if(!mysql_real_connect(regit->conn,server.c_str(),regitUser.c_str(),regitPasswd.c_str(),database.c_str(),0,NULL,0)){
+			Log(DBLog,FATAL,"regitUser  connec failed!");
+			Log(DBLog,FATAL,mysql_error(regit->conn));
+			exit(1);
+		}
+		if(!mysql_real_connect(lanuch->conn,server.c_str(),lanuchUser.c_str(),lanuchPasswd.c_str(),database.c_str(),0,NULL,0)){
+			Log(DBLog,FATAL,"lanuchUser connec failed!");
+			Log(DBLog,FATAL,mysql_error(lanuch->conn));
+			exit(1);
+		}
+		if(!mysql_real_connect(secure->conn,server.c_str(),secureUser.c_str(),securePasswd.c_str(),database.c_str(),0,NULL,0)){
+			Log(DBLog,FATAL,"secureUser connec failed!");
+			Log(DBLog,FATAL,mysql_error(secure->conn));
+				exit(1);
+		}
+		if(!mysql_real_connect(result->conn,server.c_str(),resultUser.c_str(),resultPasswd.c_str(),database.c_str(),0,NULL,0)){
+			Log(DBLog,FATAL,"resultUser connec failed!");
+			Log(DBLog,FATAL,mysql_error(result->conn));
+			exit(1);
+		}
+		if(!mysql_real_connect(getResult->conn,server.c_str(),getResultUser.c_str(),getResultPasswd.c_str(),database.c_str(),0,NULL,0)){
+			Log(DBLog,FATAL,"getReusltUser connec failed!");
+			Log(DBLog,FATAL,mysql_error(getResult->conn));
+			exit(1);
+		}
+	/**
 	//init MMYSQL []
 	for(int i=0;i<REGITMAX;i++){
 		regit[i]=new MMYSQL;
@@ -71,10 +98,12 @@ void DBConnections::initDB(){
 			exit(1);
 		}
 	}
+	*/
 };
 	
 //close all conn
 void DBConnections::DBClose(){
+/**
 	for(int i=0;i<REGITMAX;i++){
 		mysql_close(regit[i]->conn);
 	}
@@ -92,7 +121,13 @@ void DBConnections::DBClose(){
 	for(int i=0;i<GETRESULTMAX;i++){
 		mysql_close(getResult[i]->conn);
 	}
-			
+	*/		
+	mysql_close(regit->conn);
+	mysql_close(lanuch->conn);
+	mysql_close(secure->conn);
+	mysql_close(result->conn);
+	mysql_close(getResult->conn);
+	
 	mysql_server_end();
 	delete dbInstance;
 	Log(DBLog,INFO,"DBclose success!");
@@ -102,6 +137,7 @@ void DBConnections::DBClose(){
 MMYSQL *DBConnections::GetFree(ConnType type){
 	switch(type){
 		case REGIT:
+			/**
 			for(int i=0;i<REGITMAX;i++){
 				if(0==regit[i]->flag){//free
 					//lock();
@@ -111,8 +147,11 @@ MMYSQL *DBConnections::GetFree(ConnType type){
 					return regit[i];
 				}
 			};
+			*/
+			return regit;
 			break;
 		case LANUCH:
+			/**
 			for(int i=0;i<LANUCHMAX;i++){
 				if(0==lanuch[i]->flag){//free
 					unique_lock<mutex> lock(lanuchMutex[i]);
@@ -121,8 +160,11 @@ MMYSQL *DBConnections::GetFree(ConnType type){
 					return lanuch[i];
 				}
 			};
+			*/
+			return lanuch;
 			break;
 		case SECURE:
+			/**
 			 for(int i=0;i<SECUREMAX;i++){
 				if(0==secure[i]->flag){//free
 					unique_lock<mutex> lock(secureMutex[i]);
@@ -131,8 +173,11 @@ MMYSQL *DBConnections::GetFree(ConnType type){
 					return secure[i];
 				}
 			};
+			*/
+			return secure;
 			break;
 		case RESULT:
+			/**
 			 for(int i=0;i<RESULTMAX;i++){
 				if(0==result[i]->flag){//free
 					unique_lock<mutex> lock(resultMutex[i]);
@@ -141,8 +186,11 @@ MMYSQL *DBConnections::GetFree(ConnType type){
 					return result[i];
 				}
 			};
+			*/
+			return result;
 			break;
 		case GETRESULT:
+			/**
 			 for(int i=0;i<GETRESULTMAX;i++){
 				if(0==getResult[i]->flag){//free
 					unique_lock<mutex> lock(getResultMutex[i]);
@@ -151,6 +199,8 @@ MMYSQL *DBConnections::GetFree(ConnType type){
 					return getResult[i];
 				}
 			};
+			*/
+			return getResult;
 			break;
 		} 
 		//if no conn,return nullptr
