@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.IO;
-public class Logger {
+using Assets.Script.Time;
+public class MLogger {
 
     private static string file = "log.txt";
     private static FileStream myFs;
     private static StreamWriter mySw;
 
-    private static Logger _instance=null;
+    private static MLogger _instance=null;
 
-    private Logger() {
+    private MLogger() {
         Init();
     
     }
@@ -24,18 +25,20 @@ public class Logger {
         System.Console.WriteLine("write ok");
     }
 
-    public static void Log(string msg) {
+    public static void Log(string msg)
+    {
+        mySw.WriteLine(MTimer.GetTime());
         mySw.WriteLine(msg);
+        mySw.Flush();
     }
-
     public static void Destroy() {
         mySw.Close();
         myFs.Close();
     }
 
-    public static Logger GetInstance() { 
+    public static MLogger GetInstance() { 
         if(null==_instance)
-              _instance=new Logger();
+              _instance=new MLogger();
         return _instance;
     
     }
