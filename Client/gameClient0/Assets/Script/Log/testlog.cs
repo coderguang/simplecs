@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Script.Log;
 
 public class testlog : MonoBehaviour {
 
@@ -10,9 +11,6 @@ public class testlog : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        MLogger.Log("hello");
-        MLogger.Log("ok");
-        //Logger.Destroy();
-	    
+        MLogger.Log(MLogLevel.WARN,MLogType.LanuchLog,  "hello,boy");
 	}
 }
