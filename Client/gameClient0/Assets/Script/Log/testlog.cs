@@ -14,7 +14,6 @@ public class testlog : MonoBehaviour {
         p.account = "sg1".ToCharArray();
         p.passwd = "sg1passwd".ToCharArray();
         MConnection.Send(p);
-
 	}
 	
 	// Update is called once per frame
