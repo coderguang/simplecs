@@ -1,4 +1,4 @@
-mysql -u root -psimplecs@db<<EOF 2>>log 1>>info 
+mysql -u root -pmaildb<<EOF 2>>log 1>>info 
 
 #regitUser for regit
 grant insert,select(account) on simplecs.accounts to 'regitUser'@'localhost' identified by 'regiter';

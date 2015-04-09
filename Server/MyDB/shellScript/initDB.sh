@@ -1,4 +1,4 @@
-mysql -u root -psimplecs@db <<EOF  2>>log  1>>info
+mysql -u root -pmaildb <<EOF  2>>log  1>>info
 use simplecs;
 
 #insert into questions

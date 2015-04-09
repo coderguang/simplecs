@@ -13,6 +13,7 @@
 #include <fcntl.h>
 #include <iostream>
 #include "../proto/proto.h"
+#include "../MyDB/dbcpp/DBInterface.h"
 using namespace std;
 
 
@@ -93,22 +94,24 @@ static void startProc(int connfd){
 			int id=0;
 			int n=read(connfd,&id,4);
 			if(n<0){
-				if(errno!=EINTR&&errno!=EAGAIN){	//disconections
+				if(errno!=EINTR){	//disconections
 					cout<<"socket disconnections..."<<endl;
 					close(connfd);
 					exit(1);
-				}
+				}else
+					continue;
 			}else if(0==n){ /*EOF in the stream*/
 					continue;
 			}
-				
-			cout<<"the id is "<<id<<endl;
+			//cout<<"n="<<n<<endl;	
+			//cout<<"the id is "<<id<<endl;
 			
 			switch(id){
 					case pLanuchID:
 						cout<<"get the lanuch proto"<<endl;
 						pLanuch *ptr=new pLanuch();
-						//bzero(&ptr,sizeof(pLanuch));
+						cout<<"&ptr="<<&ptr<<endl;
+						memset(ptr,'\0',sizeof(pLanuch));
 						readn(connfd,&ptr->account,sizeof(pLanuch)-4);
 						cout<<"accounts="<<ptr->account<<"  passwd="<<ptr->passwd<<endl;
 					break;
