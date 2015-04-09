@@ -16,9 +16,9 @@ public class Logger {
 
     private void Init() {
 
-      //  if (!File.Exists(file)){
+        if (!File.Exists(file)){
             myFs = new FileStream(file, FileMode.Create);
-        //}
+        }
         mySw = new StreamWriter(file, true, System.Text.Encoding.GetEncoding("utf-8"));
         mySw.WriteLine("hello,this is client log");
         System.Console.WriteLine("write ok");
@@ -28,7 +28,7 @@ public class Logger {
         mySw.WriteLine(msg);
     }
 
-    public void Destroy() {
+    public static void Destroy() {
         mySw.Close();
         myFs.Close();
     }

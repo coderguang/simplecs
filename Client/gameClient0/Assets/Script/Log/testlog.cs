@@ -12,6 +12,7 @@ public class testlog : MonoBehaviour {
 	void Update () {
         Logger.Log("hello");
         Logger.Log("ok");
+        //Logger.Destroy();
 	    
 	}
 }
