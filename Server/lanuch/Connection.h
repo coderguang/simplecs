@@ -90,10 +90,16 @@ static void startProc(int connfd){
 		cout<<"set connfd status failed"<<endl;
 */	
 	while(true){
-			int id;
+			int id=0;
 			int n=read(connfd,&id,4);
-			if(n<=0){
-				continue;
+			if(n<0){
+				if(errno!=EINTR&&errno!=EAGAIN){	//disconections
+					cout<<"socket disconnections..."<<endl;
+					close(connfd);
+					exit(1);
+				}
+			}else if(0==n){ /*EOF in the stream*/
+					continue;
 			}
 				
 			cout<<"the id is "<<id<<endl;
@@ -102,6 +108,7 @@ static void startProc(int connfd){
 					case pLanuchID:
 						cout<<"get the lanuch proto"<<endl;
 						pLanuch *ptr=new pLanuch();
+						//bzero(&ptr,sizeof(pLanuch));
 						readn(connfd,&ptr->account,sizeof(pLanuch)-4);
 						cout<<"accounts="<<ptr->account<<"  passwd="<<ptr->passwd<<endl;
 					break;

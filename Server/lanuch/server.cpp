@@ -75,7 +75,7 @@ int main(){
 				//close(connfd);
 				//exit(0);
 				startProc(connfd);
-				exit(0);
+				//exit(0);
 
 		}
 
