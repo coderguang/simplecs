@@ -1,50 +1,22 @@
-Fri Apr 10 01:37:13 2015
+Fri Apr 10 14:49:05 2015
  Info:account:sg1 not match the passwd
-Fri Apr 10 01:42:49 2015
- Info:do sql query error! select name,lastlanuch,lastIP,setting from accounts where account='sg1ows\ssg1passwdsaeA
-Fri Apr 10 01:43:32 2015
- Info:account:sg1€2 not match the passwd
-Fri Apr 10 01:43:58 2015
- Info:do sql query error! select name,lastlanuch,lastIP,setting from accounts where account='sg1ows\ssg1passwdsaeA
-Fri Apr 10 01:44:04 2015
- Info:do sql query error! select name,lastlanuch,lastIP,setting from accounts where account='sg1ows\ssg1passwdsaeA
-Fri Apr 10 01:44:07 2015
- Info:account:sg1 not match the passwd
-Fri Apr 10 10:43:26 2015
- Info:account:sg1 not match the passwd
-Fri Apr 10 10:43:40 2015
- Info:account:sg1 not match the passwd
-Fri Apr 10 10:43:43 2015
- Info:account:sg1 not match the passwd
-Fri Apr 10 10:43:46 2015
- Info:account:sg1pÜnîpsg1passwd not match the passwd
-Fri Apr 10 10:43:50 2015
- Info:account:sg1 not match the passwd
-Fri Apr 10 10:43:53 2015
- Info:account:sg1 not match the passwd
-Fri Apr 10 10:43:56 2015
- Info:account:sg1TEMPFsg1passwd not match the passwd
-Fri Apr 10 11:39:25 2015
+Fri Apr 10 14:52:06 2015
  Info:lanuch sg2  success!
-Fri Apr 10 11:41:45 2015
- Info:do sql query error! select name,lastlanuch,lastIP,setting from accounts where account='sg2ows\ssg2passwdsaeA
-Fri Apr 10 11:41:54 2015
- Info:do sql query error! select name,lastlanuch,lastIP,setting from accounts where account='sg2ows\ssg2passwdsaeA
-Fri Apr 10 12:15:54 2015
+Fri Apr 10 14:53:26 2015
  Info:lanuch sg2  success!
-Fri Apr 10 12:26:01 2015
- Info:account:sg2i not match the passwd
-Fri Apr 10 12:26:49 2015
+Fri Apr 10 14:55:17 2015
+ Info:account:sg2 not match the passwd
+Fri Apr 10 14:55:26 2015
  Info:lanuch sg2  success!
-Fri Apr 10 12:28:47 2015
- Info:do sql query error! select name,lastlanuch,lastIP,setting from accounts where account='sg2ows\ssg2passwdsaeA
-Fri Apr 10 12:29:06 2015
+Fri Apr 10 14:59:59 2015
+ Info:account:sg2 not match the passwd
+Fri Apr 10 15:00:07 2015
  Info:lanuch sg2  success!
-Fri Apr 10 12:31:42 2015
+Fri Apr 10 15:04:05 2015
+ Info:account:sg2 not match the passwd
+Fri Apr 10 15:04:19 2015
  Info:lanuch sg2  success!
-Fri Apr 10 12:33:50 2015
- Info:lanuch sg2  success!
-Fri Apr 10 12:35:14 2015
- Info:do sql query error! select name,lastlanuch,lastIP,setting from accounts where account='sg2ows\ssg2passwdsaeA
-Fri Apr 10 12:35:27 2015
+Fri Apr 10 15:06:46 2015
+ Info:account:sg2 not match the passwd
+Fri Apr 10 15:06:52 2015
  Info:lanuch sg2  success!
