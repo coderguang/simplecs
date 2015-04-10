@@ -119,10 +119,12 @@ static void startProc(int connfd){
 						cout<<"id="<<ptr->id<<"   accounts="<<ptr->account<<"  passwd="<<ptr->passwd<<endl;
 						string account=ptr->account;
 						string passwd=ptr->passwd;
-						cout<<"acc="<<account<<"  passwd="<<passwd<<endl;
+					//	cout<<"acc="<<account<<"  passwd="<<passwd<<endl;
 						struct Lanuch lanResult;
 						int rNum=LanuchAccount(account,passwd,lanResult);
 						cout<<"rNum="<<rNum<<endl;
+						pLanuchResult result(lanResult.name,lanResult.lastlanuch,lanResult.lastIP,lanResult.setting);
+						cout<<"name="<<result.name<<"  lastlanuch="<<result.lastLanuch<<"  lastip="<<result.lastIP<<"  setting="<<result.setting<<endl;
 					break;
 				
 
