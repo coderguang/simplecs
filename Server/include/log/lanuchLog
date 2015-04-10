@@ -74,3 +74,15 @@ Fri Apr 10 21:01:43 2015
  Info:lanuch sg2  success!
 Fri Apr 10 21:07:07 2015
  Info:lanuch sg2  success!
+Fri Apr 10 21:39:21 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 21:44:41 2015
+ Info:do sql query error! select name,lastlanuch,lastIP,setting from accounts where account='sg2ows\ssg2passwdsaeA
+Fri Apr 10 21:44:50 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 21:47:12 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 22:02:34 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 22:11:26 2015
+ Info:lanuch sg2  success!

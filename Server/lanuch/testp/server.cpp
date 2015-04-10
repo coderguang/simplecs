@@ -9,6 +9,9 @@
 #include "../../include/LogInterface.h"
 #include "../../include/Func.h"
 #include "../NetConstant.h"
+#include "../../proto/proto.h"
+#include "../../proto/protoID.h"
+#include "../../MyDB/dbcpp/DBInterface.h"
 /**
  *this is the server main process
  *all user process are fork from this process
