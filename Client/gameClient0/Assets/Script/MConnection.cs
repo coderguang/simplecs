@@ -66,6 +66,33 @@ namespace Assets.Script
             }
         }
 
+        //客户端将在update中执行该函数，直到协议过来，进行相应的内容
+        public static void Receive(){
+                try
+                {
+                    //首先获取协议的ID
+                    byte[] id = new byte[4];
+                    int rid = msocket.Receive(id);
+                    if (rid != 4)
+                        return;
+
+                    int idNum = System.BitConverter.ToInt32(id, 0);
+                    MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "get the proto  " + idNum);
+
+
+                }
+                catch (Exception e) {
+                    MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "get the proto exceptions " + e.Message);
+                }
+            
+            
+            
+        
+        }
+
+
+
+
         public static MConnection GetInstance() {
             if (null == _instance)
                 _instance = new MConnection();

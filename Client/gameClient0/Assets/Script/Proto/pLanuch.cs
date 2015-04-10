@@ -18,8 +18,10 @@ namespace Assets.Script.Proto
         [MarshalAs(UnmanagedType.ByValArray,SizeConst=20)]
         public char []passwd;
 
-        public pLanuch() {
-            id = protoID.pLanuchID;
+        public pLanuch(string acc,string pass) {
+            this.id = protoID.pLanuch;
+            this.account = acc.PadRight(8, '\0').ToCharArray();
+            this.passwd =  pass.PadRight(20, '\0').ToCharArray();
         }
     }
 }
