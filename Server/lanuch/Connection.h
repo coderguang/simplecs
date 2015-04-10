@@ -56,7 +56,7 @@ static ssize_t writen(int connfd,void *vptr,size_t len){
 	
 	const char *ptr;
 	ptr=(char*)vptr;
-
+	nleft=len;
 
 	while(nleft>0){
 		if((nwritten=write(connfd,ptr,nleft))<=0){
@@ -65,6 +65,7 @@ static ssize_t writen(int connfd,void *vptr,size_t len){
 						nwritten=0;
 				}else{
 						cout<<"write to stream error"<<endl;
+						exit(0);
 				}
 
 		}
@@ -76,7 +77,7 @@ static ssize_t writen(int connfd,void *vptr,size_t len){
 	}
 	return (len-nwritten);
 
-};
+}
 
 //read the id to decide the proto
 
@@ -123,8 +124,12 @@ static void startProc(int connfd){
 						struct Lanuch lanResult;
 						int rNum=LanuchAccount(account,passwd,lanResult);
 						cout<<"rNum="<<rNum<<endl;
-						pLanuchResult result(lanResult.name,lanResult.lastlanuch,lanResult.lastIP,lanResult.setting);
-						cout<<"name="<<result.name<<"  lastlanuch="<<result.lastLanuch<<"  lastip="<<result.lastIP<<"  setting="<<result.setting<<endl;
+						if(0==rNum){
+							pLanuchResult *result=new pLanuchResult(lanResult.name,lanResult.lastlanuch,lanResult.lastIP,lanResult.setting);
+							cout<<"name="<<result->name<<"  lastlanuch="<<result->lastLanuch<<"  lastip="<<result->lastIP<<"  setting="<<result->setting<<endl;
+							writen(connfd,&result,sizeof(pLanuchResult));
+							cout<<"write proto complete"<<endl;
+						}
 					break;
 				
 

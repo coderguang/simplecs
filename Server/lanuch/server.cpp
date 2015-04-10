@@ -74,7 +74,7 @@ int main(){
 				//cout<<"client from "<<addr<<" lanuch"<<endl;
 				//close(connfd);
 				//exit(0);
-				cout<<"connfd="<<connfd<<endl;
+				//cout<<"connfd="<<connfd<<endl;
 				startProc(connfd);
 				//exit(0);
 
