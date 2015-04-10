@@ -20,6 +20,7 @@ namespace Assets.Script
         private static Socket msocket=null;
 
         private static int status=1;//当前网络--》服务器的状态   0:已连接   1:未连接
+        private static bool statusFlag=false; //用来标记是否已打印网络未连接log
 
        
         private MConnection() {
@@ -49,7 +50,12 @@ namespace Assets.Script
 
             if (0 != status)
             {
-                MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "网络未连接...");
+                if (!statusFlag)
+                {
+                    //避免重复打印
+                    statusFlag = true;
+                    MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "网络未连接...");
+                }
                 return -2;
             }
 
@@ -68,6 +74,13 @@ namespace Assets.Script
 
         //客户端将在update中执行该函数，直到协议过来，进行相应的内容
         public static void Receive(){
+
+            if (!statusFlag)
+            {
+                //避免重复打印
+                statusFlag = true;
+                MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "网络未连接...");
+            }
                 try
                 {
                     //首先获取协议的ID

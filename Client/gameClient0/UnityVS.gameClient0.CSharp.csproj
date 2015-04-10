@@ -185,9 +185,9 @@
     <Compile Include="Assets\NGUI\Scripts\UI\UITexture.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
+    <Compile Include="Assets\Script\Lanuch\LanuchGame.cs" />
     <Compile Include="Assets\Script\Log\LogEnum.cs" />
     <Compile Include="Assets\Script\Log\MLogger.cs" />
-    <Compile Include="Assets\Script\Log\testlog.cs" />
     <Compile Include="Assets\Script\MConnection.cs" />
     <Compile Include="Assets\Script\Proto\MTransform.cs" />
     <Compile Include="Assets\Script\Proto\Message.cs" />
