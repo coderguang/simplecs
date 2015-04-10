@@ -125,10 +125,20 @@ static void startProc(int connfd){
 						int rNum=LanuchAccount(account,passwd,lanResult);
 						cout<<"rNum="<<rNum<<endl;
 						if(0==rNum){
+					
 							pLanuchResult *result=new pLanuchResult(lanResult.name,lanResult.lastlanuch,lanResult.lastIP,lanResult.setting);
 							cout<<"name="<<result->name<<"  lastlanuch="<<result->lastLanuch<<"  lastip="<<result->lastIP<<"  setting="<<result->setting<<endl;
-							writen(connfd,&result,sizeof(pLanuchResult));
+							
+							cout<<"write id="<<result->id<<endl;
+							//result->id=1001;
+							writen(connfd,&result->id,sizeof(pLanuchResult));
+							//writen(connfd,&result->id,4);
 							cout<<"write proto complete"<<endl;
+						
+							/**
+							int test=1001;
+							writen(connfd,&test,sizeof(test));
+							*/
 						}
 					break;
 				
