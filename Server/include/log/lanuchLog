@@ -20,3 +20,57 @@ Fri Apr 10 15:06:46 2015
  Info:account:sg2 not match the passwd
 Fri Apr 10 15:06:52 2015
  Info:lanuch sg2  success!
+Fri Apr 10 15:32:46 2015
+ Info:account: not match the passwd
+Fri Apr 10 15:52:04 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 15:52:27 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 15:53:04 2015
+ Info:do sql query error! select name,lastlanuch,lastIP,setting from accounts where account='sg2ows\ssg2passwdsaeA
+Fri Apr 10 16:00:49 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 16:14:46 2015
+ Info:account:R not match the passwd
+Fri Apr 10 16:15:04 2015
+ Info:do sql query error! select name,lastlanuch,lastIP,setting from accounts where account='sg2Gãg^sg246TùÌÊÎUBA
+Fri Apr 10 16:41:54 2015
+ Info:account:sg2 not match the passwd
+Fri Apr 10 16:46:08 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 16:48:30 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 16:52:02 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 16:54:13 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 16:56:18 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 19:30:03 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 19:40:11 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 19:41:36 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 19:46:03 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 19:49:12 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 19:58:41 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 20:18:32 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 20:22:18 2015
+ Info:account:sg2~1 not match the passwd
+Fri Apr 10 20:24:13 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 20:28:11 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 20:39:14 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 20:44:14 2015
+ Info:account:sg2 not match the passwd
+Fri Apr 10 21:01:43 2015
+ Info:lanuch sg2  success!
+Fri Apr 10 21:07:07 2015
+ Info:lanuch sg2  success!
