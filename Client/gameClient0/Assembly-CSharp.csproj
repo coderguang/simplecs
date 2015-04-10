@@ -184,9 +184,13 @@
      <Compile Include="Assets\Script\Log\LogEnum.cs" />
      <Compile Include="Assets\Script\Log\MLogger.cs" />
      <Compile Include="Assets\Script\MConnection.cs" />
+     <Compile Include="Assets\Script\Proto\LanuchResult_toc.cs" />
+     <Compile Include="Assets\Script\Proto\LanuchResult_tos.cs" />
+     <Compile Include="Assets\Script\Proto\Lanuch_toc.cs" />
+     <Compile Include="Assets\Script\Proto\Lanuch_tos.cs" />
      <Compile Include="Assets\Script\Proto\MTransform.cs" />
-     <Compile Include="Assets\Script\Proto\Message.cs" />
-     <Compile Include="Assets\Script\Proto\pLanuch.cs" />
+     <Compile Include="Assets\Script\Proto\Message_toc.cs" />
+     <Compile Include="Assets\Script\Proto\Message_tos.cs" />
      <Compile Include="Assets\Script\Proto\protoID.cs" />
      <Compile Include="Assets\Script\Time\mTimer.cs" />
      <None Include="Assets\NGUI\Examples\Shaders\Unlit - Depth Cutout.shader" />

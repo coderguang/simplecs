@@ -22,7 +22,7 @@ public class LanuchGame : MonoBehaviour {
         string username = user.value;
         string passwdstr = passwd.value;
         MLogger.Log(MLogLevel.INFO, MLogType.LanuchLog, "尝试登录,账号:" + username + "  密码:" + passwdstr);
-        pLanuch pmsg = new pLanuch(username, passwdstr);
+        Lanuch_tos pmsg = new Lanuch_tos(username, passwdstr);
         MConnection.Send(pmsg);
         
     }
@@ -36,7 +36,7 @@ public class LanuchGame : MonoBehaviour {
         string username ="sg2";
         string passwdstr = "sg2passwd";
         MLogger.Log(MLogLevel.INFO, MLogType.LanuchLog, "尝试登录,账号:" + username + "  密码:" + passwdstr);
-        pLanuch pmsg = new pLanuch(username, passwdstr);
+        Lanuch_tos pmsg = new Lanuch_tos(username, passwdstr);
         MConnection.Send(pmsg);
        
 	}

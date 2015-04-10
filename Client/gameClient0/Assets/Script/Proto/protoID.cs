@@ -7,7 +7,7 @@ namespace Assets.Script.Proto
 {
     static class protoID
     {
-       public static int pLanuch= 1000;
-       public static int pLanuchResult = 1001;
+       public const int pLanuch= 1000;
+       public const int pLanuchResult = 1001;
     }
 }

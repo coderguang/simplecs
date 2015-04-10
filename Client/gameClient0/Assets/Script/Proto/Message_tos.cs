@@ -15,7 +15,7 @@ namespace Assets.Script.Proto
 
     [Serializable]
     [StructLayoutAttribute(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
-    class Message
+    class Message_tos
     {
         public int id;
         public int GetID() {

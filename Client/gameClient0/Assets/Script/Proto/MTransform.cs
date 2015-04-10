@@ -8,7 +8,7 @@ namespace Assets.Script.Proto
 {
     class MTransform
     {
-        public static byte[] StructToBytes(object obj)
+        public static byte[] StructToBytes(Message_tos obj)
         {
             //得到结构体的大小
             int size = Marshal.SizeOf(obj);
@@ -41,10 +41,12 @@ namespace Assets.Script.Proto
             {
                 return null;
             }
-
+            /** 因为tos和toc不再共用一个结构，因此不需要做移位操作
             IntPtr ptr = Marshal.AllocHGlobal(size);
-            int offsetPtr = ptr.ToInt32() + 4;
-            IntPtr objPtr = new IntPtr(offsetPtr);
+            int offsetPtr = ptr.ToInt32() + 4;//因为最开始Recive的时候，已经接收了4个byte的ID数据，因此，内存指针要后移4位
+            //IntPtr objPtr = new IntPtr(offsetPtr);
+             * */
+            IntPtr objPtr=Marshal.AllocHGlobal(size);
             try
             {
                 Marshal.Copy(bytes, 0, objPtr, size);
@@ -56,8 +58,12 @@ namespace Assets.Script.Proto
 
                 return obj;
             }
+            catch (Exception e){
+                MLogger.Log(Log.MLogLevel.ERROR, Log.MLogType.ProtoLog, "解析toc出现异常" + type.ToString() + "  " + e.Message);
+                return null;
+            }
             finally {
-                Marshal.FreeHGlobal(objPtr);
+                //Marshal.FreeHGlobal(objPtr);
             }
         }
       

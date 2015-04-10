@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
@@ -77,7 +78,7 @@ namespace Assets.Script
 
         //发送协议
         
-        public  static int Send(Message mproto){
+        public  static int Send(Message_tos mproto){
 
             if (0 != status)
             {
@@ -129,6 +130,31 @@ namespace Assets.Script
 
                     int idNum = System.BitConverter.ToInt32(id, 0);
                     MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "get the proto  " + idNum);
+                    //获取后面的内容
+
+                    byte[] buffer;
+                    int recvLength = 0;
+                    switch (idNum) { 
+                        case protoID.pLanuchResult: 
+                            LanuchResult_toc temp=new LanuchResult_toc();
+                            buffer = new byte[Marshal.SizeOf(temp)];
+                            //buffer = new byte[128];
+                            recvLength = msocket.Receive(buffer);
+                            Type type = typeof(LanuchResult_toc);
+                            LanuchResult_toc pr= (LanuchResult_toc)MTransform.BytesToStruct(buffer, type);
+
+                            string n=new string(pr.name);
+                            string time = new string(pr.lastLanuch);
+                            string lip = new string(pr.lastIP);
+
+                            MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.LanuchLog,"name="+n+"  ip=" + lip + "  time=" +time + "  setting=" + pr.setting);
+                            break;
+                                                  
+                    
+                    
+                    }
+
+
 
 
                 }
