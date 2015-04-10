@@ -18,12 +18,13 @@ public class LanuchGame : MonoBehaviour {
    
     //点击登录按钮将调用该函数
     public void Login() {
+       
         string username = user.value;
         string passwdstr = passwd.value;
         MLogger.Log(MLogLevel.INFO, MLogType.LanuchLog, "尝试登录,账号:" + username + "  密码:" + passwdstr);
         pLanuch pmsg = new pLanuch(username, passwdstr);
         MConnection.Send(pmsg);
-            
+        
     }
 
 	// Use this for initialization
@@ -31,11 +32,17 @@ public class LanuchGame : MonoBehaviour {
         MTimer.GetInstance();
         MLogger.GetInstance();
         MConnection.GetInstance();
+        
+        string username ="sg2";
+        string passwdstr = "sg2passwd";
+        MLogger.Log(MLogLevel.INFO, MLogType.LanuchLog, "尝试登录,账号:" + username + "  密码:" + passwdstr);
+        pLanuch pmsg = new pLanuch(username, passwdstr);
+        MConnection.Send(pmsg);
+       
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        MConnection.Receive();
 	}
 
 
