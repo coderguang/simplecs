@@ -36,6 +36,7 @@ namespace Assets.Script.Proto
         public static object BytesToStruct(byte[] bytes, Type type)
         {
             int size = Marshal.SizeOf(type);
+            char []c=Encoding.ASCII.GetChars(bytes);
             //如果bytes数组的长度小于结构体的大小
             if (size > bytes.Length)
             {
@@ -52,6 +53,7 @@ namespace Assets.Script.Proto
                 Marshal.Copy(bytes, 0, objPtr, size);
 
                 //将数据转换为目标结构体
+                //问题出在了下面这一行，转换的时候，丢失了某些数据
                 object obj = Marshal.PtrToStructure(objPtr, type);
 
                 Marshal.FreeHGlobal(objPtr);

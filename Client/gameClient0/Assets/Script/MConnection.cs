@@ -140,6 +140,8 @@ namespace Assets.Script
                             buffer = new byte[Marshal.SizeOf(temp)];
                             //buffer = new byte[128];
                             recvLength = msocket.Receive(buffer);
+                            //由这里测试发现是客户端从byte转struct的时候出了问题
+                            //char []c=Encoding.ASCII.GetChars(buffer);
                             Type type = typeof(LanuchResult_toc);
                             LanuchResult_toc pr= (LanuchResult_toc)MTransform.BytesToStruct(buffer, type);
 
