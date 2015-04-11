@@ -11,22 +11,13 @@ namespace Assets.Script.Proto
     class LanuchResult_toc:Message_toc
     { 
         public int setting;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
         public char[] name;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 30)]
-        public char[] lastLanuch;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 15)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
         public char[] lastIP;
-        
-         public LanuchResult_toc(string n, string ltime, string lip, int set) {
-             this.name=n.PadRight(10, '\0').ToCharArray();
-             this.lastLanuch = ltime.PadRight(30, '\0').ToCharArray();
-             this.lastIP = lip.PadRight(15, '\0').ToCharArray();
-             this.setting = set;
-         }
-         public LanuchResult_toc() { 
-         
-         }
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
+        public char[] lastLanuch;
+              
 
 
     }

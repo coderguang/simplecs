@@ -85,7 +85,14 @@ public class MLogger {
                 msgType +="RoomLog:";
                 break;
         }
-        mySw.WriteLine(msgType+msg);
+        /**
+        mySw.Write(msgType);
+        for (int i = 0; i < msg.Length; i++) { 
+            if('\0'!=msg[i])    
+                mySw.Write(msg[i]);
+        }
+        mySw.WriteLine();**/
+        mySw.WriteLine(msgType + msg);
         mySw.Flush();
     }
     public static void Destroy() {

@@ -32,13 +32,6 @@ public class LanuchGame : MonoBehaviour {
         MTimer.GetInstance();
         MLogger.GetInstance();
         MConnection.GetInstance();
-        
-        string username ="sg2";
-        string passwdstr = "sg2passwd";
-        MLogger.Log(MLogLevel.INFO, MLogType.LanuchLog, "尝试登录,账号:" + username + "  密码:" + passwdstr);
-        Lanuch_tos pmsg = new Lanuch_tos(username, passwdstr);
-        MConnection.Send(pmsg);
-       
 	}
 	
 	// Update is called once per frame
