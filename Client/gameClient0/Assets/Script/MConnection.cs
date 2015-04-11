@@ -23,8 +23,6 @@ namespace Assets.Script
         private static Socket msocket=null;
         private static Thread thread;
 
-        private static int status=1;//当前网络--》服务器的状态   0:已连接   1:未连接
-        private static bool statusFlag=false; //用来标记是否已打印网络未连接log
 
        
         private MConnection() {
@@ -50,11 +48,13 @@ namespace Assets.Script
                 if (success)
                 {
                     MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.LanuchLog, "连接服务器成功..");
-                    status = 0;
+
                     //开启线程接收数据
+                    /**先调好协议，传输时不会出现bug再说
                     thread = new Thread(new ThreadStart(Receive));
                     thread.IsBackground = true;
                     thread.Start();
+                     * */
                 }
                 else { 
                     //关闭socket
@@ -63,13 +63,11 @@ namespace Assets.Script
                         msocket.Close();
                     }
                     msocket = null;
-                    status = 1;
                     MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.LanuchLog, "连接服务器超时..");
                 }
             }
             catch {
                 MLogger.Log(Log.MLogLevel.ERROR, Log.MLogType.LanuchLog, "出现异常，连接服务器失败..");
-                status = 1;
             }
         }
 
