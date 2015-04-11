@@ -75,7 +75,8 @@ int main(){
 				//close(connfd);
 				//exit(0);
 				//cout<<"connfd="<<connfd<<endl;
-				startProc(connfd);
+				string ip=inet_ntoa(cliaddr.sin_addr);
+				startProc(connfd,ip);
 				//exit(0);
 
 		}

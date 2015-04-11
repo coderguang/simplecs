@@ -80,7 +80,7 @@ public:
 //for reset the passwd
 	int ResetPasswd(string account,string newPasswd);
 	//for lanuch
-	int Lanuch(string account,string passwd,struct Lanuch &lanResult);
+	int Lanuch(string account,string passwd,string ip,struct Lanuch &lanResult);
 	//for InsertResult 
 	//need  update the accounts flag,result*
 	int InsertResult(struct ResultAll &resultA);

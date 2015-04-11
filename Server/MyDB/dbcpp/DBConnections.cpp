@@ -375,7 +375,7 @@ int DBConnections::ResetPasswd(string account,string newPasswd){
 		}
 }
 //for lanuch
-int DBConnections::Lanuch(string account,string passwd,struct Lanuch &lanResult){
+int DBConnections::Lanuch(string account,string passwd,string ip,struct Lanuch &lanResult){
 		//cout<<"come to lanuch"<<endl;
 		string sql="select name,lastlanuch,lastIP,setting from accounts where account='"+account+"' AND passwd='"+passwd+"'";
 		MYSQL_RES *res;
@@ -392,6 +392,15 @@ int DBConnections::Lanuch(string account,string passwd,struct Lanuch &lanResult)
 					lanResult.lastIP=row[2];
 					lanResult.setting=StrToInt(row[3]);
 					Log(LanuchLog,INFO,"lanuch "+account+"  success!");
+					
+					//change the accunts status
+					string t=GetTimeNow();
+
+					string tsql="update accounts set lastlanuch='"+t+"' where account='"+account+"'";
+					MyQuery(LANUCH,tsql,nullptr);
+					string isql="update accounts set lastIP='"+ip+"' where account='"+account+"'";
+					MyQuery(LANUCH,isql,nullptr);
+					
 					FreeResult(&res);
 					return OK;
 				}else{
