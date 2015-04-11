@@ -6,8 +6,8 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <queue>
-#include "Logger.h"
 #include "struct/shmLog.h"
+#include "Logger.h"
 /**
  *this is the log process,the server only this one log process
  *user Posix shm and the sem
@@ -61,8 +61,10 @@ int main(int argc,char **argv){
 		sem_wait(&ptr->mutex);
 		long offset=ptr->msgoff[index];
 		
-		//printf("index=%d: %s\n",index,&ptr->msgdata[offset]);
+		//printf("index=%d: offset=%d type%s\n",index,offset,&ptr->msgdata[offset]);
+
 		string ms=(string)&ptr->msgdata[offset];
+		//here use the instance to log,other use LogInterface.h to log
 		Logger::GetInstance()->Log(ptr->type[offset],ptr->level[offset],ms);
 		
 		if(++index>=MAXMSG)
