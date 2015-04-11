@@ -17,13 +17,13 @@ public class LanuchGame : MonoBehaviour {
 
    
     //点击登录按钮将调用该函数
-    public void Login() {
-       
+    public void Login() {      
         string username = user.value;
         string passwdstr = passwd.value;
         MLogger.Log(MLogLevel.INFO, MLogType.LanuchLog, "尝试登录,账号:" + username + "  密码:" + passwdstr);
         Lanuch_tos pmsg = new Lanuch_tos(username, passwdstr);
         MConnection.Send(pmsg);
+       
         
     }
 
@@ -32,6 +32,22 @@ public class LanuchGame : MonoBehaviour {
         MTimer.GetInstance();
         MLogger.GetInstance();
         MConnection.GetInstance();
+        /**
+        Lanuch_tos pmsg1= new Lanuch_tos("sg1", "sg1passwd");
+        MConnection.Send(pmsg1);
+
+        Lanuch_tos pmsg2 = new Lanuch_tos("sg2", "sg2passwd");
+        MConnection.Send(pmsg2);
+
+        Lanuch_tos pmsg3 = new Lanuch_tos("sg3", "sg3passwd");
+        MConnection.Send(pmsg3);
+
+        Lanuch_tos pmsg4 = new Lanuch_tos("sg4", "sg4passwd");
+        MConnection.Send(pmsg4);
+
+        Lanuch_tos pmsg5 = new Lanuch_tos("sg5", "sg5passwd");
+        MConnection.Send(pmsg5);
+         * **/
 	}
 	
 	// Update is called once per frame
