@@ -12,6 +12,7 @@ using Assets.Script;
  * */
 public class LanuchGame : MonoBehaviour {
     //通过拖动指定下面两个的值
+    //UIIput的validation指定为  Alphanumeric(字符及数字)
     public UIInput user;
     public UIInput passwd;
 
