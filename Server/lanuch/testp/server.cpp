@@ -126,6 +126,7 @@ static void startProc(int connfd){
 						Lanuch_tos *ptr=new Lanuch_tos();
 						//cout<<"&ptr="<<&ptr<<endl;
 						memset(ptr,'\0',sizeof(Lanuch_tos));
+						//readn(connfd,&ptr,sizeof(Lanuch_tos));
 						readn(connfd,&ptr->error_code,sizeof(Lanuch_tos));
 						cout<<"   accounts="<<ptr->account<<"  passwd="<<ptr->passwd<<endl;
 						string account=ptr->account;
@@ -141,6 +142,7 @@ static void startProc(int connfd){
 							
 							cout<<"write id="<<result->id<<endl;
 							//result->id=1001;
+						//	writen(connfd,&result,sizeof(LanuchResult_toc));
 							writen(connfd,&result->id,sizeof(LanuchResult_toc));
 							//writen(connfd,&result->id,4);
 							cout<<"write proto complete"<<endl;
