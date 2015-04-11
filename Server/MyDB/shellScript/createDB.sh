@@ -22,15 +22,16 @@ create table booms(id int(4) not null primary key auto_increment)ENGINE=InnoDB;
 create table knifes(id int(4) not null primary key auto_increment)ENGINE=InnoDB;
 
 #alter tables accounts
+#for use the memory size matching c++ and c# class struct size,every menmber size are 4 times
 alter table accounts add account char(8) not null unique;
-alter table accounts add passwd char(10) not null;
-alter table accounts add email char(20) not null ;
-alter table accounts add name char(10) default null unIque;
+alter table accounts add passwd char(16) not null;
+alter table accounts add email char(16) not null ;
+alter table accounts add name char(8) default null unIque;
 alter table accounts add question int(4) not null; 
 alter table accounts add answer char(8) not null; 
 alter table accounts add status bool not null default false; 
-alter table accounts add lastlanuch char(30) not null default 'Thu Jan  1 00:01:03 2015';
-alter table accounts add lastIP char(15) default '127.0.0.1';
+alter table accounts add lastlanuch char(32) not null default 'Thu Jan  1 00:01:03 2015';
+alter table accounts add lastIP char(16) default '127.0.0.1';
 alter table accounts add times int(4) not null default 0;
 alter table accounts add setting int(4) not null default 1000;
 alter table accounts add flag int(4) not null default 0;
@@ -148,16 +149,16 @@ alter table setMsg add boom int(4) not null default 1000;
 alter table setMsg add knife int(4) not null default 1000;
 
 #alter tables shots
-alter table shots add name char(20) not null unique;
-alter table shots add descs char(100) not null;
+alter table shots add name char(16) not null unique;
+alter table shots add descs char(128) not null;
 
 #alter tables booms
-alter table booms add name char(20) not null unique;
-alter table booms add descs char(100) not null;
+alter table booms add name char(16) not null unique;
+alter table booms add descs char(128) not null;
 
 #alter tables knifes
-alter table knifes add name char(20) not null unique;
-alter table knifes add descs char(100) not null;
+alter table knifes add name char(16) not null unique;
+alter table knifes add descs char(128) not null;
 
 #alter accounts foreign key
 alter table accounts add constraint Question_ID foreign key(question) references questions(id) on update cascade ;
