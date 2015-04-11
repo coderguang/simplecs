@@ -9,14 +9,15 @@ namespace Assets.Script.Proto
     [Serializable]
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
     class LanuchResult_toc:Message_toc
-    {
-         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
-         public char[] name;
-         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 30)]
-         public char[] lastLanuch;
-         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 15)]
-         public char[] lastIP;
-         public int setting;
+    { 
+        public int setting;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
+        public char[] name;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 30)]
+        public char[] lastLanuch;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 15)]
+        public char[] lastIP;
+        
          public LanuchResult_toc(string n, string ltime, string lip, int set) {
              this.name=n.PadRight(10, '\0').ToCharArray();
              this.lastLanuch = ltime.PadRight(30, '\0').ToCharArray();
