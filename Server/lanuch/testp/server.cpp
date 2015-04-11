@@ -143,9 +143,9 @@ static void startProc(int connfd){
 							//cout<<"write id="<<result->id<<endl;
 							//result->id=1001;
 						//	writen(connfd,&result,sizeof(LanuchResult_toc));
-							//writen(connfd,&result->id,sizeof(LanuchResult_toc));
+							writen(connfd,&result->id,sizeof(LanuchResult_toc));
 							//writen(connfd,&result->id,4);
-							//cout<<"write proto complete"<<endl;
+							cout<<"write proto complete"<<endl;
 						
 							/**
 							int test=1001;
