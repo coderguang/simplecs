@@ -81,7 +81,7 @@ static ssize_t writen(int connfd,void *vptr,size_t len){
 
 //read the id to decide the proto
 
-static void startProc(int connfd){
+static void startProc(int connfd,string ip){
 	
 /**
 	int flags=fcntl(connfd,F_GETFL,0);	//get the connfd status
@@ -121,7 +121,7 @@ static void startProc(int connfd){
 						string passwd=ptr->passwd;
 					//	cout<<"acc="<<account<<"  passwd="<<passwd<<endl;
 						struct Lanuch lanResult;
-						int rNum=LanuchAccount(account,passwd,lanResult);
+						int rNum=LanuchAccount(account,passwd,ip,lanResult);
 						cout<<"rNum="<<rNum<<endl;
 						if(0==rNum){
 					
@@ -130,6 +130,7 @@ static void startProc(int connfd){
 							
 							cout<<"write id="<<result->id<<endl;
 							//result->id=1001;
+							result->error_code=0;
 							writen(connfd,&result->id,sizeof(LanuchResult_toc));
 							//writen(connfd,&result->id,4);
 							cout<<"write proto complete"<<endl;
