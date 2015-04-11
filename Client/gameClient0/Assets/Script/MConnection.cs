@@ -50,11 +50,12 @@ namespace Assets.Script
                     MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.LanuchLog, "连接服务器成功..");
 
                     //开启线程接收数据
-                    /**先调好协议，传输时不会出现bug再说
+                    /**先调好协议，传输时不会出现bug(协议数据的后面会有莫名的字符)再说**/
+                    /**仅在调试下才会出现该bug，build之后该bug消失**/
                     thread = new Thread(new ThreadStart(Receive));
                     thread.IsBackground = true;
                     thread.Start();
-                     * */
+                     
                 }
                 else { 
                     //关闭socket
@@ -74,6 +75,7 @@ namespace Assets.Script
         public void connectCallBack(IAsyncResult asyncConnect) {
             MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "建立异步连接成功");
         }
+        
 
         //发送协议
         
@@ -88,14 +90,28 @@ namespace Assets.Script
             byte[] buffer = MTransform.StructToBytes(mproto);
             try
             {
-                msocket.Send(buffer);
-                MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, mproto.GetType().ToString() + " proto send success!protoID="+mproto.GetID());
+                //使用异步来send协议
+                //msocket.Send(buffer);
+                IAsyncResult asySend = msocket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(sendCallback), msocket);
+                //超时监控
+                bool success = asySend.AsyncWaitHandle.WaitOne(5000, true);
+                if(success)
+                    MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, mproto.GetType().ToString() + " proto send success!protoID="+mproto.GetID());
+                else
+                   MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, mproto.GetType().ToString() + " proto send timeout! protoID=" + mproto.GetID());
                 return 0;
             }
             catch {
                 MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, mproto.GetType().ToString() + " proto send failed! protoID="+mproto.GetID());
                 return -1;
             }
+        }
+
+        //send callback
+        private static void sendCallback(IAsyncResult ar)
+        {
+            //发送返回不做任何事情
+            //throw new NotImplementedException();
         }
 
         //客户端将在后台线程中执行该函数，直到协议过来，进行相应的内容
@@ -118,8 +134,7 @@ namespace Assets.Script
                     int rid = msocket.Receive(id);
                     if (rid <= 0)
                     {
-                        MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "收到错误的包...，");
-                        MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "客户端主动断开连接....");
+                        MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "收到错误的包...，客户端主动断开连接....");
                         msocket.Close();
                         break;
                     }
@@ -129,13 +144,14 @@ namespace Assets.Script
                     //获取后面的内容
 
                     byte[] buffer;
-                    int recvLength = 0;
                     switch (idNum) { 
                         case protoID.pLanuchResult: 
                             LanuchResult_toc temp=new LanuchResult_toc();
                             buffer = new byte[Marshal.SizeOf(temp)];
                             //buffer = new byte[128];
-                            recvLength = msocket.Receive(buffer);
+                            int recvLength = msocket.Receive(buffer);
+
+                            //MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "获取登录结果协议,长度:"+recvLength);
                             //由这里测试发现是客户端从byte转struct的时候出了问题
                             //char []c=Encoding.ASCII.GetChars(buffer);
                             Type type = typeof(LanuchResult_toc);
