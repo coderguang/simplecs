@@ -2,7 +2,10 @@
  *every proto header file must include in here
  *use for ../lanuch/Connection.h
  */
-#include "Message.h"
 #include "protoID.h"
-#include "pLanuch.h"
-#include "pLanuchResult.h"
+#include "Message_toc.h"
+#include "Message_tos.h"
+#include "Lanuch_toc.h"
+#include "Lanuch_tos.h"
+#include "LanuchResult_toc.h"
+#include "LanuchResult_tos.h"
