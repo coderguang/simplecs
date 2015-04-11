@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using UnityEngine;
 
 namespace Assets.Script
 {
@@ -80,15 +81,10 @@ namespace Assets.Script
         
         public  static int Send(Message_tos mproto){
 
-            if (0 != status)
+            if (!msocket.Connected)
             {
-                if (!statusFlag)
-                {
-                    //避免重复打印
-                    statusFlag = true;
                     MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "网络未连接...");
-                }
-                return -2;
+                    Application.Quit();
             }
 
             byte[] buffer = MTransform.StructToBytes(mproto);
@@ -144,12 +140,15 @@ namespace Assets.Script
                             //char []c=Encoding.ASCII.GetChars(buffer);
                             Type type = typeof(LanuchResult_toc);
                             LanuchResult_toc pr= (LanuchResult_toc)MTransform.BytesToStruct(buffer, type);
+                            
 
                             string n=new string(pr.name);
                             string time = new string(pr.lastLanuch);
                             string lip = new string(pr.lastIP);
-
-                            MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.LanuchLog,"name="+n+"  ip=" + lip + "  time=" +time + "  setting=" + pr.setting);
+                            if(0==pr.error_code)
+                                MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.LanuchLog,"name="+n+"  ip=" + lip + "  time=" +time + "  setting=" + pr.setting);
+                            else
+                                MLogger.Log(Log.MLogLevel.DEBUG, Log.MLogType.LanuchLog, "LanuchResult error_code not ==0");
                             break;
                                                   
                     

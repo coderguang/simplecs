@@ -22,9 +22,9 @@ namespace Assets.Script.Proto
                 //拷贝结构体到分配好的内存空间
                 Marshal.StructureToPtr(obj, objPtr, false);
                 Marshal.Copy(objPtr, bytes, 0, size);
-             
 
-                Console.WriteLine("bytes[]={0}", bytes.Length);
+                char[] c = Encoding.ASCII.GetChars(bytes);
+                //Console.WriteLine("bytes[]={0}", bytes.Length);
                 return bytes;
             }
             finally { 
@@ -54,10 +54,8 @@ namespace Assets.Script.Proto
 
                 //将数据转换为目标结构体
                 //问题出在了下面这一行，转换的时候，丢失了某些数据
+                //将协议中的int放在前面，即解决数据丢失问题，暂时不清楚是什么问题，可能是某个标识符使其忽略了后面的数字
                 object obj = Marshal.PtrToStructure(objPtr, type);
-
-                Marshal.FreeHGlobal(objPtr);
-
                 return obj;
             }
             catch (Exception e){
@@ -65,7 +63,7 @@ namespace Assets.Script.Proto
                 return null;
             }
             finally {
-                //Marshal.FreeHGlobal(objPtr);
+                Marshal.FreeHGlobal(objPtr);
             }
         }
       

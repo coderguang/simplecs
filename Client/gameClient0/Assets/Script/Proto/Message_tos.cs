@@ -18,6 +18,7 @@ namespace Assets.Script.Proto
     class Message_tos
     {
         public int id;
+        public int error_code;
         public int GetID() {
             return id;
         }
