@@ -5,6 +5,8 @@
 //the accounts and passwd length ,decide on database
 static const int ACCOUNTSIZE=8;
 static const int PASSWDSIZE=16;
+
+#pragma pack(1)
 class Lanuch_toc:public Message_toc
 {
 	public:

@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include "protoID.h"
 
+#pragma pack(1)
 class Message_tos{
 public:
 	int error_code;

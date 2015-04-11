@@ -9,6 +9,7 @@ static const int NAMESIZE=8;
 static const int LASTIPSIZE=16;
 static const int LASTLANUCHSIZE=32;
 
+#pragma pack(1)
 class LanuchResult_toc:public Message_toc
 {
 public:

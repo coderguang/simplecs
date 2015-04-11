@@ -5,7 +5,7 @@
 #include <string>
 using namespace std;
 
-
+#pragma pack(1)
 class LanuchResult_tos:public Message_tos
 {
 public:
