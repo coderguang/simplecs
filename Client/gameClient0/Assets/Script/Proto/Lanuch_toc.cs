@@ -15,12 +15,7 @@ namespace Assets.Script.Proto
         //长度根据服务端的数据库决定
         [MarshalAs(UnmanagedType.ByValArray,SizeConst=8)]
         public char []account;
-        [MarshalAs(UnmanagedType.ByValArray,SizeConst=20)]
+        [MarshalAs(UnmanagedType.ByValArray,SizeConst=16)]
         public char []passwd;
-
-        public Lanuch_toc(string acc,string pass) {
-            this.account = acc.PadRight(8, '\0').ToCharArray();
-            this.passwd =  pass.PadRight(20, '\0').ToCharArray();
-        }
     }
 }

@@ -84,7 +84,7 @@ namespace Assets.Script
             if (!msocket.Connected)
             {
                     MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "网络未连接...");
-                    Application.Quit();
+                    return -2;
             }
 
             byte[] buffer = MTransform.StructToBytes(mproto);
@@ -100,7 +100,7 @@ namespace Assets.Script
             }
         }
 
-        //客户端将在update中执行该函数，直到协议过来，进行相应的内容
+        //客户端将在后台线程中执行该函数，直到协议过来，进行相应的内容
         public static void Receive(){
            
             while (true)
@@ -116,10 +116,12 @@ namespace Assets.Script
                 {
                     //首先获取协议的ID
                     byte[] id = new byte[4];
+                    //Receive是阻塞的，知道数据过来才会继续执行
                     int rid = msocket.Receive(id);
                     if (rid <= 0)
                     {
-                        MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "收到错误的包...");
+                        MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "收到错误的包...，");
+                        MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "客户端主动断开连接....");
                         msocket.Close();
                         break;
                     }

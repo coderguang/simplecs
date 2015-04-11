@@ -17,6 +17,7 @@ namespace Assets.Script.Proto
      * 只有服务器推到客户端的协议具有error_code,客户端推送到服务器的协议不应该有error_code，但为了扩展及可能的需求
      * tos也默认具有error_code，但其值为0
      * error_code为0代表正常现象，其他情况代码错误情况
+     * toc均没有显式构造函数,tos才有
      * */
 
     [Serializable]
