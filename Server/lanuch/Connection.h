@@ -108,7 +108,7 @@ static void startProc(int connfd,string ip){
 						Lanuch_tos *ptr=new Lanuch_tos();
 						//cout<<"&ptr="<<&ptr<<endl;
 						memset(ptr,'\0',sizeof(Lanuch_tos));
-						readn(connfd,&ptr->error_code,sizeof(Lanuch_tos));
+						readn(connfd,&ptr->error_code,sizeof(Lanuch_tos)-4);
 						cout<<"accounts="<<ptr->account<<"  passwd="<<ptr->passwd<<endl;
 						string account=ptr->account;
 						string passwd=ptr->passwd;
