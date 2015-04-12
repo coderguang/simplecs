@@ -1,6 +1,6 @@
 #ifndef LANUCHRESULT_TOC_H_
 #define LANUCHRESULT_TOC_H_
-#include "Message_toc.h"
+#include "Message.h"
 #include <string.h>
 #include <string>
 using namespace std;
@@ -9,8 +9,8 @@ static const int NAMESIZE=8;
 static const int LASTIPSIZE=16;
 static const int LASTLANUCHSIZE=32;
 
-#pragma pack(1)
-class LanuchResult_toc:public Message_toc
+#pragma pack(4)
+class LanuchResult_toc:public Message
 {
 public:
 		int setting;

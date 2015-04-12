@@ -1,6 +1,6 @@
 #ifndef ERR_TOC_H_
 #define ERR_TOC_H_
-#include "Message_toc.h"
+#include "Message.h"
 /**
  *this is all the Error_code
  *the error_code use this header to instead all proto err_code
@@ -17,8 +17,8 @@ static const int ACCOUNT_ERR_PASSWD=6200;//use for lanuch when passwd no matchin
 static const int ACCOUNT_HAD_LANUCH=6300;//the account is lanuch and using now
 
 
-#pragma pack(1)
-class Err_toc:public Message_toc{
+#pragma pack(4)
+class Err_toc:public Message{
 public:
 		Err_toc(int errcode){
 			id=3999;//this is the err_toc id

@@ -51,6 +51,7 @@ static ssize_t readn(int connfd,void *vptr,size_t len){
 //write the stream into the connfd
 static ssize_t writen(int connfd,void *vptr,size_t len){
 
+	cout<<"writen len="<<len<<endl;
 	size_t nleft;
 	ssize_t nwritten;
 	
