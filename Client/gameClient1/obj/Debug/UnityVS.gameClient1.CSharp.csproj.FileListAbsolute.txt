@@ -1,0 +1,9 @@
+E:\simplecs\Client\gameClient1\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
+E:\simplecs\Client\gameClient1\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+E:\simplecs\Client\gameClient1\Temp\UnityVS_bin\Debug\UnityEditor.dll
+E:\simplecs\Client\gameClient1\Temp\UnityVS_bin\Debug\UnityEngine.dll
+E:\simplecs\Client\gameClient1\Temp\UnityVS_bin\Debug\UnityEngine.xml
+E:\simplecs\Client\gameClient1\Temp\UnityVS_bin\Debug\UnityEditor.xml
+E:\simplecs\Client\gameClient1\obj\Debug\UnityVS.gameClient1.CSharp.csprojResolveAssemblyReference.cache
+E:\simplecs\Client\gameClient1\obj\Debug\Assembly-CSharp.dll
+E:\simplecs\Client\gameClient1\obj\Debug\Assembly-CSharp.pdb
