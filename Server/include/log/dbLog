@@ -1,16 +1,4 @@
-Sat Apr 11 15:01:43 2015
- Fatal:lanuch sg2  success!
-Sat Apr 11 15:02:21 2015
- Fatal:account:sg2systesg2passwdh.dll not match the passwd
-Sat Apr 11 15:02:31 2015
- Fatal:lanuch sg2  success!
-Sat Apr 11 16:02:54 2015
- Fatal:account:sg3 not match the passwd
-Sat Apr 11 16:02:54 2015
- Fatal:account:sg4 not match the passwd
-Sat Apr 11 16:02:54 2015
- Fatal:account:sg5 not match the passwd
-Sat Apr 11 16:13:29 2015
- Fatal:account:sg3ient not match the passwd
-Sat Apr 11 16:13:29 2015
- Fatal:account:sg4ient not match the passwd
+Sun Apr 12 13:50:05 2015
+ Fatal:account:sg\systesg2\rsaenh.dll not match the passwd
+Sun Apr 12 13:52:06 2015
+ Fatal:account:sg not match the passwd

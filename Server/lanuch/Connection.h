@@ -139,6 +139,9 @@ static void startProc(int connfd,string ip){
 							int test=1001;
 							writen(connfd,&test,sizeof(test));
 							*/
+						}else{
+							Err_toc *err=new Err_toc(rNum);
+							writen(connfd,&err->id,sizeof(Err_toc));
 						}
 					break;
 				
