@@ -28,7 +28,7 @@ namespace Assets.Script
         private Thread thread;
 
         //所有受到的协议包经过解码之后放到这里，然后主线程中某个一直存在的空对象脚本update里面执行
-        public List<Message_toc> package=new List<Message_toc>();
+        public List<Message> package=new List<Message>();
 
        
         private MConnection() {
@@ -153,19 +153,19 @@ namespace Assets.Script
                 try
                 {
                     //首先获取协议的ID
-                    byte[] id = new byte[4];
+                    //先获取一整个的包
+                    byte[] buffer = new byte[512];
                     //Receive是阻塞的，知道数据过来才会继续执行
-                    int rid = msocket.Receive(id);
+                    int rid = msocket.Receive(buffer);
                     if (rid <= 0)
                     {
                         MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "收到错误的包...，客户端主动断开连接....");
                         msocket.Close();
                         break;
                     }
-                    int idNum = System.BitConverter.ToInt32(id, 0);
-                    MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "get the proto  " + idNum);
-                    //进入装包程序，根据ID，将协议内容转换成具体的Message_toc的子类对象，装入到pack list中
-                    MPack(idNum);
+
+                    MPack(ref(buffer));
+                    
                 }
                 catch (Exception e)
                 {
@@ -179,67 +179,65 @@ namespace Assets.Script
 
         //装包程序，根据ID，将协议内容转换成具体的Message_toc的子类对象，装入到pack list中
         //超长版switch来袭，恶心就恶心吧~~~
-        protected void MPack(int id) {
-            switch (id) {
-                case protoID.ErrID://错误toc
-                        { 
+
+        private const int idSize = 4;
+        protected void MPack(ref byte[] buffer) {
+
+            byte[] idByte = new byte[idSize];
+
+            if (idSize > buffer.Length)//如果整个包的长度小于4，说明这个包有问题，丢弃
+                return;
+
+            for (int i = 0; i < idSize; i++)
+                idByte[i] = buffer[i];
+
+            int id = System.BitConverter.ToInt32(idByte, 0);
+
+                switch (id)
+                {
+                    case protoID.ErrID://错误toc
+                        {
                             //频繁新建对象会造成很大的内存损耗，以后再解决这个问题
-                            Err_toc temp=new Err_toc();//C#貌似直接获取长度会有bug，稳妥点，直接新建一个来确定
-                            byte[] buffer = new byte[Marshal.SizeOf(temp)];
+                            Err_toc temp = new Err_toc();//C#貌似直接获取长度会有bug，稳妥点，直接新建一个来确定
+                            byte[] buf = new byte[Marshal.SizeOf(temp)];
 
-                            int recvLength = msocket.Receive(buffer);
+                            Err_toc tp = (Err_toc)MTransform.BytesToStruct(buffer, typeof(Err_toc));
+                                //加入到List中
+                            package.Add(tp);
+     
 
-                              if (Marshal.SizeOf(temp) == recvLength)//收到正确的包
-                                {
-                                   Err_toc tp = (Err_toc)MTransform.BytesToStruct(buffer, typeof(Err_toc));
-                                   //加入到List中
-                                   package.Add(tp);
-                                 }
-                              else {
-                                   MLogger.Log(Log.MLogLevel.ERROR, Log.MLogType.ProtoLog, "接收包错误:" + id + "  长度不一致");
-                                }  
 
-                    
-                         }
-                         break;
-                case protoID.LanuchResultID://获取登录结果
-                         {
-                             LanuchResult_toc temp = new LanuchResult_toc();
-                             byte[] buffer = new byte[Marshal.SizeOf(temp)];
+                        }
+                        break;
+                    case protoID.LanuchResultID://获取登录结果
+                        {
+                            LanuchResult_toc temp = new LanuchResult_toc();
+                            byte[] buf = new byte[Marshal.SizeOf(temp)];
+                            
+ 
+                                Type type = typeof(LanuchResult_toc);
+                                LanuchResult_toc tp = (LanuchResult_toc)MTransform.BytesToStruct(buffer, type);
+                                //LanuchResult_toc tp = (LanuchResult_toc)MTransform.BytesToStruct(buffer, typeof(LanuchResult_toc));
+                                //加入到List中
+                                package.Add(tp);
 
-                             int recvLength = msocket.Receive(buffer);
+                                string name = new string(tp.name);
+                                string time = new string(tp.lastLanuch);
+                                string ip = new string(tp.lastIP);
 
-                             char []c = Encoding.ASCII.GetChars(buffer);
+                                MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "err_code=" + tp.error_code + "name=" + name + " last time=" + time + "  ip=" + ip + "  setting=" + tp.setting);
 
-                             if (Marshal.SizeOf(temp) == recvLength)//收到正确的包
-                             {
-                                 Type type = typeof(LanuchResult_toc);
-                                 LanuchResult_toc tp = (LanuchResult_toc)MTransform.BytesToStruct(buffer, type);
-                                 //LanuchResult_toc tp = (LanuchResult_toc)MTransform.BytesToStruct(buffer, typeof(LanuchResult_toc));
-                                 //加入到List中
-                                 package.Add(tp);
+                          
 
-                                 string name = new string(tp.name);
-                                 string time = new string(tp.lastLanuch);
-                                 string ip = new string(tp.lastIP);
 
-                                 MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "err_code="+tp.error_code+"name=" + name + " last time=" + time + "  ip=" + ip+"  setting="+tp.setting);
 
-                             }
-                             else
-                             {
-                                 MLogger.Log(Log.MLogLevel.ERROR, Log.MLogType.ProtoLog, "接收包错误:" + id + "  长度不一致");
-                             }  
-                         
-                         
-                         
-                         }
-                         break;
-            
-            
-            
-            
-            }
+                        }
+                        break;
+
+
+
+
+                }
             //收到一个即关闭socket，杀死后台线程，避免假死
             //Destroy();
         

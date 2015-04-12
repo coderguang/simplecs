@@ -6,15 +6,15 @@ Direct3D:
     Vendor:   NVIDIA
     VRAM:     977 MB
 Begin MonoManager ReloadAssembly
-Platform assembly: E:\simplecs\Client\gameClient0\v3.1.6将错误码改为正值_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading E:\simplecs\Client\gameClient0\v3.1.6将错误码改为正值_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: E:\simplecs\Client\gameClient0\v3.1.6将错误码改为正值_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading E:\simplecs\Client\gameClient0\v3.1.6将错误码改为正值_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-- Completed reload, in  0.052 seconds
+Platform assembly: E:\simplecs\Client\gameClient1\所有版本的exe\v3.1.6将错误码改为正值_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading E:\simplecs\Client\gameClient1\所有版本的exe\v3.1.6将错误码改为正值_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: E:\simplecs\Client\gameClient1\所有版本的exe\v3.1.6将错误码改为正值_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading E:\simplecs\Client\gameClient1\所有版本的exe\v3.1.6将错误码改为正值_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+- Completed reload, in  0.059 seconds
 desktop: 1366x768 60Hz; virtual: 3286x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
-Platform assembly: E:\simplecs\Client\gameClient0\v3.1.6将错误码改为正值_Data\Managed\System.dll (this message is harmless)
+Platform assembly: E:\simplecs\Client\gameClient1\所有版本的exe\v3.1.6将错误码改为正值_Data\Managed\System.dll (this message is harmless)
 NullReferenceException: Object reference not set to an instance of an object
   at MLogger.Log (MLogLevel level, MLogType type, System.String msg) [0x00000] in <filename unknown>:0 
   at LanuchGame.Login () [0x00000] in <filename unknown>:0 
