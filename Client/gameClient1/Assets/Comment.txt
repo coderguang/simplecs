@@ -1,0 +1,9 @@
+这里是一个简单的类似CS的对战游戏
+author:coderguang
+email:royalchen@royalchen.com
+
+账号：
+密码：
+请输入账号：
+请输入密码：
+登录

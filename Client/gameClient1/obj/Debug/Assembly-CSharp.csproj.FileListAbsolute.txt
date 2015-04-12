@@ -1,0 +1,11 @@
+E:\simplecs\Client\gameClient0\Temp\bin\Debug\Assembly-CSharp.dll
+E:\simplecs\Client\gameClient0\Temp\bin\Debug\Assembly-CSharp.pdb
+E:\simplecs\Client\gameClient0\Temp\bin\Debug\UnityEditor.dll
+E:\simplecs\Client\gameClient0\Temp\bin\Debug\UnityEngine.dll
+E:\simplecs\Client\gameClient0\Temp\bin\Debug\Mono.Cecil.dll
+E:\simplecs\Client\gameClient0\Temp\bin\Debug\nunit.framework.dll
+E:\simplecs\Client\gameClient0\Temp\bin\Debug\Unity.DataContract.dll
+E:\simplecs\Client\gameClient0\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+E:\simplecs\Client\gameClient0\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+E:\simplecs\Client\gameClient0\obj\Debug\Assembly-CSharp.dll
+E:\simplecs\Client\gameClient0\obj\Debug\Assembly-CSharp.pdb
