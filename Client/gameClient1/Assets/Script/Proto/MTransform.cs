@@ -8,7 +8,7 @@ namespace Assets.Script.Proto
 {
     class MTransform
     {
-        public static byte[] StructToBytes(Message_tos obj)
+        public static byte[] StructToBytes(Message obj)
         {
             //得到结构体的大小
             int size = Marshal.SizeOf(obj);

@@ -7,8 +7,8 @@ using System.Runtime.InteropServices;
 namespace Assets.Script.Proto
 {
     [Serializable]
-    [StructLayoutAttribute(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
-    class Err_toc:Message_toc
+    [StructLayoutAttribute(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 4)]
+    class Err_toc:Message
     {
 
     }

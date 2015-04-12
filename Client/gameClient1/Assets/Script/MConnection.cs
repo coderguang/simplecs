@@ -102,7 +102,7 @@ namespace Assets.Script
 
         //发送协议
         
-        public  int Send(Message_tos mproto){
+        public  int Send(Message mproto){
 
             if (!msocket.Connected)
             {
@@ -209,9 +209,13 @@ namespace Assets.Script
 
                              int recvLength = msocket.Receive(buffer);
 
+                             char []c = Encoding.ASCII.GetChars(buffer);
+
                              if (Marshal.SizeOf(temp) == recvLength)//收到正确的包
                              {
-                                 LanuchResult_toc tp = (LanuchResult_toc)MTransform.BytesToStruct(buffer, typeof(LanuchResult_toc));
+                                 Type type = typeof(LanuchResult_toc);
+                                 LanuchResult_toc tp = (LanuchResult_toc)MTransform.BytesToStruct(buffer, type);
+                                 //LanuchResult_toc tp = (LanuchResult_toc)MTransform.BytesToStruct(buffer, typeof(LanuchResult_toc));
                                  //加入到List中
                                  package.Add(tp);
 
@@ -237,7 +241,7 @@ namespace Assets.Script
             
             }
             //收到一个即关闭socket，杀死后台线程，避免假死
-            Destroy();
+            //Destroy();
         
         }
 
