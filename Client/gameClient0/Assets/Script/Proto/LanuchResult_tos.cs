@@ -19,7 +19,7 @@ namespace Assets.Script.Proto
         
          public int setting;
          public LanuchResult_tos(string n, string ltime, string lip, int set) {
-             this.id = protoID.pLanuchResult;
+             this.id = protoID.LanuchResultID;
              this.name=n.PadRight(8, '\0').ToCharArray();
              this.lastLanuch = ltime.PadRight(16, '\0').ToCharArray();
              this.lastIP = lip.PadRight(32, '\0').ToCharArray();

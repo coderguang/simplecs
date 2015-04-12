@@ -19,7 +19,7 @@ namespace Assets.Script.Proto
         public char []passwd;
 
         public Lanuch_tos(string acc,string pass) {
-            this.id = protoID.pLanuch;
+            this.id = protoID.LanuchID;
             this.error_code = 0;
             this.account = acc.PadRight(8, '\0').ToCharArray();
             this.passwd =  pass.PadRight(16, '\0').ToCharArray();

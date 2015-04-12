@@ -14,9 +14,14 @@ namespace Assets.Script
     /**
      * 客户端的网络模块，包括socket的发起，协议的收发
      * 
+     * 同时是事件模型的核心，所有关于协议触发的事件均在这里产生
+     * 为了降低难度，不使用事件模型
      * */
     class MConnection
     {
+        //声明事件委托
+        //public delegate void DoAction(object sender, EventArgs e);
+
         private static MConnection _instance=null;
         private static string ipAddr = "182.254.233.115";
         private static int port = 9201;
@@ -143,30 +148,58 @@ namespace Assets.Script
                     MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "get the proto  " + idNum);
                     //获取后面的内容
 
-                    byte[] buffer;
-                    switch (idNum) { 
-                        case protoID.pLanuchResult: 
-                            LanuchResult_toc temp=new LanuchResult_toc();
-                            buffer = new byte[Marshal.SizeOf(temp)];
-                            //buffer = new byte[128];
-                            int recvLength = msocket.Receive(buffer);
+                  
+                    //下面是一个基于事件驱动的模型
+                    //该类为
+                    switch (idNum) {
+                           
+                        case protoID.LanuchResultID://获取登录结果
+                            {
+                                LanuchResult_toc temp = new LanuchResult_toc();
+                                byte[] buffer = new byte[Marshal.SizeOf(temp)];
+                                //buffer = new byte[128];
+                                int recvLength = msocket.Receive(buffer);
 
-                            //MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "获取登录结果协议,长度:"+recvLength);
-                            //由这里测试发现是客户端从byte转struct的时候出了问题
-                            //char []c=Encoding.ASCII.GetChars(buffer);
-                            Type type = typeof(LanuchResult_toc);
-                            LanuchResult_toc pr= (LanuchResult_toc)MTransform.BytesToStruct(buffer, type);
-                            
-
-                            string n=new string(pr.name);
-                            string time = new string(pr.lastLanuch);
-                            string lip = new string(pr.lastIP);
-                            if(0==pr.error_code)
-                                MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.LanuchLog,"name="+n+"  ip=" + lip + "  time=" +time + "  setting=" + pr.setting);
-                            else
-                                MLogger.Log(Log.MLogLevel.DEBUG, Log.MLogType.LanuchLog, "LanuchResult error_code not ==0");
+                                //MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "获取登录结果协议,长度:"+recvLength);
+                                //由这里测试发现是客户端从byte转struct的时候出了问题
+                                //char []c=Encoding.ASCII.GetChars(buffer);
+                                Type type = typeof(LanuchResult_toc);
+                                LanuchResult_toc pr = (LanuchResult_toc)MTransform.BytesToStruct(buffer, type);
+                                string n = new string(pr.name);
+                                string time = new string(pr.lastLanuch);
+                                string lip = new string(pr.lastIP);
+                                if (0 == pr.error_code)
+                                    MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.LanuchLog, "name=" + n + "  ip=" + lip + "  time=" + time + "  setting=" + pr.setting);
+                            }
                             break;
-                                                  
+                        case protoID.ErrID: //获取错误ID
+                            {
+                                byte[] code = new byte[4];
+                                int recvLength = msocket.Receive(code);//获取错误码
+                                int codeNum = System.BitConverter.ToInt32(code, 0);
+                                MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.GameLog, "err_code=" + codeNum);
+                                switch (codeNum) {
+                                    case ErrCode.ACCOUNT_ERR_PASSWD: {
+                                        /**Unity中,你仅能从主线程中访问Unity的组件,对象和Unity系统调用.任何企图访问这些项目的第二个线程都将失败并引发错误.这是一个要重视的一个限制.**/
+                                        //LanuchGame.GetInstance().ShowStatus(ErrCode.ACCOUNT_ERR_PASSWD);
+                                        (new LanuchGame()).ShowStatus(ErrCode.ACCOUNT_ERR_PASSWD);
+                                    }
+                                        break;
+                                    case ErrCode.ACCOUNT_HAD_LANUCH: {
+                                        //LanuchGame.GetInstance().ShowStatus(ErrCode.ACCOUNT_HAD_LANUCH);
+                                        (new LanuchGame()).ShowStatus(ErrCode.ACCOUNT_HAD_LANUCH);
+                                    }
+                                        break;
+                                     
+                                
+                                
+                                
+                                }
+
+                            
+                            
+                            }
+                            break;
                     
                     
                     }

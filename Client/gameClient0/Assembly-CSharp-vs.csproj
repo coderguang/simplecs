@@ -184,6 +184,8 @@
      <Compile Include="Assets\Script\Log\LogEnum.cs" />
      <Compile Include="Assets\Script\Log\MLogger.cs" />
      <Compile Include="Assets\Script\MConnection.cs" />
+     <Compile Include="Assets\Script\MFactory.cs" />
+     <Compile Include="Assets\Script\Proto\ErrCode.cs" />
      <Compile Include="Assets\Script\Proto\LanuchResult_toc.cs" />
      <Compile Include="Assets\Script\Proto\LanuchResult_tos.cs" />
      <Compile Include="Assets\Script\Proto\Lanuch_toc.cs" />
