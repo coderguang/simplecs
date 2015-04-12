@@ -195,12 +195,9 @@
     <Compile Include="Assets\Script\Proto\ErrCode.cs" />
     <Compile Include="Assets\Script\Proto\Err_toc.cs" />
     <Compile Include="Assets\Script\Proto\LanuchResult_toc.cs" />
-    <Compile Include="Assets\Script\Proto\LanuchResult_tos.cs" />
-    <Compile Include="Assets\Script\Proto\Lanuch_toc.cs" />
     <Compile Include="Assets\Script\Proto\Lanuch_tos.cs" />
     <Compile Include="Assets\Script\Proto\MTransform.cs" />
-    <Compile Include="Assets\Script\Proto\Message_toc.cs" />
-    <Compile Include="Assets\Script\Proto\Message_tos.cs" />
+    <Compile Include="Assets\Script\Proto\Message.cs" />
     <Compile Include="Assets\Script\Proto\protoID.cs" />
     <Compile Include="Assets\Script\Time\mTimer.cs" />
   </ItemGroup>

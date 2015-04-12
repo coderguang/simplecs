@@ -38,7 +38,7 @@ public class LanuchGame : MonoBehaviour {
         else if (ErrCode.ACCOUNT_HAD_LANUCH == err_code)
             tip.text = "该账号已经登录，无法再次登录!";
         else
-            tip.text = "为止错误:" + err_code;
+            tip.text = "未知错误:" + err_code;
         
     
     }

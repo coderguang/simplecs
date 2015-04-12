@@ -26,8 +26,7 @@ namespace Assets.Script
 
             MTimer.GetInstance();
             MLogger.GetInstance();
-            MConnection.GetInstance();
-            
+            MConnection.GetInstance();            
            
 
 

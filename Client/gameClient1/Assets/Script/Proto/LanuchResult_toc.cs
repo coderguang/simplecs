@@ -7,8 +7,8 @@ using System.Runtime.InteropServices;
 namespace Assets.Script.Proto
 {
     [Serializable]
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
-    class LanuchResult_toc:Message_toc
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 4)]
+    class LanuchResult_toc:Message
     { 
         public int setting;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
