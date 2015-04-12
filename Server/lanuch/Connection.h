@@ -80,35 +80,27 @@ static ssize_t writen(int connfd,void *vptr,size_t len){
 
 }
 
+
+//static const int MAXPROTO=256;//the proto max size
+//static const size_t idsize=4;
 //read the id to decide the proto
 
 static void startProc(int connfd,string ip){
 	
-/**
-	int flags=fcntl(connfd,F_GETFL,0);	//get the connfd status
-	if(flags<0)
-		cout<<"get connfd status failed"<<endl;
-	
-	flags&=~O_NONBLOCK;
-	if(fcntl(connfd,F_SETFL,flags)<0)
-		cout<<"set connfd status failed"<<endl;
-*/	
 	while(true){
+				
 			int id=0;
-			int n=read(connfd,&id,4);
-			if(n<0){
-				if(errno!=EINTR){	//disconections
-					cout<<"socket disconnections..."<<endl;
-					close(connfd);
-					exit(1);
+			int nread=read(connfd,&id,4);
+
+			if(nread<0){
+				if(errno!=EINTR){
+						cout<<"socket disconnections...."<<endl;
+						close(connfd);
+						exit(1);
 				}else
-					continue;
-			}else if(0==n){ /*EOF in the stream*/
-					continue;
-			}
-			//cout<<"n="<<n<<endl;	
-			//cout<<"the id is "<<id<<endl;
-			
+					 continue;			
+			}else if(0==nread)	/*EOF of the stream */
+					 continue;
 
 			switch(id){
 					case pLanuchID:
@@ -136,10 +128,6 @@ static void startProc(int connfd,string ip){
 							//writen(connfd,&result->id,4);
 							cout<<"write proto complete"<<endl;
 						
-							/**
-							int test=1001;
-							writen(connfd,&test,sizeof(test));
-							*/
 						}else{
 							Err_toc *err=new Err_toc(rNum);
 							writen(connfd,&err->id,sizeof(Err_toc));

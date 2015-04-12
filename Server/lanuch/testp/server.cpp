@@ -94,68 +94,15 @@ static ssize_t writen(int connfd,void *vptr,size_t len){
 
 static void startProc(int connfd){
 	
-/**
-	int flags=fcntl(connfd,F_GETFL,0);	//get the connfd status
-	if(flags<0)
-		cout<<"get connfd status failed"<<endl;
-	
-	flags&=~O_NONBLOCK;
-	if(fcntl(connfd,F_SETFL,flags)<0)
-		cout<<"set connfd status failed"<<endl;
-*/	
 	while(true){
-			int id=0;
-			int n=read(connfd,&id,4);
-			if(n<0){
-				if(errno!=EINTR){	//disconections
-					cout<<"socket disconnections..."<<endl;
-					close(connfd);
-					exit(1);
-				}else
-					continue;
-			}else if(0==n){ /*EOF in the stream*/
-					continue;
-			}
-			//cout<<"n="<<n<<endl;	
-			//cout<<"the id is "<<id<<endl;
-			
+		char buf[256];
+		memset(buf,'\0',256);
+		int nread=readn(connfd,buf,256);
+		
+		int k;
+		
 
-			switch(id){
-					case pLanuchID:
-						cout<<"get the lanuch proto"<<endl;
-						Lanuch_tos *ptr=new Lanuch_tos();
-						//cout<<"&ptr="<<&ptr<<endl;
-						memset(ptr,'\0',sizeof(Lanuch_tos));
-						//readn(connfd,&ptr,sizeof(Lanuch_tos));
-						readn(connfd,&ptr->error_code,sizeof(Lanuch_tos));
-						cout<<"accounts="<<ptr->account<<"  passwd="<<ptr->passwd<<endl;
-						string account=ptr->account;
-						string passwd=ptr->passwd;
-					//	cout<<"acc="<<account<<"  passwd="<<passwd<<endl;
-						struct Lanuch lanResult;
-						int rNum=LanuchAccount(account,passwd,lanResult);
-						cout<<"rNum="<<rNum<<endl;
-						if(0==rNum){
-					
-							LanuchResult_toc *result=new LanuchResult_toc(lanResult.name,lanResult.lastlanuch,lanResult.lastIP,lanResult.setting);
-							cout<<"name="<<result->name<<"  lastlanuch="<<result->lastLanuch<<"  lastip="<<result->lastIP<<"  setting="<<result->setting<<endl;
-							
-							//cout<<"write id="<<result->id<<endl;
-							//result->id=1001;
-						//	writen(connfd,&result,sizeof(LanuchResult_toc));
-							writen(connfd,&result->id,sizeof(LanuchResult_toc));
-							//writen(connfd,&result->id,4);
-							cout<<"write proto complete"<<endl;
-						
-							/**
-							int test=1001;
-							writen(connfd,&test,sizeof(test));
-							*/
-						}
-					break;
-				
 
-			}
 	}
 
 }
@@ -193,26 +140,12 @@ int main(){
 	//catch the child process exit
 	signal(SIGCHLD,sig_chld_exit);
 	
-	while(true){
 		
 		socklen_t clilen=sizeof(cliaddr);
 
 		connfd=accept(listenfd,(struct sockaddr*)&cliaddr,&clilen);
 		
-		//if(fork()==0){
-				//string addr=inet_ntoa(cliaddr.sin_addr);
-				//cout<<"client from "<<addr<<" lanuch"<<endl;
-				//close(connfd);
-				//exit(0);
-				//cout<<"connfd="<<connfd<<endl;
-				startProc(connfd);
-				//exit(0);
-
-		//}
-
-
-
-	}
+		startProc(connfd);
 
 }
 
