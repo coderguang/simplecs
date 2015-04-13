@@ -103,7 +103,7 @@ static void startProc(int connfd,string ip){
 					 continue;
 
 			switch(id){
-					case pLanuchID:
+					case pLanuchID:{
 						cout<<"get the lanuch proto"<<endl;
 						Lanuch_tos *ptr=new Lanuch_tos();
 						//cout<<"&ptr="<<&ptr<<endl;
@@ -132,6 +132,7 @@ static void startProc(int connfd,string ip){
 							Err_toc *err=new Err_toc(rNum);
 							writen(connfd,&err->id,sizeof(Err_toc));
 						}
+					}
 					break;
 				
 
