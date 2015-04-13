@@ -92,18 +92,58 @@ static ssize_t writen(int connfd,void *vptr,size_t len){
 
 //read the id to decide the proto
 
-static void startProc(int connfd){
-	
+static void startProc(int connfd£¬string ip){
 	while(true){
-		char buf[256];
-		memset(buf,'\0',256);
-		int nread=readn(connfd,buf,256);
-		
-		int k;
-		
+				
+			int id=0;
+			int nread=read(connfd,&id,4);
 
+			if(nread<0){
+				if(errno!=EINTR){
+						cout<<"socket disconnections...."<<endl;
+						close(connfd);
+						exit(1);
+				}else
+					 continue;			
+			}else if(0==nread)	/*EOF of the stream */
+					 continue;
 
+			switch(id){
+					case pLanuchID:
+						cout<<"get the lanuch proto"<<endl;
+						Lanuch_tos *ptr=new Lanuch_tos();
+						//cout<<"&ptr="<<&ptr<<endl;
+						memset(ptr,'\0',sizeof(Lanuch_tos));
+						readn(connfd,&ptr->error_code,sizeof(Lanuch_tos)-4);
+						cout<<"accounts="<<ptr->account<<"  passwd="<<ptr->passwd<<endl;
+						string account=ptr->account;
+						string passwd=ptr->passwd;
+					//	cout<<"acc="<<account<<"  passwd="<<passwd<<endl;
+						struct Lanuch lanResult;
+						int rNum=LanuchAccount(account,passwd,ip,lanResult);
+						cout<<"rNum="<<rNum<<endl;
+						if(0==rNum){
+					
+							LanuchResult_toc *result=new LanuchResult_toc(lanResult.name,lanResult.lastlanuch,lanResult.lastIP,lanResult.setting);
+							cout<<"name="<<result->name<<"  lastlanuch="<<result->lastLanuch<<"  lastip="<<result->lastIP<<"  setting="<<result->setting<<endl;
+							
+							cout<<"write id="<<result->id<<endl;
+							//result->id=1001;
+							result->error_code=0;
+							writen(connfd,&result->id,sizeof(LanuchResult_toc));
+							//writen(connfd,&result->id,4);
+							cout<<"write proto complete"<<endl;
+						
+						}else{
+							Err_toc *err=new Err_toc(rNum);
+							writen(connfd,&err->id,sizeof(Err_toc));
+						}
+					break;
+				
+
+			}
 	}
+
 
 }
 int main(){
@@ -145,7 +185,8 @@ int main(){
 
 		connfd=accept(listenfd,(struct sockaddr*)&cliaddr,&clilen);
 		
-		startProc(connfd);
+		string ip=inet_ntoa(cliaddr.sin_addr);
+       startProc(connfd,ip);
 
 }
 
