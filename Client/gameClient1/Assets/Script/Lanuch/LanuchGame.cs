@@ -56,7 +56,9 @@ public class LanuchGame : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        MFactory.GetInstance();   
+        MFactory.GetInstance();
+        Lanuch_tos pmsg = new Lanuch_tos("sg2", "sg2passwd");
+        MConnection.GetInstance().Send(pmsg);
 	}
 	
 	// Update is called once per frame

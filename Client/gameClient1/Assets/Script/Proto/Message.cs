@@ -17,10 +17,12 @@ namespace Assets.Script.Proto
      * 应包含以下特性
      * [Serializable],[StructLayoutAttribute(LayoutKind.Sequential, CharSet = CharSet.Unicode, Pack = 1)]
      * 为了方便，决定使用ANSI作为字符集，以后如果还有时间再做Unicode字符集，协议bug暂时关闭
+     * 
+     * 使用struct而不是class来标示协议，观察是否还会有bug
      * */
 
     [Serializable]
-    [StructLayoutAttribute(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 4)]
+    [StructLayoutAttribute(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = protoID.PackSize)]
     class Message
     {
         public int id;

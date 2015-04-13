@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 namespace Assets.Script.Proto
 {
     [Serializable]
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 4)]
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = protoID.PackSize)]
     class LanuchResult_toc:Message
     { 
         public int setting;
