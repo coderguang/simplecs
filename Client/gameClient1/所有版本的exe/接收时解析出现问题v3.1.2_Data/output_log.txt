@@ -6,12 +6,11 @@ Direct3D:
     Vendor:   NVIDIA
     VRAM:     977 MB
 Begin MonoManager ReloadAssembly
-Platform assembly: E:\simplecs\Client\gameClient0\接收时解析出现问题v3.1.2_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading E:\simplecs\Client\gameClient0\接收时解析出现问题v3.1.2_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: E:\simplecs\Client\gameClient0\接收时解析出现问题v3.1.2_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading E:\simplecs\Client\gameClient0\接收时解析出现问题v3.1.2_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-- Completed reload, in  0.050 seconds
+Platform assembly: E:\simplecs\Client\gameClient1\所有版本的exe\接收时解析出现问题v3.1.2_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading E:\simplecs\Client\gameClient1\所有版本的exe\接收时解析出现问题v3.1.2_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: E:\simplecs\Client\gameClient1\所有版本的exe\接收时解析出现问题v3.1.2_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading E:\simplecs\Client\gameClient1\所有版本的exe\接收时解析出现问题v3.1.2_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+- Completed reload, in  0.244 seconds
 desktop: 1366x768 60Hz; virtual: 3286x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
-Platform assembly: E:\simplecs\Client\gameClient0\接收时解析出现问题v3.1.2_Data\Managed\System.dll (this message is harmless)
