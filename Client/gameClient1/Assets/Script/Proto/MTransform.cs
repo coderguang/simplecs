@@ -15,7 +15,7 @@ namespace Assets.Script.Proto
 
             //创建byte []数组存放数据
             byte[] bytes = new byte[size];
-            Array.Clear(bytes, 0, bytes.Length);
+            //Array.Clear(bytes, 0, bytes.Length);
 
             //分配结构体大小的内存空间
             IntPtr objPtr = Marshal.AllocHGlobal(size);
@@ -25,7 +25,7 @@ namespace Assets.Script.Proto
                 Marshal.StructureToPtr(obj, objPtr, false);
                 Marshal.Copy(objPtr, bytes, 0, size);
 
-                char[] c = Encoding.ASCII.GetChars(bytes);
+                //char[] c = Encoding.ASCII.GetChars(bytes);
                 //Console.WriteLine("bytes[]={0}", bytes.Length);
                 return bytes;
             }
@@ -38,7 +38,7 @@ namespace Assets.Script.Proto
         public static object BytesToStruct(byte[] bytes, Type type)
         {
             int size = Marshal.SizeOf(type);
-            char []c=Encoding.ASCII.GetChars(bytes);
+            //char []c=Encoding.ASCII.GetChars(bytes);
             //如果bytes数组的长度小于结构体的大小
             if (size > bytes.Length)
             {

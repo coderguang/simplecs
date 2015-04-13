@@ -17,52 +17,58 @@ public class LanuchGame : MonoBehaviour {
     public UIInput user;
     public UIInput passwd;
     //用于根据协议的错误码来更新登录状态提示
-    public static UILabel tip;
+    public UILabel tip;
 
-    /**
+
+    public static int err_code = 0;
+
+    public static bool tipFlag = false;
+    
     private static LanuchGame _instance;
 
     //使用单例模式，在协议模式中被调用，不使用事件委托模型
     public static LanuchGame GetInstance() {
         if (null == _instance)
             _instance = new LanuchGame();
-        return _instance;
-    
+        return _instance;    
     }
-    **/
-
-    public void ShowStatus(int err_code) { 
-        tip.text="";
-        if (ErrCode.ACCOUNT_ERR_PASSWD == err_code)
-            tip.text = "密码或密码不正确,请重新输入";
-        else if (ErrCode.ACCOUNT_HAD_LANUCH == err_code)
-            tip.text = "该账号已经登录，无法再次登录!";
-        else
-            tip.text = "未知错误:" + err_code;
-        
     
+
+    void OnGUI() {
+        if (tipFlag)
+        {
+            tip.text = "";
+            if (ErrCode.ACCOUNT_ERR_PASSWD == err_code)
+                tip.text = "密码或密码不正确,请重新输入";
+            else if (ErrCode.ACCOUNT_HAD_LANUCH == err_code)
+                tip.text = "该账号已经登录，无法再次登录!";
+            else
+                tip.text = "未知错误:" + err_code;
+
+            tipFlag = false;
+        }
     }
 
     //点击登录按钮将调用该函数
-    public void Login() {      
+    public void Login() {
         string username = user.value;
-        string passwdstr = passwd.value;
-        MLogger.Log(MLogLevel.INFO, MLogType.LanuchLog, "尝试登录,账号:" + username + "  密码:" + passwdstr);
-        Lanuch_tos pmsg = new Lanuch_tos(username, passwdstr);
-        MConnection.GetInstance().Send(pmsg);
-       
+        string passname = passwd.value;
+        Lanuch_tos temp=new Lanuch_tos(username,passname);
+        MConnection.GetInstance().Send(temp);
+
         
     }
 
 	// Use this for initialization
 	void Start () {
-        MFactory.GetInstance();
-        Lanuch_tos pmsg = new Lanuch_tos("sg2", "sg2passwd");
-        MConnection.GetInstance().Send(pmsg);
+      
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        if (tipFlag) { 
+            
+        }
 	}
 
 

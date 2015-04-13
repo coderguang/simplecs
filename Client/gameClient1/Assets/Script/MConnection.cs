@@ -29,7 +29,10 @@ namespace Assets.Script
         private Thread thread;
 
         //所有受到的协议包经过解码之后放到这里，然后主线程中某个一直存在的空对象脚本update里面执行
-        public List<Message> package=new List<Message>();
+        //public List<Message> package=new List<Message>();
+        public Queue<Message> package = new Queue<Message>();
+        //用于控制队列访问(添加，删除）的锁
+        public static object objLock = new object();
 
        
         private MConnection() {
@@ -181,9 +184,11 @@ namespace Assets.Script
         //装包程序，根据ID，将协议内容转换成具体的Message_toc的子类对象，装入到pack list中
         //超长版switch来袭，恶心就恶心吧~~~
 
-        private const int idSize = 4; 
-        
-        
+        private const int idSize = 4;
+
+
+        /**http://xiehuawei.me/blog/2014/11/20/unity-multithread/ **/
+
         protected void MPack(ref byte[] buffer) {
 
             byte[] idByte = new byte[idSize];
@@ -207,10 +212,13 @@ namespace Assets.Script
                             byte[] buf = new byte[Marshal.SizeOf(temp)];
 
                             Err_toc tp = (Err_toc)MTransform.BytesToStruct(buffer, typeof(Err_toc));
-                                //加入到List中
-                            package.Add(tp);
-     
 
+                            lock (objLock)
+                            {
+                                //加入到List中
+                                package.Enqueue(tp);
+                            }
+                            
 
                         }
                         break;
@@ -224,7 +232,7 @@ namespace Assets.Script
                                 LanuchResult_toc tp = (LanuchResult_toc)MTransform.BytesToStruct(buffer, type);
                                 //LanuchResult_toc tp = (LanuchResult_toc)MTransform.BytesToStruct(buffer, typeof(LanuchResult_toc));
                                 //加入到List中
-                                package.Add(tp);
+                                package.Enqueue(tp);
 
                                 string name = new string(tp.name);
                                 string time = new string(tp.lastLanuch);
