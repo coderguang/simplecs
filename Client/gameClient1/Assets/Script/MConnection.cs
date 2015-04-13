@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using UnityEngine;
+using System.Diagnostics;
 
 namespace Assets.Script
 {
@@ -180,7 +181,9 @@ namespace Assets.Script
         //装包程序，根据ID，将协议内容转换成具体的Message_toc的子类对象，装入到pack list中
         //超长版switch来袭，恶心就恶心吧~~~
 
-        private const int idSize = 4;
+        private const int idSize = 4; 
+        
+        
         protected void MPack(ref byte[] buffer) {
 
             byte[] idByte = new byte[idSize];
@@ -188,8 +191,10 @@ namespace Assets.Script
             if (idSize > buffer.Length)//如果整个包的长度小于4，说明这个包有问题，丢弃
                 return;
 
-            for (int i = 0; i < idSize; i++)
+            
+            for (int i = 0; i < idSize; i++) {               
                 idByte[i] = buffer[i];
+            }
 
             int id = System.BitConverter.ToInt32(idByte, 0);
 
@@ -225,7 +230,7 @@ namespace Assets.Script
                                 string time = new string(tp.lastLanuch);
                                 string ip = new string(tp.lastIP);
 
-                                MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "err_code=" + tp.error_code + "name=" + name + " last time=" + time + "  ip=" + ip + "  setting=" + tp.setting);
+                                MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "err_code=" + tp.error_code + "  name=" + name + " last time=" + time + "  ip=" + ip + "  setting=" + tp.setting);
 
                           
 
