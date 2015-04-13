@@ -9,7 +9,8 @@ static const int NAMESIZE=8;
 static const int LASTIPSIZE=16;
 static const int LASTLANUCHSIZE=32;
 
-#pragma pack(4)
+//#pragma pack(4)
+#pragma pack(PACKSIZE)
 class LanuchResult_toc:public Message
 {
 public:
@@ -17,6 +18,11 @@ public:
 		char name[NAMESIZE];
 		char lastIP[LASTIPSIZE];
 		char lastLanuch[LASTLANUCHSIZE];
+		
+		LanuchResult_toc(){
+			id=pLanuchResultID;
+			error_code=0;
+		}
 
 		LanuchResult_toc(string n,string lastTime,string lastip,int s){
 				//cout<<"in proto name="<<n<<"  time="<<lastTime<<"  ip="<<lastip<<endl;

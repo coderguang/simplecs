@@ -6,7 +6,8 @@
 static const int ACCOUNTSIZE=8;
 static const int PASSWDSIZE=16;
 
-#pragma pack(4)
+//#pragma pack(4)
+#pragma pack(PACKSIZE)
 class Lanuch_tos:public Message
 {
 	public:

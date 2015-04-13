@@ -92,7 +92,8 @@ static ssize_t writen(int connfd,void *vptr,size_t len){
 
 //read the id to decide the proto
 
-static void startProc(int connfd£¬string ip){
+static void startProc(int connfd,string ip){
+
 	while(true){
 				
 			int id=0;
@@ -109,7 +110,7 @@ static void startProc(int connfd£¬string ip){
 					 continue;
 
 			switch(id){
-					case pLanuchID:
+					case pLanuchID:{
 						cout<<"get the lanuch proto"<<endl;
 						Lanuch_tos *ptr=new Lanuch_tos();
 						//cout<<"&ptr="<<&ptr<<endl;
@@ -123,7 +124,6 @@ static void startProc(int connfd£¬string ip){
 						int rNum=LanuchAccount(account,passwd,ip,lanResult);
 						cout<<"rNum="<<rNum<<endl;
 						if(0==rNum){
-					
 							LanuchResult_toc *result=new LanuchResult_toc(lanResult.name,lanResult.lastlanuch,lanResult.lastIP,lanResult.setting);
 							cout<<"name="<<result->name<<"  lastlanuch="<<result->lastLanuch<<"  lastip="<<result->lastIP<<"  setting="<<result->setting<<endl;
 							
@@ -138,6 +138,7 @@ static void startProc(int connfd£¬string ip){
 							Err_toc *err=new Err_toc(rNum);
 							writen(connfd,&err->id,sizeof(Err_toc));
 						}
+					}
 					break;
 				
 
