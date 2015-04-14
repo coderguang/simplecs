@@ -1,4 +1,0 @@
-﻿4/13/2015 12:20:45 AM
-Info  LanuchLog:连接服务器成功..
-4/13/2015 12:20:45 AM
-Info  LanuchLog:尝试登录,账号:sg2  密码:sg2passwd
