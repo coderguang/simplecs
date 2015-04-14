@@ -39,9 +39,11 @@ public class LanuchGame : MonoBehaviour {
         {
             tip.text = "";
             if (ErrCode.ACCOUNT_ERR_PASSWD == err_code)
-                tip.text = "[ff0000]"+"密码或密码不正确,请重新输入"+"[-]";
+                tip.text = "[ff0000]"+"账号或密码不正确,请重新输入"+"[-]";
             else if (ErrCode.ACCOUNT_HAD_LANUCH == err_code)
                 tip.text = "[ff0000]" + "该账号已经登录，无法再次登录!" + "[-]";
+            else if(ErrCode.NETWORD_ERROR==err_code)
+                tip.text = "[ff0000]" + "网络未连接或服务器未开启!" + "[-]";
             else
                 tip.text = "[ff0000]" + "未知错误:" + err_code + "[-]";
 

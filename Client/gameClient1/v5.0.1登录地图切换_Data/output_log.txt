@@ -1,0 +1,43 @@
+Initialize engine version: 4.5.4f1 (e036f44c54c9)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce 410M (ID=0x1054)
+    Vendor:   NVIDIA
+    VRAM:     977 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: E:\simplecs\Client\gameClient1\v5.0.1登录地图切换_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading E:\simplecs\Client\gameClient1\v5.0.1登录地图切换_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: E:\simplecs\Client\gameClient1\v5.0.1登录地图切换_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading E:\simplecs\Client\gameClient1\v5.0.1登录地图切换_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: E:\simplecs\Client\gameClient1\v5.0.1登录地图切换_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading E:\simplecs\Client\gameClient1\v5.0.1登录地图切换_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: E:\simplecs\Client\gameClient1\v5.0.1登录地图切换_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
+Loading E:\simplecs\Client\gameClient1\v5.0.1登录地图切换_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
+- Completed reload, in  0.065 seconds
+desktop: 1366x768 60Hz; virtual: 3286x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+Platform assembly: E:\simplecs\Client\gameClient1\v5.0.1登录地图切换_Data\Managed\System.dll (this message is harmless)
+UnloadTime: 2.859957 ms
+No idle animation found. Turning off animations.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+No walk animation found. Turning off animations.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+No run animation found. Turning off animations.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+No jump animation found and the character has canJump enabled. Turning off animations.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 587.
+Total: 1.286296 ms (FindLiveObjects: 0.033354 ms CreateObjectMapping: 0.010263 ms MarkObjects: 0.279666 ms  DeleteObjects: 0.037203 ms)
+

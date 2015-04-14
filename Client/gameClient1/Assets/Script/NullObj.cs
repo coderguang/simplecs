@@ -71,6 +71,12 @@ public class NullObj : MonoBehaviour {
                         
                         }
                         break;
+                    case protoID.LanuchResultID: //登录正确
+                        {
+                            Application.LoadLevel("GameMap");
+
+                        }
+                        break;
 
                 
                 

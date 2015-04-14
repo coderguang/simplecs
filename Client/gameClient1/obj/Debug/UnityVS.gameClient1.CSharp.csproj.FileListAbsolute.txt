@@ -7,3 +7,5 @@ E:\simplecs\Client\gameClient1\Temp\UnityVS_bin\Debug\UnityEditor.xml
 E:\simplecs\Client\gameClient1\obj\Debug\UnityVS.gameClient1.CSharp.csprojResolveAssemblyReference.cache
 E:\simplecs\Client\gameClient1\obj\Debug\Assembly-CSharp.dll
 E:\simplecs\Client\gameClient1\obj\Debug\Assembly-CSharp.pdb
+E:\simplecs\Client\gameClient1\Temp\UnityVS_bin\Debug\Assembly-UnityScript-firstpass.dll
+E:\simplecs\Client\gameClient1\Temp\UnityVS_bin\Debug\Assembly-CSharp-firstpass.pdb

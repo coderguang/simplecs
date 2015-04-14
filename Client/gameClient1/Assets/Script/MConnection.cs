@@ -78,7 +78,7 @@ namespace Assets.Script
                 bool success = result.AsyncWaitHandle.WaitOne(10000, true);
                 if (success)
                 {
-                    MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.LanuchLog, "连接服务器成功..");
+                    MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.LanuchLog, "异步socket任务开启..");
 
                     //开启线程接收数据
                     /**先调好协议，传输时不会出现bug(协议数据的后面会有莫名的字符)再说**/
@@ -88,11 +88,11 @@ namespace Assets.Script
                     thread.Start();
                      
                 }
-                else { 
+                else {
                     //关闭socket
                     if (msocket != null && msocket.Connected) {
                         msocket.Shutdown(SocketShutdown.Both);
-                        msocket.Close();
+                        msocket.Close();                        
                     }
                     msocket = null;
                     MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.LanuchLog, "连接服务器超时..");
@@ -101,6 +101,16 @@ namespace Assets.Script
             catch {
                 MLogger.Log(Log.MLogLevel.ERROR, Log.MLogType.LanuchLog, "出现异常，连接服务器失败..");
             }
+
+
+            //检测socket是否处于连接状态
+            if (!msocket.Connected) {
+                LanuchGame.err_code = ErrCode.NETWORD_ERROR;
+                LanuchGame.tipFlag = true;
+            }
+
+
+
         }
 
         public void connectCallBack(IAsyncResult asyncConnect) {
@@ -229,7 +239,7 @@ namespace Assets.Script
                     case protoID.LanuchResultID://获取登录结果
                         {
                             LanuchResult_toc temp = new LanuchResult_toc();
-                            byte[] buf = new byte[Marshal.SizeOf(temp)];
+                            //byte[] buf = new byte[Marshal.SizeOf(temp)];
                             
  
                                 Type type = typeof(LanuchResult_toc);
@@ -242,10 +252,7 @@ namespace Assets.Script
                                 string time = new string(tp.lastLanuch);
                                 string ip = new string(tp.lastIP);
 
-                                MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "err_code=" + tp.error_code + "  name=" + name + " last time=" + time + "  ip=" + ip + "  setting=" + tp.setting);
-
-                          
-
+                                MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "err_code=" + tp.error_code + "  name=" + name + " last time=" + time + "  ip=" + ip + "  setting=" + tp.setting);                         
 
 
                         }

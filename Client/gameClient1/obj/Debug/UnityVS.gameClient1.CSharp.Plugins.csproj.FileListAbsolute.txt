@@ -1,0 +1,9 @@
+E:\simplecs\Client\gameClient1\Temp\UnityVS_bin\Debug\Assembly-CSharp-firstpass.dll
+E:\simplecs\Client\gameClient1\Temp\UnityVS_bin\Debug\Assembly-CSharp-firstpass.pdb
+E:\simplecs\Client\gameClient1\Temp\UnityVS_bin\Debug\UnityEditor.dll
+E:\simplecs\Client\gameClient1\Temp\UnityVS_bin\Debug\UnityEngine.dll
+E:\simplecs\Client\gameClient1\Temp\UnityVS_bin\Debug\UnityEngine.xml
+E:\simplecs\Client\gameClient1\Temp\UnityVS_bin\Debug\UnityEditor.xml
+E:\simplecs\Client\gameClient1\obj\Debug\UnityVS.gameClient1.CSharp.Plugins.csprojResolveAssemblyReference.cache
+E:\simplecs\Client\gameClient1\obj\Debug\Assembly-CSharp-firstpass.dll
+E:\simplecs\Client\gameClient1\obj\Debug\Assembly-CSharp-firstpass.pdb
