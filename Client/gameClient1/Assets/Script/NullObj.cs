@@ -95,6 +95,12 @@ public class NullObj : MonoBehaviour {
 	}
 
 
+    void OnDestroy() {
+
+        MConnection.GetInstance().Destroy();
+    }
+
+
 
 
 }

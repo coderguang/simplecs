@@ -39,11 +39,11 @@ public class LanuchGame : MonoBehaviour {
         {
             tip.text = "";
             if (ErrCode.ACCOUNT_ERR_PASSWD == err_code)
-                tip.text = "密码或密码不正确,请重新输入";
+                tip.text = "[ff0000]"+"密码或密码不正确,请重新输入"+"[-]";
             else if (ErrCode.ACCOUNT_HAD_LANUCH == err_code)
-                tip.text = "该账号已经登录，无法再次登录!";
+                tip.text = "[ff0000]" + "该账号已经登录，无法再次登录!" + "[-]";
             else
-                tip.text = "未知错误:" + err_code;
+                tip.text = "[ff0000]" + "未知错误:" + err_code + "[-]";
 
             tipFlag = false;
         }

@@ -6,12 +6,13 @@
 5、网络连接中socket readn  writen问题
 6、toc,tos的误区，论内存对齐在协议传输中的重要性(pack(1)和pack(4))
 7、如何区分接收的是什么协议(先收4个，读出id)
-8、protobuf的坑，AMD机器汇编没有ref...
+8、protobuf的坑，AMD机器汇编没有ref...（未解决，不采用）
 
 客户端:
 1、数据结构（协议）和byte数组的互转
 2、后台socket线程设计
 3、Unity后台线程不能创建对象问题
-4、使用线程安全的List来缓存协议包
+4、使用线程安全的List来缓存协议包（改用Queue）
 5、协议的设计
 6、如何正确解析协议
+7、socket不断导致的Unity编辑器假死问题
