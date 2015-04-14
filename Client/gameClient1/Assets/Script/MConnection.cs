@@ -49,12 +49,14 @@ namespace Assets.Script
         //游戏关闭时要执行该函数
         //由NullObj脚本对象释放时调用
         //否则编辑器会假死，socket未断开，后台线程似乎也不会关闭
+        /**http://blog.sina.com.cn/s/blog_62cff5e00102v3px.html **/
         public void Destroy()
         {
             if (msocket.Connected)
                 msocket.Close();
             if (thread.IsAlive)
                 thread.Abort();
+            
 
         }
         //在Init中建立socket tcp连接
