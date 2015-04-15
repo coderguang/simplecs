@@ -14,6 +14,7 @@ static const int LASTLANUCHSIZE=32;
 class LanuchResult_toc:public Message
 {
 public:
+		int account_id;
 		int setting;
 		char name[NAMESIZE];
 		char lastIP[LASTIPSIZE];
@@ -24,7 +25,7 @@ public:
 			error_code=0;
 		}
 
-		LanuchResult_toc(string n,string lastTime,string lastip,int s){
+		LanuchResult_toc(string n,string lastTime,string lastip,int s,int a_id){
 				//cout<<"in proto name="<<n<<"  time="<<lastTime<<"  ip="<<lastip<<endl;
 				//get the right result from db 
 				//belown had happen somethings make the value exception
@@ -40,6 +41,7 @@ public:
 				//memcpy(lastLanuch,lastTime.c_str(),LASTLANUCHSIZE);	
 				//memcpy(lastIP,lastip.c_str(),LASTIPSIZE);
 				setting=s;
+				account_id=a_id;
 		}
 		
 };

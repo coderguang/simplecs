@@ -37,5 +37,14 @@ static string GetTimeNow(){
 		return t;	
 }
 
+static void DelayTime(double sec){
+	time_t start_time,cur_time;
+	time(&start_time);
+	do{
+			time(&cur_time);
+	}while((cur_time-start_time<sec));
+
+}
+
 
 #endif

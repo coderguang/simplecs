@@ -45,6 +45,8 @@ insert into accounts values(DEFAULT,'sg4','sg4passwd','coderguang@gmail.com','sg
 insert into accounts values(DEFAULT,'sg5','sg5passwd','coderguang@gmail.com','sg5',1000,'sg5answer',DEFAULT,DEFAULT,DEFAULT,0,1000,0,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT);
 insert into accounts values(DEFAULT,'sg6','sg6passwd','coderguang@gmail.com','sg6',1000,'sg6answer',DEFAULT,DEFAULT,DEFAULT,0,1000,0,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT);
 insert into accounts values(DEFAULT,'sg7','sg7passwd','coderguang@gmail.com','sg7',1000,'sg7answer',DEFAULT,DEFAULT,DEFAULT,0,1000,0,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT);
+insert into accounts values(DEFAULT,'sg8','sg8passwd','coderguang@gmail.com','sg8',1000,'sg8answer',DEFAULT,DEFAULT,DEFAULT,0,1000,0,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT);
+insert into accounts values(DEFAULT,'sg9','sg9passwd','coderguang@gmail.com','sg9',1000,'sg9answer',DEFAULT,DEFAULT,DEFAULT,0,1000,0,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT);
 
 EOF
 
