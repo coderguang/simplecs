@@ -16,6 +16,8 @@
 #include "../MyDB/dbcpp/DBInterface.h"
 #include "../MyDB/dbcpp/DBErr.h"
 #include "Rdwr.h"
+#include "../include/struct/shmServer.h"
+#include "../include/Func.h"
 using namespace std;
 
 /**
@@ -26,6 +28,45 @@ using namespace std;
  */
 
 static void mLanuchGame(int connfd,string ip){
+
+	//check the server user counter,if it bigger than MAX_USER,reject the new connections
+	int fd;
+	struct shmNum *shmptr;
+	sem_t *smutex;
+	
+	fd=shm_open("mshmNum",O_RDWR,0644);
+	if(fd<0){
+		cout<<"child process open mshmNum failed!"<<endl;
+		exit(1);
+	}
+	
+	shmptr=(struct shmNum*)mmap(NULL,sizeof(struct shmNum),PROT_READ|PROT_WRITE,MAP_SHARED,fd,0);
+
+	close(fd);
+
+	smutex=sem_open("msemNum",0);
+
+	//cout<<"come to here couter="<<shmptr->counter<<endl;
+
+	sem_wait(smutex);
+	//check the user counter  in the server
+	if(shmptr->counter>=MAX_USER){
+			cout<<"server full!"<<endl;
+			Err_toc *temp=new Err_toc(SERVER_FULL);
+			writen(connfd,&temp->id,sizeof(Err_toc));
+
+			shmptr->counter++;//becase when it exit,counter--,so in here should be counter++
+			sem_post(smutex);
+			DelayTime(5);
+			close(connfd);
+			exit(0);
+	}
+	sem_post(smutex);
+	
+	
+	
+	
+	
 	
 	while(true){
 			int id=0;
@@ -34,6 +75,13 @@ static void mLanuchGame(int connfd,string ip){
 			if(nread<0){
 				if(errno!=EINTR){
 						cout<<"socket disconnections...."<<endl;
+
+						//come to here it show it don't lanuch sucess,so should be counter++ in here
+						sem_wait(smutex);
+						shmptr->counter++;
+						sem_post(smutex);
+
+						
 						close(connfd);
 						exit(1);
 				}else
@@ -56,7 +104,13 @@ static void mLanuchGame(int connfd,string ip){
 						cout<<"rNum="<<rNum<<endl;
 						if(0==rNum){
 					
-							LanuchResult_toc *result=new LanuchResult_toc(lanResult.name,lanResult.lastlanuch,lanResult.lastIP,lanResult.setting);
+							//server counter ++
+							sem_wait(smutex);
+							shmptr->counter++;
+							cout<<"now server counter is "<<shmptr->counter<<endl;
+							sem_post(smutex);
+
+							LanuchResult_toc *result=new LanuchResult_toc(lanResult.name,lanResult.lastlanuch,lanResult.lastIP,lanResult.setting,lanResult.id);
 							cout<<"name="<<result->name<<"  lastlanuch="<<result->lastLanuch<<"  lastip="<<result->lastIP<<"  setting="<<result->setting<<endl;
 							
 							cout<<"write id="<<result->id<<endl;
@@ -76,7 +130,6 @@ static void mLanuchGame(int connfd,string ip){
 				
 
 			}
-	}
-
+}
 
 #endif

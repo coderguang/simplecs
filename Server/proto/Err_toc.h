@@ -9,6 +9,8 @@
 
 //accounts errocode from DBErr.h in  simplecs/Server/MyDB/dbcpp/DBErr.h
 //
+//
+static const int SERVER_FULL=5888; //server is full!
 static const int ACCOUNT_HADREGIT=6000;//use for regit accounts
 static const int ACCOUNT_ERR_IDENTITY=6100;//use for forget the passwd to reset the passwd
 
