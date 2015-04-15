@@ -3,6 +3,7 @@ using System.Collections;
 using Assets.Script;
 using Assets.Script.Proto;
 using Assets.Script.Log;
+using Assets.Script.Temp;
 using System;
 
 public class NullObj : MonoBehaviour {
@@ -85,7 +86,8 @@ public class NullObj : MonoBehaviour {
                             PublicRoom.timeStr = new string(temp.lastLanuch);
                             PublicRoom.ipStr = new string(temp.lastIP);
                              **/
-                            PersonData.m_Name=new string(temp.name);
+                            //PersonData.m_Name=new string(temp.name);
+                            PersonData.m_Name = PersonName.GetName(temp.account_id);
                             PersonData.m_LastTime = new string(temp.lastLanuch);
                             PersonData.m_LastIP= new string(temp.lastIP);
                             PublicRoom.publicRoomFlag = true;

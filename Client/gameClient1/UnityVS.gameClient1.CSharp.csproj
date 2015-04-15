@@ -7,14 +7,16 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D3040311-00F9-185E-9D2F-6369C6F786A1}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <AssemblyName>Assembly-CSharp</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>4.5.4f1</UnityVersion>
@@ -209,6 +211,7 @@
     <Compile Include="Assets\Script\Proto\Message.cs" />
     <Compile Include="Assets\Script\Proto\protoID.cs" />
     <Compile Include="Assets\Script\PublicRoom\PublicRoom.cs" />
+    <Compile Include="Assets\Script\Temp\PersonName.cs" />
     <Compile Include="Assets\Script\Time\mTimer.cs" />
   </ItemGroup>
   <ItemGroup>

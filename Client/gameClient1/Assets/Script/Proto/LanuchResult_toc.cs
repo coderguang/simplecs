@@ -9,7 +9,8 @@ namespace Assets.Script.Proto
     [Serializable]
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = protoID.PackSize)]
     class LanuchResult_toc:Message
-    { 
+    {
+        public int account_id;
         public int setting;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
         public char[] name;
