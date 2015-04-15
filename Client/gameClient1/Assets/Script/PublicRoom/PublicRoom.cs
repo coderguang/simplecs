@@ -9,14 +9,13 @@ public class PublicRoom : MonoBehaviour {
     public UILabel ip;
 
     [HideInInspector]
-    public bool publicRoomFlag = false;
-
+    public static bool publicRoomFlag = false;
     [HideInInspector]
-    public string nameStr;
+    public static string nameStr;
     [HideInInspector]
-    public string timeStr;
+    public static string timeStr;
     [HideInInspector]
-    public string ipStr;
+    public static string ipStr;
 
 
     private static PublicRoom _instance;
@@ -32,26 +31,26 @@ public class PublicRoom : MonoBehaviour {
     
     }
 
+    //从全局数据中获取上次登录相关信息
     void OnGUI()
     {
         if (publicRoomFlag)
         {
-            user_name.text = nameStr;
-            time.text = timeStr;
-            ip.text = ipStr;
+            //name是个坑，老是获取不正确，先放着这个bug
+            user_name.text = "[ff0000]角色名："+PersonData.m_Name+"[-]";
+            time.text = "[ff0000]上次登录时间：" + PersonData.m_LastTime+"[-]";
+            ip.text = "[ff0000]上次登录IP：" + PersonData.m_LastIP+"[-]";
             publicRoomFlag = false;
            
         }
     }
 
+    public void StartGame() {
+        Application.LoadLevel("GameMap");    
+    }
 
+    public void ExitGame() {
+        Application.Quit();
+    }
 
-	void Start () {
-	    
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

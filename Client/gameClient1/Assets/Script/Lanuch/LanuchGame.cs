@@ -22,7 +22,7 @@ public class LanuchGame : MonoBehaviour {
     [HideInInspector]
     public static int err_code = 0;
     [HideInInspector]
-    public bool tipFlag = false;
+    public static bool tipFlag = false;
     
     private static LanuchGame _instance;
 
@@ -68,9 +68,7 @@ public class LanuchGame : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (tipFlag) { 
-            
-        }
+
 	}
 
 

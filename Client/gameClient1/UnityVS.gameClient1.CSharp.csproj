@@ -200,6 +200,7 @@
     <Compile Include="Assets\Script\MConnection.cs" />
     <Compile Include="Assets\Script\MFactory.cs" />
     <Compile Include="Assets\Script\NullObj.cs" />
+    <Compile Include="Assets\Script\PersonData.cs" />
     <Compile Include="Assets\Script\Proto\ErrCode.cs" />
     <Compile Include="Assets\Script\Proto\Err_toc.cs" />
     <Compile Include="Assets\Script\Proto\LanuchResult_toc.cs" />

@@ -66,21 +66,30 @@ public class NullObj : MonoBehaviour {
                         {
                             if (ErrCode.ACCOUNT_ERR_PASSWD == msg.error_code||ErrCode.ACCOUNT_HAD_LANUCH==msg.error_code) {
                                 //LanuchGame.GetInstance().err_code=msg.error_code;
+                                //LanuchGame.GetInstance().tipFlag = true;
                                 LanuchGame.err_code = msg.error_code;
-                                LanuchGame.GetInstance().tipFlag = true;
+                                LanuchGame.tipFlag = true;
+                                
                             }                        
                         
                         }
                         break;
                     case protoID.LanuchResultID: //登录正确
                         {
-                            Application.LoadLevel("PublicRoom");
+                            
+                             
                             LanuchResult_toc temp=(LanuchResult_toc)msg;
-                            PublicRoom.GetInstance().nameStr = new string(temp.name);
-                            PublicRoom.GetInstance().timeStr = new string(temp.lastLanuch);
-                            PublicRoom.GetInstance().ipStr = new string(temp.lastIP);
-                            PublicRoom.GetInstance().publicRoomFlag = true;
-
+                            /**
+                            PublicRoom.GetInstance();
+                            PublicRoom.nameStr = new string(temp.name);
+                            PublicRoom.timeStr = new string(temp.lastLanuch);
+                            PublicRoom.ipStr = new string(temp.lastIP);
+                             **/
+                            PersonData.m_Name=new string(temp.name);
+                            PersonData.m_LastTime = new string(temp.lastLanuch);
+                            PersonData.m_LastIP= new string(temp.lastIP);
+                            PublicRoom.publicRoomFlag = true;
+                            Application.LoadLevel("PublicRoom");
                         }
                         break;
 
