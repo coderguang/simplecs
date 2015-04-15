@@ -19,10 +19,10 @@ public class LanuchGame : MonoBehaviour {
     //用于根据协议的错误码来更新登录状态提示
     public UILabel tip;
 
-
+    [HideInInspector]
     public static int err_code = 0;
-
-    public static bool tipFlag = false;
+    [HideInInspector]
+    public bool tipFlag = false;
     
     private static LanuchGame _instance;
 

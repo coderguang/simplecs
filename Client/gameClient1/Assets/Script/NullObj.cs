@@ -65,15 +65,21 @@ public class NullObj : MonoBehaviour {
                     case protoID.ErrID://错误情况
                         {
                             if (ErrCode.ACCOUNT_ERR_PASSWD == msg.error_code||ErrCode.ACCOUNT_HAD_LANUCH==msg.error_code) {
-                                LanuchGame.err_code=msg.error_code;
-                                LanuchGame.tipFlag = true;
+                                //LanuchGame.GetInstance().err_code=msg.error_code;
+                                LanuchGame.err_code = msg.error_code;
+                                LanuchGame.GetInstance().tipFlag = true;
                             }                        
                         
                         }
                         break;
                     case protoID.LanuchResultID: //登录正确
                         {
-                            Application.LoadLevel("GameMap");
+                            Application.LoadLevel("PublicRoom");
+                            LanuchResult_toc temp=(LanuchResult_toc)msg;
+                            PublicRoom.GetInstance().nameStr = new string(temp.name);
+                            PublicRoom.GetInstance().timeStr = new string(temp.lastLanuch);
+                            PublicRoom.GetInstance().ipStr = new string(temp.lastIP);
+                            PublicRoom.GetInstance().publicRoomFlag = true;
 
                         }
                         break;

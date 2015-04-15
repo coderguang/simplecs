@@ -105,8 +105,9 @@ namespace Assets.Script
 
             //检测socket是否处于连接状态
             if (!msocket.Connected) {
+                //LanuchGame.GetInstance().err_code = ErrCode.NETWORD_ERROR;
                 LanuchGame.err_code = ErrCode.NETWORD_ERROR;
-                LanuchGame.tipFlag = true;
+                LanuchGame.GetInstance().tipFlag = true;
             }
 
 

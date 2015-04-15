@@ -207,6 +207,7 @@
     <Compile Include="Assets\Script\Proto\MTransform.cs" />
     <Compile Include="Assets\Script\Proto\Message.cs" />
     <Compile Include="Assets\Script\Proto\protoID.cs" />
+    <Compile Include="Assets\Script\PublicRoom\PublicRoom.cs" />
     <Compile Include="Assets\Script\Time\mTimer.cs" />
   </ItemGroup>
   <ItemGroup>
