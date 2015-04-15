@@ -8,6 +8,7 @@ using namespace std;
 class PersonData{
 public:
 	  static int m_ID;
+		static int m_Party;
 	  static string m_Name;
 	  static string m_lastTime;
 	  static string m_LastIP;
@@ -25,6 +26,7 @@ public:
 
 
 	int PersonData::m_ID=0;
+	int PersonData::m_Party=0;
 	string PersonData::m_Name=nullptr;
 	string PersonData::m_lastTime=nullptr;
 	string PersonData::m_LastIP=nullptr;
