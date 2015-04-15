@@ -9,8 +9,8 @@
 #include <stdlib.h>
 #include "protoID.h"
 
-//#pragma pack(4)
-#pragma pack(PACKSIZE)
+#pragma pack(1)
+//#pragma pack(PACKSIZE)
 class Message{
 public:
 	int id;

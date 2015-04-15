@@ -17,8 +17,8 @@ static const int ACCOUNT_ERR_PASSWD=6200;//use for lanuch when passwd no matchin
 static const int ACCOUNT_HAD_LANUCH=6300;//the account is lanuch and using now
 
 
-//#pragma pack(4)
-#pragma pack(PACKSIZE)
+#pragma pack(1)
+//#pragma pack(PACKSIZE)
 class Err_toc:public Message{
 public:
 		Err_toc(int errcode){
