@@ -4,7 +4,7 @@ mysql -u root -pmaildb<<EOF 2>>log 1>>info
 grant insert,select(account) on simplecs.accounts to 'regitUser'@'localhost' identified by 'regiter';
 
 #lanuchUser for lanuch and update the setMsg
-grant select(account,passwd,name,status,lastlanuch,lastIP,times,setting),update(status,lastlanuch,lastIP,times,setting) on simplecs.accounts to 'lanuchUser'@'localhost' identified by 'lanucher';
+grant select(id,account,passwd,name,status,lastlanuch,lastIP,times,setting),update(status,lastlanuch,lastIP,times,setting) on simplecs.accounts to 'lanuchUser'@'localhost' identified by 'lanucher';
 
 #secureUser for reset passwd 
 grant select(account,email,question,answer),update(passwd) on simplecs.accounts to 'secureUser'@'localhost' identified by 'securer';

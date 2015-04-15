@@ -8,6 +8,7 @@ struct Lanuch{
 	string lastlanuch;
 	string lastIP;
 	int setting;
+	int id;
 };
 
 #endif

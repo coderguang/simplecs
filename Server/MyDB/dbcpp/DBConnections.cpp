@@ -377,7 +377,7 @@ int DBConnections::ResetPasswd(string account,string newPasswd){
 //for lanuch
 int DBConnections::Lanuch(string account,string passwd,string ip,struct Lanuch &lanResult){
 		//cout<<"come to lanuch"<<endl;
-		string sql="select name,lastlanuch,lastIP,setting from accounts where account='"+account+"' AND passwd='"+passwd+"'";
+		string sql="select name,lastlanuch,lastIP,setting,id,status from accounts where account='"+account+"' AND passwd='"+passwd+"'";
 		MYSQL_RES *res;
 		int rNum=MyQuery(LANUCH,sql,&res);
 		//cout<<"return is "<<rNum<<endl;
@@ -387,11 +387,28 @@ int DBConnections::Lanuch(string account,string passwd,string ip,struct Lanuch &
 			if(1==rowLegth){
 				MYSQL_ROW row;			
 				if(NULL!=(row=mysql_fetch_row(res))){
+					//if this account is using now
+					
+					if(1==StrToInt(row[5])){
+						cout<<"this account is using now!"<<endl;
+						return ACCOUNT_IS_USING;
+					}else{
+						cout<<"row[5]="<<row[5]<<endl;
+					}
+
+					//cout<<"to set lanResultname"<<endl;
 					lanResult.name=row[0];
+					//cout<<"to set lanResultlanuch"<<endl;
 					lanResult.lastlanuch=row[1];
+					//cout<<"to set lanResultip"<<endl;
 					lanResult.lastIP=row[2];
+					//cout<<"to set lanResultsetting"<<endl;
 					lanResult.setting=StrToInt(row[3]);
+					lanResult.id=StrToInt(row[4]);
+
+					//cout<<"start set lanuch struct"<<endl;
 					Log(LanuchLog,INFO,"lanuch "+account+"  success!");
+					//cout<<"set lanuch struct success"<<endl;
 					
 					//change the accunts status
 					string t=GetTimeNow();
@@ -400,6 +417,10 @@ int DBConnections::Lanuch(string account,string passwd,string ip,struct Lanuch &
 					MyQuery(LANUCH,tsql,nullptr);
 					string isql="update accounts set lastIP='"+ip+"' where account='"+account+"'";
 					MyQuery(LANUCH,isql,nullptr);
+					string ssql="update accounts set status=1 where account='"+account+"'";
+					MyQuery(LANUCH,ssql,nullptr);
+					
+					//cout<<"update status success"<<endl;
 					
 					FreeResult(&res);
 					return OK;
@@ -418,6 +439,15 @@ int DBConnections::Lanuch(string account,string passwd,string ip,struct Lanuch &
 		}else 
 			return rNum;
 }
+
+
+int DBConnections::ExitLanuch(int id){
+					string ssql="update accounts set status=0 where id='"+IntToStr(id)+"'";
+					MyQuery(LANUCH,ssql,nullptr);
+}
+
+
+
 //for InsertResult 
 //need  update the accounts flag,result*
 int DBConnections::InsertResult(struct ResultAll &resultA){ 

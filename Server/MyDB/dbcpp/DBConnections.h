@@ -81,6 +81,10 @@ public:
 	int ResetPasswd(string account,string newPasswd);
 	//for lanuch
 	int Lanuch(string account,string passwd,string ip,struct Lanuch &lanResult);
+
+	//for exit the game
+	//set this accounts status be false
+	int ExitLanuch(int id);
 	//for InsertResult 
 	//need  update the accounts flag,result*
 	int InsertResult(struct ResultAll &resultA);

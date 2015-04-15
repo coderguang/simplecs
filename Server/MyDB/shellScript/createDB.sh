@@ -29,7 +29,8 @@ alter table accounts add email char(16) not null ;
 alter table accounts add name char(8) default null unIque;
 alter table accounts add question int(4) not null; 
 alter table accounts add answer char(8) not null; 
-alter table accounts add status bool not null default false; 
+# status 1 for accounts using,0 for free
+alter table accounts add status int(8) not null default 0; 
 alter table accounts add lastlanuch char(32) not null default 'Thu Jan  1 00:01:03 2015';
 alter table accounts add lastIP char(16) default '127.0.0.1';
 alter table accounts add times int(4) not null default 0;
