@@ -46,20 +46,17 @@ static void mLanuchGame(int connfd,string ip){
 
 	smutex=sem_open("msemNum",0);
 
-	//cout<<"come to here couter="<<shmptr->counter<<endl;
+	cout<<"come to here!="<<shmptr->counter<<endl;
 
 	sem_wait(smutex);
 	//check the user counter  in the server
 	if(shmptr->counter>=MAX_USER){
-			cout<<"server full!"<<endl;
+			cout<<"come to server full!"<<endl;
 			Err_toc *temp=new Err_toc(SERVER_FULL);
 			writen(connfd,&temp->id,sizeof(Err_toc));
-
-			shmptr->counter++;//becase when it exit,counter--,so in here should be counter++
 			sem_post(smutex);
 			DelayTime(5);
-			close(connfd);
-			exit(0);
+			exit(1);
 	}
 	sem_post(smutex);
 	
@@ -75,13 +72,6 @@ static void mLanuchGame(int connfd,string ip){
 			if(nread<0){
 				if(errno!=EINTR){
 						cout<<"socket disconnections...."<<endl;
-
-						//come to here it show it don't lanuch sucess,so should be counter++ in here
-						sem_wait(smutex);
-						shmptr->counter++;
-						sem_post(smutex);
-
-						
 						close(connfd);
 						exit(1);
 				}else
