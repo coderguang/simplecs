@@ -97,6 +97,8 @@ public class NullObj : MonoBehaviour {
                     case protoID.PartyID://更新分组信息
                         {
                             Party_toc temp = (Party_toc)msg;
+
+                            
                             UpdateParty.b_1ID = temp.b1;
                             UpdateParty.b_2ID = temp.b2;
                             UpdateParty.b_3ID = temp.b3;
@@ -109,6 +111,19 @@ public class NullObj : MonoBehaviour {
                             UpdateParty.r_4ID = temp.r4;
                             UpdateParty.r_5ID = temp.r5;
 
+                            /**
+                            UpdateParty.b_1ID = temp.blue[0];
+                            UpdateParty.b_2ID = temp.blue[1];
+                            UpdateParty.b_3ID = temp.blue[2];
+                            UpdateParty.b_4ID = temp.blue[3];
+                            UpdateParty.b_5ID = temp.blue[4];
+
+                            UpdateParty.r_1ID = temp.red[0];
+                            UpdateParty.r_2ID = temp.red[1];
+                            UpdateParty.r_3ID = temp.red[2];
+                            UpdateParty.r_4ID = temp.red[3];
+                            UpdateParty.r_5ID = temp.red[4];
+                             * */
                             UpdateParty.flag = true;
 
 

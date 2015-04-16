@@ -15,6 +15,13 @@ namespace Assets.Script.Proto
     [StructLayoutAttribute(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = protoID.PackSize)]
     class Party_toc:Message
     {
+        /**
+         * 不用使用这种方式，会有bug
+        public int []red=new int[5];
+        public int []blue=new int[5];
+         * 
+         * */
+        
         public int r1;
         public int r2;
         public int r3;
@@ -27,6 +34,6 @@ namespace Assets.Script.Proto
         public int b3;
         public int b4;
         public int b5;
-
+        
     }
 }
