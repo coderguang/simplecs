@@ -28,6 +28,8 @@ namespace Assets.Script.Proto
 
 
 
+        public const int NULL_USER = 7000;//代表公共房间内的用户列表为空
+
 
 
     }

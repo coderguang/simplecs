@@ -13,8 +13,8 @@ namespace Assets.Script.Proto
        public const int LanuchID= 1000;
        public const int LanuchResultID = 1001;
 
+       public const int PartyID = 1500;//房间用户列表
 
-
-       public const int ErrID = 3999;
+       public const int ErrID = 3999;//错误协议
     }
 }

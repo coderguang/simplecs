@@ -209,8 +209,10 @@
     <Compile Include="Assets\Script\Proto\Lanuch_tos.cs" />
     <Compile Include="Assets\Script\Proto\MTransform.cs" />
     <Compile Include="Assets\Script\Proto\Message.cs" />
+    <Compile Include="Assets\Script\Proto\Party_toc.cs" />
     <Compile Include="Assets\Script\Proto\protoID.cs" />
     <Compile Include="Assets\Script\PublicRoom\PublicRoom.cs" />
+    <Compile Include="Assets\Script\PublicRoom\UpdateParty.cs" />
     <Compile Include="Assets\Script\Temp\PersonName.cs" />
     <Compile Include="Assets\Script\Time\mTimer.cs" />
   </ItemGroup>
