@@ -8,7 +8,7 @@ using namespace std;
 
 //this function is using for create&open the mshmNum and mshmList share memory
 //and create&open semaphore msemNum  and msemList
-void openShmFunc(){
+static void openShmFunc(){
 	
 //open mshmNum and msemNum
 	int fd;
