@@ -61,8 +61,25 @@ static void mLanuchGame(int connfd,string ip){
 	sem_post(smutex);
 	
 	
+//open the shmList share memory
+	int fdd;
+	struct shmList *list;
 	
+	sem_t *lmutex;
 	
+	fdd=shm_open("mshmList",O_RDWR,0644);
+	
+	if(fdd<0){
+		cout<<"open mshmList failed when mLanuchGame!"<<endl;
+	}
+	
+	list=(struct shmList*)mmap(NULL,sizeof(struct shmList),PROT_READ|PROT_WRITE,MAP_SHARED,fdd,0);
+
+	close(fdd);
+	
+	lmutex=sem_open("msemList",0);
+	
+
 	
 	
 	while(true){
@@ -97,8 +114,22 @@ static void mLanuchGame(int connfd,string ip){
 							//server counter ++
 							sem_wait(smutex);
 							shmptr->counter++;
-							cout<<"now server counter is "<<shmptr->counter<<endl;
+							//cout<<"now server counter is "<<shmptr->counter<<endl;
 							sem_post(smutex);
+
+
+							pid_t pid=getpid();
+							//save this to the shmList				
+							for(int i=0;i<MAX_USER;i++){
+								if(0==list->flag[i]){
+										list->flag[i]=1;//flag this is used
+										list->id[i]=lanResult.id;
+										list->pid[i]=(int)pid;
+										cout<<"id="<<list->id[i]<<" in the list"<<endl;
+										break;
+								}
+							}					
+		
 
 							LanuchResult_toc *result=new LanuchResult_toc(lanResult.name,lanResult.lastlanuch,lanResult.lastIP,lanResult.setting,lanResult.id);
 							cout<<"name="<<result->name<<"  lastlanuch="<<result->lastLanuch<<"  lastip="<<result->lastIP<<"  setting="<<result->setting<<endl;

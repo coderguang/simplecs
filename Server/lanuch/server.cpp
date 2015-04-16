@@ -12,6 +12,7 @@
 #include "Connection.h"
 #include "openShm.h"
 #include "../include/struct/shmServer.h"
+#include "sig_exit.h"
 /**
  *this is the server main process
  *all user process are fork from this process
@@ -19,40 +20,6 @@
  *author:coderguagn
  *date:2014/04/08
  */
-
-//the child process exit functions
-
-void sig_chld_exit(int signo){
-	pid_t pid;
-	int stat;
-	while((pid=waitpid(-1,&stat,WNOHANG))>0){
-	//change the share memory 
-			int fd;
-			struct shmNum *shmptr;
-			sem_t *mutex;
-
-			fd=shm_open("mshmNum",O_RDWR,0644);
-			if(fd<0){
-					cout<<"can't open mshmNum failed!"<<endl;
-			}
-
-			shmptr=(struct shmNum*)mmap(NULL,sizeof(struct shmNum),PROT_READ|PROT_WRITE,MAP_SHARED,fd,0);
-		
-			close(fd);
-			
-			mutex=sem_open("msemNum",0);
-			sem_wait(mutex);
-			shmptr->counter--;
-			sem_post(mutex);
-
-
-			cout<<"child "<<pid<<"  terminated!"<<endl;
-	}
-	
-	
-	return ;
-
-}
 
 int main(){
 	int listenfd;	//the  listen  fd
