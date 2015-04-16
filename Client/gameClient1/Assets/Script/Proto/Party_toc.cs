@@ -13,7 +13,7 @@ namespace Assets.Script.Proto
      * */
     [Serializable]
     [StructLayoutAttribute(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = protoID.PackSize)]
-    class Party_toc
+    class Party_toc:Message
     {
         public int r1;
         public int r2;

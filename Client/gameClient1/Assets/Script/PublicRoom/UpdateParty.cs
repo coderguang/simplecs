@@ -44,18 +44,18 @@ public class UpdateParty : MonoBehaviour {
         //更新用户列表
         if (flag) {
             //蓝方阵营
-            b_1.text = PersonName.GetName(b_1ID);
-            b_2.text = PersonName.GetName(b_2ID);
-            b_3.text = PersonName.GetName(b_3ID);
-            b_4.text = PersonName.GetName(b_4ID);
-            b_5.text = PersonName.GetName(b_5ID);
+            b_1.text ="[FF0000]"+ PersonName.GetName(b_1ID)+"[-]";
+            b_2.text ="[0000FF]"+PersonName.GetName(b_2ID)+"[-]";
+            b_3.text ="[00FFFF]"+PersonName.GetName(b_3ID)+"[-]";
+            b_4.text ="[4A766E]"+PersonName.GetName(b_4ID)+"[-]";
+            b_5.text ="[6B8E23]"+PersonName.GetName(b_5ID)+"[-]";
 
             //红方阵营
-            r_1.text = PersonName.GetName(r_1ID);
-            r_2.text = PersonName.GetName(r_2ID);
-            r_3.text = PersonName.GetName(r_3ID);
-            r_4.text = PersonName.GetName(r_4ID);
-            r_5.text = PersonName.GetName(r_5ID);
+            r_1.text = "[FF0000]" + PersonName.GetName(r_1ID)+"[-]";
+            r_2.text = "[0000FF]" + PersonName.GetName(r_2ID)+"[-]";
+            r_3.text = "[00FFFF]" + PersonName.GetName(r_3ID)+"[-]";
+            r_4.text = "[4A766E]" + PersonName.GetName(r_4ID)+"[-]";
+            r_5.text = "[6B8E23]" + PersonName.GetName(r_5ID)+"[-]";
 
             flag = false;                
         }

@@ -94,6 +94,26 @@ public class NullObj : MonoBehaviour {
                             Application.LoadLevel("PublicRoom");
                         }
                         break;
+                    case protoID.PartyID://更新分组信息
+                        {
+                            Party_toc temp = (Party_toc)msg;
+                            UpdateParty.b_1ID = temp.b1;
+                            UpdateParty.b_2ID = temp.b2;
+                            UpdateParty.b_3ID = temp.b3;
+                            UpdateParty.b_4ID = temp.b4;
+                            UpdateParty.b_5ID = temp.b5;
+
+                            UpdateParty.r_1ID = temp.r1;
+                            UpdateParty.r_2ID = temp.r2;
+                            UpdateParty.r_3ID = temp.r3;
+                            UpdateParty.r_4ID = temp.r4;
+                            UpdateParty.r_5ID = temp.r5;
+
+                            UpdateParty.flag = true;
+
+
+                        }
+                        break;
 
                 
                 

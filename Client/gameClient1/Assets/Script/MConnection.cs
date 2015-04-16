@@ -197,6 +197,15 @@ namespace Assets.Script
         
         }
 
+        //无法由更高层次的转为低层次的类别，该函数无用
+        private void AddToPack(ref Message msg) {
+            lock (objLock) {
+                package.Enqueue(msg);
+            }
+        
+        }
+
+
         //装包程序，根据ID，将协议内容转换成具体的Message_toc的子类对象，装入到pack list中
         //超长版switch来袭，恶心就恶心吧~~~
 
@@ -224,38 +233,48 @@ namespace Assets.Script
                     case protoID.ErrID://错误toc
                         {
                             //频繁新建对象会造成很大的内存损耗，以后再解决这个问题
-                            Err_toc temp = new Err_toc();//C#貌似直接获取长度会有bug，稳妥点，直接新建一个来确定
-                            byte[] buf = new byte[Marshal.SizeOf(temp)];
+                            //Err_toc temp = new Err_toc();//C#貌似直接获取长度会有bug，稳妥点，直接新建一个来确定
+                            //byte[] buf = new byte[Marshal.SizeOf(temp)];
 
-                            Err_toc tp = (Err_toc)MTransform.BytesToStruct(buffer, typeof(Err_toc));
-
+                            Err_toc temp = (Err_toc)MTransform.BytesToStruct(buffer, typeof(Err_toc));
+                            
                             lock (objLock)
                             {
-                                //加入到List中
-                                package.Enqueue(tp);
-                            }
-                            
-
+                                package.Enqueue(temp);
+                            }                                                        
                         }
                         break;
                     case protoID.LanuchResultID://获取登录结果
                         {
-                            LanuchResult_toc temp = new LanuchResult_toc();
+                            //LanuchResult_toc temp = new LanuchResult_toc();
                             //byte[] buf = new byte[Marshal.SizeOf(temp)];
                             
  
-                                Type type = typeof(LanuchResult_toc);
-                                LanuchResult_toc tp = (LanuchResult_toc)MTransform.BytesToStruct(buffer, type);
-                                //LanuchResult_toc tp = (LanuchResult_toc)MTransform.BytesToStruct(buffer, typeof(LanuchResult_toc));
-                                //加入到List中
-                                package.Enqueue(tp);
+                               // Type type = typeof(LanuchResult_toc);
+                                LanuchResult_toc tp = (LanuchResult_toc)MTransform.BytesToStruct(buffer, typeof(LanuchResult_toc));
 
+                                lock (objLock)
+                                {
+                                    //加入到List中
+                                    package.Enqueue(tp);
+                                }
                                 string name = new string(tp.name);
                                 string time = new string(tp.lastLanuch);
                                 string ip = new string(tp.lastIP);
 
                                 MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "err_code=" + tp.error_code + "  name=" + name + " last time=" + time + "  ip=" + ip + "  setting=" + tp.setting);                         
 
+
+                        }
+                        break;
+                    case protoID.PartyID://获取房间分组信息
+                        {
+                            Party_toc temp = (Party_toc)MTransform.BytesToStruct(buffer, typeof(Party_toc));
+                            lock (objLock)
+                            {
+                                //加入到List中
+                                package.Enqueue(temp);
+                            }
 
                         }
                         break;
