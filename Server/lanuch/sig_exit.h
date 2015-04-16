@@ -66,7 +66,13 @@ void sig_chld_exit(int signo){
 				 if(1==listptr->flag[i]&&(int)pid==listptr->pid[i]){
 							cout<<"the id="<<listptr->id[i]<<" exit!"<<endl;
 							ExitLanuch(listptr->id[i]); //change the db status
+		
+							//reset all things
 							listptr->flag[i]=0; //flag this free
+							listptr->id[i]=0;
+							listptr->pid[i]=0;
+							listptr->conn[i]=0;
+							listptr->party[i]=0;
 						
 					}				
 

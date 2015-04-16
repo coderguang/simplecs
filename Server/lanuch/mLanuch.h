@@ -141,6 +141,10 @@ static void mLanuchGame(int connfd,string ip){
 							//writen(connfd,&result->id,4);
 							cout<<"write proto complete"<<endl;
 							//if it lanuch right,break this loop and come to the public room loop
+							//send the Party_toc
+							
+							Party_toc *ptemp=new Party_toc(1000,1001,1002,1003,1004,1005,1006,1007,1008,1009);	
+							writen(connfd,&ptemp->id,sizeof(Party_toc));
 							break;
 						
 						}else{
