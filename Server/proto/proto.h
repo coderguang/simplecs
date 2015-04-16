@@ -11,4 +11,6 @@
 #include "LanuchResult_toc.h"
 #include "Err_toc.h"
 
+#include "Party_toc.h"
+
 #endif

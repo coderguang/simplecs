@@ -8,6 +8,8 @@ const int PACKSIZE=1;
 static const int pLanuchID=1000;
 static const int pLanuchResultID=1001;
 
+static const int partyID=1500;
+
 
 
 
