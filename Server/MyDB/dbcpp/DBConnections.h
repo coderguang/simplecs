@@ -9,13 +9,11 @@
 //#include <mutex>  //do not make it to be a background process like log
 #include "DBErr.h"
 #include "../../include/Func.h"
-#include "../../include/struct/lanuch.h"
-#include "../../include/struct/result.h"
-#include "../../include/struct/resultAll.h"
-#include "../../include/LogInterface.h"
-extern "C"{
+#include "../../struct/lanuch.h"
+#include "../../struct/result.h"
+#include "../../struct/resultAll.h"
+#include "../../log/LogInterface.h"
 #include "DBConstant.h"
-}
 
 using namespace std;
 

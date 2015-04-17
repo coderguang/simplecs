@@ -6,13 +6,13 @@
 #include <arpa/inet.h>
 #include <sys/wait.h>
 #include <sys/socket.h>
-#include "../include/LogInterface.h"
+#include "../log/LogInterface.h"
 #include "../include/Func.h"
 #include "NetConstant.h"
 #include "Connection.h"
-#include "openShm.h"
-#include "../include/struct/shmServer.h"
-#include "sig_exit.h"
+#include "../include/openShm.h"
+#include "../struct/shmServer.h"
+#include "../gameOver/sig_exit.h"
 /**
  *this is the server main process
  *all user process are fork from this process

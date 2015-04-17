@@ -16,6 +16,7 @@ class LanuchResult_toc:public Message
 public:
 		int account_id;
 		int setting;
+		int party;
 		char name[NAMESIZE];
 		char lastIP[LASTIPSIZE];
 		char lastLanuch[LASTLANUCHSIZE];

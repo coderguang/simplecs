@@ -15,12 +15,12 @@
 #include "../proto/proto.h"
 #include "../MyDB/dbcpp/DBInterface.h"
 #include "../MyDB/dbcpp/DBErr.h"
-#include "Rdwr.h"
-#include "../include/struct/shmServer.h"
+#include "../include/Rdwr.h"
+#include "../struct/shmServer.h"
 #include "../include/Func.h"
 #include "../include/InitFirst.h"
 #include "../include/BroadcastInterface.h"
-#include "../include/UpdateParty.h"
+#include "../publicRoom/UpdateParty.h"
 
 using namespace std;
 
@@ -87,6 +87,7 @@ static void mLanuchGame(int connfd,string ip){
 						if(0==rNum){
 							//save this to the shmList				
 
+							int partyTemp=0;//use to remember this account's party
 							sem_wait(listmutex);
 
 							//for(int i=0;i<MAX_USER;i++){
@@ -102,10 +103,12 @@ static void mLanuchGame(int connfd,string ip){
 												listptr->party[i]=BLUE;
 												numptr->counter++;
 												numptr->blueCounter++;
+												partyTemp=BLUE;
 										}else if(numptr->blueCounter>numptr->redCounter&&numptr->redCounter<(MAX_USER/2)){
 												listptr->party[i]=RED;
 												numptr->counter++;
 												numptr->redCounter++;
+												partyTemp=RED;
 										}else{ //if the server is full
 												Err_toc *err=new Err_toc(SERVER_FULL);
 												writen(connfd,&err->id,sizeof(Err_toc));
@@ -144,6 +147,7 @@ static void mLanuchGame(int connfd,string ip){
 							LanuchResult_toc *result=new LanuchResult_toc(lanResult.name,lanResult.lastlanuch,lanResult.lastIP,lanResult.setting,lanResult.id);
 							cout<<"name="<<result->name<<"  lastlanuch="<<result->lastLanuch<<"  lastip="<<result->lastIP<<"  setting="<<result->setting<<endl<<endl;
 							
+							result->party=partyTemp;
 							result->error_code=0;
 							writen(connfd,&result->id,sizeof(LanuchResult_toc));
 

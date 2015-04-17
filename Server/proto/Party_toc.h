@@ -3,7 +3,7 @@
 
 #include "Message.h"
 #include "protoID.h"
-#include "../include/struct/shmServer.h" //for MAX_USER;
+#include "../struct/shmServer.h" //for MAX_USER;
 
 #pragma pack(1)
 class Party_toc:public Message{

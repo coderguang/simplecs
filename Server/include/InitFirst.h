@@ -7,7 +7,7 @@
  *
  * **/
 
-#include "struct/shmServer.h"
+#include "../struct/shmServer.h"
 #include <sys/types.h>
 #include <sys/mman.h>
 #include <fcntl.h>

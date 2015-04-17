@@ -1,0 +1,4 @@
+cd ../lanuch/
+./reset
+cd ../include/
+ps -A|grep LogProc
