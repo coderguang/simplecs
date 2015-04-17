@@ -76,9 +76,7 @@ public class NullObj : MonoBehaviour {
                         }
                         break;
                     case protoID.LanuchResultID: //登录正确
-                        {
-                            
-                             
+                        {                                                         
                             LanuchResult_toc temp=(LanuchResult_toc)msg;
                             /**
                             PublicRoom.GetInstance();
@@ -87,6 +85,7 @@ public class NullObj : MonoBehaviour {
                             PublicRoom.ipStr = new string(temp.lastIP);
                              **/
                             //PersonData.m_Name=new string(temp.name);
+                            PersonData.m_ID = temp.account_id;
                             PersonData.m_Name = PersonName.GetName(temp.account_id);
                             PersonData.m_LastTime = new string(temp.lastLanuch);
                             PersonData.m_LastIP= new string(temp.lastIP);
@@ -129,6 +128,18 @@ public class NullObj : MonoBehaviour {
                             UpdateParty.flag = true;
 
 
+                        }
+                        break;
+                    case protoID.ChatID://房间聊天信息
+                        {
+                            Chat_tocs temp = (Chat_tocs)msg;
+
+                            string str = new string(temp.msg);
+                            Send_Btn.str = str;
+
+                            Send_Btn.uid = temp.user_id;
+                            //Send_Btn.str = new string(temp.msg);
+                            Send_Btn.flag = true;
                         }
                         break;
 

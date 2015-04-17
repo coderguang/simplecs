@@ -15,6 +15,8 @@ namespace Assets.Script.Proto
 
        public const int PartyID = 1500;//房间用户列表
 
+       public const int ChatID = 1800;//房间内的聊天信息
+
        public const int ErrID = 3999;//错误协议
     }
 }

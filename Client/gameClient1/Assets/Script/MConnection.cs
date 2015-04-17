@@ -278,6 +278,16 @@ namespace Assets.Script
 
                         }
                         break;
+                    case protoID.ChatID://房间内的聊天信息
+                        { 
+                            Chat_tocs temp=(Chat_tocs)MTransform.BytesToStruct(buffer,typeof(Chat_tocs));
+                            lock (objLock)
+                            {
+                                package.Enqueue(temp);
+                            }
+                        
+                        }
+                        break;
 
 
 
