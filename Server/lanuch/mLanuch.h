@@ -21,6 +21,7 @@
 #include "../include/InitFirst.h"
 #include "../include/BroadcastInterface.h"
 #include "../publicRoom/UpdateParty.h"
+#include "../include/InitGameStatus.h"
 
 using namespace std;
 
@@ -40,6 +41,22 @@ extern sem_t *nummutex;
 
 static void mLanuchGame(int connfd,string ip){
 
+	//check the game status,if it is running or is in the result,reject the lanuch
+	//
+	//only when in the room accept the lanuch
+	sem_wait(mstatusmutex);
+	if(IN_ROOM!=mstatusptr->status){
+			sem_post(mstatusmutex);
+			Err_toc *temp=new Err_toc(SERVER_IN_GAME);
+			writen(connfd,&temp->id,sizeof(Err_toc));
+			DelayTime(5);
+			exit(1);
+
+	}
+	sem_post(mstatusmutex);
+
+
+
 	//check the server user counter,if it bigger than MAX_USER,reject the new connections
 
 	
@@ -54,6 +71,9 @@ static void mLanuchGame(int connfd,string ip){
 			exit(1);
 	}
 	sem_post(nummutex);
+
+
+	
 	
 	
 	while(true){

@@ -7,7 +7,7 @@
  *
  * **/
 
-#include "../struct/shmServer.h"
+#include "../struct/ShmServer.h"
 #include <sys/types.h>
 #include <sys/mman.h>
 #include <fcntl.h>
@@ -27,6 +27,9 @@ sem_t  *listmutex=nullptr;
 
 struct shmNum *numptr=nullptr;
 sem_t *nummutex=nullptr;
+
+struct shmStatus *statusptr=nullptr;
+sem_t *statusmutex=nullptr;
 
 static void InitFirst(){
 		//open shmList 
@@ -74,7 +77,22 @@ static void InitFirst(){
 			cout<<"open msemNum failed when init"<<endl;
 		}
 	
+		//open the status share memory
 
+
+		int fddd;
+		if(fddd<0){
+			cout<<"open mshmStatus failed when init"<<endl;
+		}
+
+		statusptr=(struct shmStatus*)mmap(NULL,sizeof(struct shmStatus),PROT_READ|PROT_WRITE,MAP_SHARED,fddd,0);
+		close(fddd);
+
+		statusmutex=sem_open("msemStatus",0);
+
+		if(SEM_FAILED==statusmutex){
+			cout<<"open msemStatus failed when init"<<endl;
+		}
 }
 
 

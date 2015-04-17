@@ -7,7 +7,7 @@
 //proto: this it the proto
 //len: the size of the proto
 
-#include "../struct/shmServer.h"
+#include "../struct/ShmServer.h"
 #include "Rdwr.h"
 #include "../proto/Message.h"
 #include "InitFirst.h"

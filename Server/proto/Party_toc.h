@@ -2,8 +2,8 @@
 #define PARTY_TOC_H_
 
 #include "Message.h"
-#include "protoID.h"
-#include "../struct/shmServer.h" //for MAX_USER;
+#include "ProtoID.h"
+#include "../struct/ShmServer.h" //for MAX_USER;
 
 #pragma pack(1)
 class Party_toc:public Message{

@@ -18,6 +18,7 @@ static const int ACCOUNT_ERR_IDENTITY=6100;//use for forget the passwd to reset 
 static const int ACCOUNT_ERR_PASSWD=6200;//use for lanuch when passwd no matching the account
 static const int ACCOUNT_HAD_LANUCH=6300;//the account is lanuch and using now
 
+static const int SERVER_IN_GAME=6600;//game is running,the game status is 2
 
 #pragma pack(1)
 //#pragma pack(PACKSIZE)

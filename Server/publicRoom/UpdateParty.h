@@ -1,6 +1,6 @@
 #ifndef UPDATE_PARTY_H_
 #define UPDATE_PARTY_H_
-#include "../struct/shmServer.h"
+#include "../struct/ShmServer.h"
 #include "../proto/Party_toc.h"
 #include "../include/BroadcastInterface.h"
 #include "../include/InitFirst.h"
