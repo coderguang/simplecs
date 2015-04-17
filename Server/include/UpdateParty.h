@@ -5,7 +5,7 @@
 #include "BroadcastInterface.h"
 #include "InitFirst.h"
 
-static void updateParty(){
+void updateParty(){
 	int iblue=0; //the blue[] index
 	int ired=0; //the red[] index
 	
@@ -30,16 +30,16 @@ static void updateParty(){
 	//full the other []
 	
 	while(iblue<(MAX_USER/2)){
-			temp->blue[ibule++]=0;
+			temp->blue[iblue++]=0;
 	}
 
 	while(ired<(MAX_USER/2)){
-			temp->ired[ired++]=0;
+			temp->red[ired++]=0;
 	}
 	
 	//broadcast this to the all
 	//
-	mBroadcast(ALL,&temp->id,sizeof(Party_toc));
+	mBroadcast(ALL,temp,sizeof(Party_toc));
 
 
 }

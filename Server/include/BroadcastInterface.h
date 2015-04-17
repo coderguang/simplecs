@@ -23,17 +23,21 @@ static const int ALL=3;
 
 
 //make a for loop to get the shmList's socket fd,check it flag does't it value or not
-static void mBroadcast(int type,void* msg,size_t len){
+void mBroadcast(int type,Message	*msg,size_t len){
 			
 
 			sem_wait(listmutex);			
 			cout<<"come to the broadcast"<<endl;
+			
+			for(int i=0;i<MAX_USER;i++){
+				cout<<"in cast:i="<<i<<" flag="<<listptr->flag[i]<<" id="<<listptr->id[i]<<" pid="<<listptr->pid[i]<<endl;
+			}
 
 			if(BLUE==type){  //if this should be broadcast to blue party
 						for(int i=0;i<MAX_USER;i++){
 								if(1==listptr->flag[i]){  //if this is value
 										if(BLUE==listptr->party[i]){
-													writen(listptr->conn,&msg,len);	//broadcast this proto to the socket fd;
+													writen(listptr->conn[i],msg,len);	//broadcast this proto to the socket fd;
 											}	
 								}
 						}
@@ -41,14 +45,14 @@ static void mBroadcast(int type,void* msg,size_t len){
 						for(int i=0;i<MAX_USER;i++){
 								if(1==listptr->flag[i]){  //if this is value
 										if(RED==listptr->party[i]){
-													//writen(listptr->conn,&msg,len);	//broadcast this proto to the socket fd;
+													writen(listptr->conn[i],msg,len);	//broadcast this proto to the socket fd;
 											}	
 								}
 						}
 			}else if(ALL==type){  //if this should be broadcast to blue party
 						for(int i=0;i<MAX_USER;i++){
 								if(1==listptr->flag[i]){  //if this is value
-													//writen(listptr->conn,&msg,len);	//broadcast this proto to the socket fd;
+													writen(listptr->conn[i],msg,len);	//broadcast this proto to the socket fd;
 								}	
 
 						}

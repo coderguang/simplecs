@@ -392,9 +392,9 @@ int DBConnections::Lanuch(string account,string passwd,string ip,struct Lanuch &
 					if(1==StrToInt(row[5])){
 						cout<<"this account is using now!"<<endl;
 						return ACCOUNT_IS_USING;
-					}else{
-						cout<<"row[5]="<<row[5]<<endl;
-					}
+					}/**else{
+						//cout<<"row[5]="<<row[5]<<endl;
+					}**/
 
 					//cout<<"to set lanResultname"<<endl;
 					lanResult.name=row[0];

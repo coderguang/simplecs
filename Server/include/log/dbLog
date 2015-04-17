@@ -46,3 +46,13 @@ Fri Apr 17 01:21:21 2015
  Fatal:account:sg not match the passwd
 Fri Apr 17 01:21:35 2015
  Fatal:account:sg3 not match the passwd
+Fri Apr 17 10:01:19 2015
+ Fatal:account:sg not match the passwd
+Fri Apr 17 10:01:29 2015
+ Fatal:account:sg^Èp1sgpasswd‚‰ø£hr( not match the passwd
+Fri Apr 17 10:13:51 2015
+ Fatal:account:sg3 not match the passwd
+Fri Apr 17 10:13:52 2015
+ Fatal:account:sg3 not match the passwd
+Fri Apr 17 10:15:01 2015
+ Fatal:lanuch sg2  success!

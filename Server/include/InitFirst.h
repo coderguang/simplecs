@@ -15,15 +15,15 @@
 using namespace std;
 
 
-static struct shmList *listptr=nullptr;
-static sem_t  *listmutex=nullptr;
+struct shmList *listptr=nullptr;
+sem_t  *listmutex=nullptr;
 
-static struct shmNum *numptr=nullptr;
-static sem_t *nummutex=nullptr;
+struct shmNum *numptr=nullptr;
+sem_t *nummutex=nullptr;
 
 
 
-static void InitFirst(){
+void InitFirst(){
 		//open shmList 
 		int fd;
 		

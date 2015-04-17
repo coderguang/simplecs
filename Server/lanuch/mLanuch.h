@@ -19,6 +19,9 @@
 #include "../include/struct/shmServer.h"
 #include "../include/Func.h"
 #include "../include/InitFirst.h"
+#include "../include/BroadcastInterface.h"
+#include "../include/UpdateParty.h"
+
 using namespace std;
 
 /**
@@ -52,7 +55,7 @@ static void mLanuchGame(int connfd,string ip){
 			int nread=read(connfd,&id,4);
 
 			if(nread<0){
-				if(errno!=EINTR&&errno==EPIPE){
+				if(errno!=EINTR){
 						cout<<"socket disconnections...."<<endl;
 						close(connfd);
 						exit(1);
@@ -73,29 +76,58 @@ static void mLanuchGame(int connfd,string ip){
 						int rNum=LanuchAccount(account,passwd,ip,lanResult);
 
 						cout<<"rNum="<<rNum<<endl;
+						
+						//lanuch success
 						if(0==rNum){
-					
-							//server counter ++
-							sem_wait(nummutex);
-							numptr->counter++;
-							//cout<<"now server counter is "<<numptr->counter<<endl;
-							sem_post(nummutex);
-
-
 							//save this to the shmList				
 							pid_t pid=getpid();
 
 							sem_wait(listmutex);
 
 							for(int i=0;i<MAX_USER;i++){
+								cout<<"in lanuch:i="<<i<<"  flag="<<listptr->flag[i]<<"  pid="<<listptr->pid[i]<<" id="<<listptr->id[i]<<endl;
 								if(0==listptr->flag[i]){
+
+										//server counter ++ and decide it's party and first to avoid when the process exit cause the exception
+										//cout<<"now server counter is "<<numptr->counter<<endl;
+										sem_wait(nummutex);
+							
+										if(numptr->blueCounter<=numptr->redCounter&&numptr->blueCounter<(MAX_USER/2)){
+												listptr->party[i]=BLUE;
+												numptr->counter++;
+												numptr->blueCounter++;
+										}else if(numptr->blueCounter>numptr->redCounter&&numptr->redCounter<(MAX_USER/2)){
+												listptr->party[i]=RED;
+												numptr->counter++;
+												numptr->redCounter++;
+										}else{ //if the server is full
+												Err_toc *err=new Err_toc(SERVER_FULL);
+												writen(connfd,&err->id,sizeof(Err_toc));
+												
+												sem_post(nummutex);
+												sem_post(listmutex);	
+											
+												close(connfd);
+												exit(0);
+
+										}
+										sem_post(nummutex);
+
+										//if decide the party success,take it to list
 										listptr->flag[i]=1;//flag this is used
 										listptr->id[i]=lanResult.id;
-										listptr->pid[i]=(int)pid;
-										cout<<"id="<<listptr->id[i]<<" in the listptr"<<endl;
+										//listptr->pid[i]=(int)pid;
+										listptr->pid[i]=pid;
+										listptr->conn[i]=connfd;
+
+										cout<<"id="<<listptr->id[i]<<" in the listptr,the party is "<<listptr->party[i]<<endl;
+
 										break;
 								}
 							}					
+
+							for(int i=0;i<MAX_USER;i++)
+								cout<<"after lanuch:i="<<i<<"  flag="<<listptr->flag[i]<<"  pid="<<listptr->pid[i]<<" id="<<listptr->id[i]<<endl;
 
 							sem_post(listmutex);
 		
@@ -109,8 +141,12 @@ static void mLanuchGame(int connfd,string ip){
 							//if it lanuch right,break this loop and come to the public room loop
 							//send the Party_toc
 							
-							Party_toc *ptemp=new Party_toc(1000,1001,1002,1003,1004,1005,1006,1007,1008,1009);	
-							writen(connfd,&ptemp->id,sizeof(Party_toc));
+							//Party_toc *ptemp=new Party_toc(1000,1001,1002,1003,1004,1005,1006,1007,1008,1009);	
+							//writen(connfd,&ptemp->id,sizeof(Party_toc));
+							//boardcast the updateparty to all
+						
+							updateParty();							
+
 							break;
 						
 						}else{

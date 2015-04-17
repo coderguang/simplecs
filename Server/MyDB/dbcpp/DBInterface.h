@@ -4,40 +4,40 @@
 #include "DBConnections.h"
 using namespace std;
 
-static int CheckAccount(string account){
+int CheckAccount(string account){
 	int rNum=DBConnections::GetInstance()->CheckAccount(account);
 	return rNum;
 }
 
-static int RegitAccount(string account,string passwd,string email,string name,int questionID,string answer){
+int RegitAccount(string account,string passwd,string email,string name,int questionID,string answer){
 	int rNum=DBConnections::GetInstance()->RegitAccount(account,passwd,email,name,questionID,answer);
 	return rNum;
 }
 
-static int ForgetPasswd(string account,string email,int questionID,string answer){
+int ForgetPasswd(string account,string email,int questionID,string answer){
 	int rNum=DBConnections::GetInstance()->ForgetPasswd(account,email,questionID,answer);
 	return rNum;
 }
 
-static int ResetPasswd(string account,string newPasswd){
+int ResetPasswd(string account,string newPasswd){
 	int rNum=DBConnections::GetInstance()->ResetPasswd(account,newPasswd);
 	return rNum;
 }
 
-static int LanuchAccount(string account,string passwd,string ip,Lanuch &lanResult){
+int LanuchAccount(string account,string passwd,string ip,Lanuch &lanResult){
 	//cout<<"come to dbinterface"<<endl;
 	int rNum=DBConnections::GetInstance()->Lanuch(account,passwd,ip,lanResult);
 	//cout<<"return lanuch interface is "<<rNum<<endl;
 	return rNum;
 }
 
-static void ExitLanuch(int id){
+void ExitLanuch(int id){
 	DBConnections::GetInstance()->ExitLanuch(id);
 
 }
 
 
-static int InsertResult(ResultAll &result){
+int InsertResult(ResultAll &result){
 	int rNum=DBConnections::GetInstance()->InsertResult(result);
 	return rNum;
 }
