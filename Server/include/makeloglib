@@ -1,2 +1,0 @@
-g++ -c Logger.h Logger.cpp -std=c++11 -lpthread
-ar -crv ../lib/liblog.a Logger.o

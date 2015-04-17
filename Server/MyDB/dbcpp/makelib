@@ -1,2 +1,0 @@
-g++ -c DBConnections.h DBConnections.cpp  $(mysql_config --libs) $(mysql_config --cflags) -std=c++11 -lpthread
-ar -crv ../../lib/libdb.a DBConnections.o
