@@ -12,11 +12,11 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <iostream>
-#include "../proto/proto.h"
-#include "../MyDB/dbcpp/DBInterface.h"
-#include "../MyDB/dbcpp/DBErr.h"
+#include "../proto/Proto.h"
+#include "../myDB/dbcpp/DBInterface.h"
+#include "../myDB/dbcpp/DBErr.h"
 #include "../include/Rdwr.h"
-#include "../struct/shmServer.h"
+#include "../struct/ShmServer.h"
 #include "../include/Func.h"
 #include "../include/InitFirst.h"
 #include "../include/BroadcastInterface.h"
@@ -61,7 +61,7 @@ static void mLanuchGame(int connfd,string ip){
 			int nread=read(connfd,&id,4);
 
 			if(nread<0){
-				if(errno!=EINTR){
+				if(errno!=EINTR&&errno==EPIPE){
 						cout<<"socket disconnections...."<<endl;
 						close(connfd);
 						exit(1);

@@ -12,12 +12,14 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <iostream>
-#include "../proto/proto.h"
-#include "../MyDB/dbcpp/DBInterface.h"
-#include "../MyDB/dbcpp/DBErr.h"
+#include "../proto/Proto.h"
+#include "../myDB/dbcpp/DBInterface.h"
+#include "../myDB/dbcpp/DBErr.h"
 #include "mLanuch.h"
 #include "../include/Rdwr.h"
 #include "../include/InitFirst.h"
+#include "../include/Func.h"
+#include "../publicRoom/UpdateParty.h"
 using namespace std;
 
 //static const int MAXPROTO=256;//the proto max size
@@ -34,7 +36,7 @@ static void startProc(int connfd,string ip){
 	//come to the lanuch loop
 	mLanuchGame(connfd,ip);
 	
-	//cout<<"lanuch success,come to publicRoom"<<endl;
+	cout<<"lanuch success,come to publicRoom"<<endl;
 	
 	while(true){
 				
@@ -44,6 +46,10 @@ static void startProc(int connfd,string ip){
 			if(nread<0){
 				if(errno!=EINTR){
 						cout<<"socket disconnections in the public room...."<<endl;
+						//if in the room disconnections.update the party
+						//shouldn't do this in here ,because it doesn't call sig_exit,the flag and conn is valid,but the socket disconnects,it makes write stream error!
+						//updateParty();
+						//DelayTime(5);
 						close(connfd);
 						exit(1);
 				}else

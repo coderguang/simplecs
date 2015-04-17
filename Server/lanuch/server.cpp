@@ -10,9 +10,9 @@
 #include "../include/Func.h"
 #include "NetConstant.h"
 #include "Connection.h"
-#include "../include/openShm.h"
-#include "../struct/shmServer.h"
-#include "../gameOver/sig_exit.h"
+#include "../include/OpenShm.h"
+#include "../struct/ShmServer.h"
+#include "../gameOver/Sig_exit.h"
 /**
  *this is the server main process
  *all user process are fork from this process
@@ -59,8 +59,11 @@ int main(){
 	//open the share memory of mshmNum and mshmList
 	openShmFunc();//in openShm.h
 
+
 	//must create sharememory first
-	InitExit();//for sig_chld_exit share memory and semphore
+	InitExit();//for sig_chld_exit share memory and semphor and init the game status
+	
+	InitFirst();//for sig_chld to updateParty it must open then
 	
 	while(true){
 		
