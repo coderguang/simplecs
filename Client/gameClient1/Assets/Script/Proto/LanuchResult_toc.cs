@@ -12,6 +12,7 @@ namespace Assets.Script.Proto
     {
         public int account_id;
         public int setting;
+        public int party;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
         public char[] name;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]

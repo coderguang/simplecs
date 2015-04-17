@@ -46,6 +46,8 @@ public class LanuchGame : MonoBehaviour {
                 tip.text = "[ff0000]" + "网络未连接或服务器未开启!" + "[-]";
             else if (ErrCode.SERVER_FULL == err_code)
                 tip.text = "[ff0000]" + "服务器已爆满，无法登陆"+"[-]";
+            else if(ErrCode.SERVER_IN_GAME==err_code)
+                tip.text = "[ff0000]" + "游戏已经开始，无法进入" + "[-]";
             else
                 tip.text = "[ff0000]" + "未知错误:" + err_code + "[-]";
 

@@ -65,7 +65,7 @@ public class NullObj : MonoBehaviour {
                 switch (id) {
                     case protoID.ErrID://错误情况
                         {
-                            if (ErrCode.ACCOUNT_ERR_PASSWD == msg.error_code||ErrCode.ACCOUNT_HAD_LANUCH==msg.error_code||ErrCode.SERVER_FULL==msg.error_code) {
+                            if (ErrCode.ACCOUNT_ERR_PASSWD == msg.error_code||ErrCode.ACCOUNT_HAD_LANUCH==msg.error_code||ErrCode.SERVER_FULL==msg.error_code||ErrCode.SERVER_IN_GAME==msg.error_code) {
                                 //LanuchGame.GetInstance().err_code=msg.error_code;
                                 //LanuchGame.GetInstance().tipFlag = true;
                                 LanuchGame.err_code = msg.error_code;
@@ -91,6 +91,8 @@ public class NullObj : MonoBehaviour {
                             PersonData.m_LastTime = new string(temp.lastLanuch);
                             PersonData.m_LastIP= new string(temp.lastIP);
                             PublicRoom.publicRoomFlag = true;
+
+                            PersonData.m_Party= temp.party; //标记当前阵营 ,用于判断阵容变化
                             Application.LoadLevel("PublicRoom");
                         }
                         break;

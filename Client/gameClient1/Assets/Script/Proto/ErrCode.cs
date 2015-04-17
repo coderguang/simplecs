@@ -26,7 +26,7 @@ namespace Assets.Script.Proto
 
         public const int ACCOUNT_HAD_LANUCH = 6300;//账号已经登录，无法再次登录
 
-
+        public const int SERVER_IN_GAME = 6600;//游戏已经开始，无法进入
 
         public const int NULL_USER = 7000;//代表公共房间内的用户列表为空
 
