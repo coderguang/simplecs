@@ -31,12 +31,18 @@ using namespace std;
  *
  */
 
+
+extern struct shmList *listptr;
+extern struct shmNum *numptr;
+extern sem_t *listmutex;
+extern sem_t *nummutex;
+
+
 static void mLanuchGame(int connfd,string ip){
 
 	//check the server user counter,if it bigger than MAX_USER,reject the new connections
 
 	
-	InitFirst();
 	sem_wait(nummutex);
 	//check the user counter  in the server
 	if(numptr->counter>=MAX_USER){
@@ -69,7 +75,7 @@ static void mLanuchGame(int connfd,string ip){
 						memset(ptr,'\0',sizeof(Lanuch_tos));
 						readn(connfd,&ptr->error_code,sizeof(Lanuch_tos)-4);
 
-						cout<<"accounts="<<ptr->account<<"  passwd="<<ptr->passwd<<endl;
+						cout<<"try lanuch:accounts="<<ptr->account<<"  passwd="<<ptr->passwd<<endl;
 						string account=ptr->account;
 						string passwd=ptr->passwd;
 						struct Lanuch lanResult;
@@ -80,12 +86,12 @@ static void mLanuchGame(int connfd,string ip){
 						//lanuch success
 						if(0==rNum){
 							//save this to the shmList				
-							pid_t pid=getpid();
 
 							sem_wait(listmutex);
 
-							for(int i=0;i<MAX_USER;i++){
-								cout<<"in lanuch:i="<<i<<"  flag="<<listptr->flag[i]<<"  pid="<<listptr->pid[i]<<" id="<<listptr->id[i]<<endl;
+							//for(int i=0;i<MAX_USER;i++){
+							for(int i=0;i<3;i++){
+								cout<<"in lanuch:flag["<<i<<"]="<<listptr->flag[i]<<"  pid="<<listptr->pid[i]<<" id="<<listptr->id[i]<<endl;
 								if(0==listptr->flag[i]){
 
 										//server counter ++ and decide it's party and first to avoid when the process exit cause the exception
@@ -108,16 +114,18 @@ static void mLanuchGame(int connfd,string ip){
 												sem_post(listmutex);	
 											
 												close(connfd);
-												exit(0);
+												exit(1);
 
 										}
+
 										sem_post(nummutex);
 
 										//if decide the party success,take it to list
 										listptr->flag[i]=1;//flag this is used
 										listptr->id[i]=lanResult.id;
 										//listptr->pid[i]=(int)pid;
-										listptr->pid[i]=pid;
+										pid_t pid=getpid();
+										listptr->pid[i]=(int)pid;
 										listptr->conn[i]=connfd;
 
 										cout<<"id="<<listptr->id[i]<<" in the listptr,the party is "<<listptr->party[i]<<endl;
@@ -126,14 +134,15 @@ static void mLanuchGame(int connfd,string ip){
 								}
 							}					
 
-							for(int i=0;i<MAX_USER;i++)
-								cout<<"after lanuch:i="<<i<<"  flag="<<listptr->flag[i]<<"  pid="<<listptr->pid[i]<<" id="<<listptr->id[i]<<endl;
+							//for(int i=0;i<MAX_USER;i++)
+							for(int i=0;i<3;i++)
+								cout<<"after lanuch:flag["<<i<<"]="<<listptr->flag[i]<<"  id="<<listptr->id[i]<<" pid="<<listptr->pid[i]<<endl;
 
 							sem_post(listmutex);
 		
 
 							LanuchResult_toc *result=new LanuchResult_toc(lanResult.name,lanResult.lastlanuch,lanResult.lastIP,lanResult.setting,lanResult.id);
-							cout<<"name="<<result->name<<"  lastlanuch="<<result->lastLanuch<<"  lastip="<<result->lastIP<<"  setting="<<result->setting<<endl;
+							cout<<"name="<<result->name<<"  lastlanuch="<<result->lastLanuch<<"  lastip="<<result->lastIP<<"  setting="<<result->setting<<endl<<endl;
 							
 							result->error_code=0;
 							writen(connfd,&result->id,sizeof(LanuchResult_toc));

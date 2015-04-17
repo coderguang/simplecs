@@ -13,7 +13,6 @@
 #include "openShm.h"
 #include "../include/struct/shmServer.h"
 #include "sig_exit.h"
-#include "../include/InitFirst.h"
 /**
  *this is the server main process
  *all user process are fork from this process
@@ -53,13 +52,15 @@ int main(){
 		cout<<"listen failed"<<endl;
 		exit(1);
 	}
+
 	//catch the child process exit
 	signal(SIGCHLD,sig_chld_exit);
-	InitFirst();//for sig_chld_exit share memory and semphore
 
 	//open the share memory of mshmNum and mshmList
-	
 	openShmFunc();//in openShm.h
+
+	//must create sharememory first
+	InitExit();//for sig_chld_exit share memory and semphore
 	
 	while(true){
 		

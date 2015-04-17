@@ -5,6 +5,14 @@
 #include "BroadcastInterface.h"
 #include "InitFirst.h"
 
+
+extern struct shmList *listptr;
+extern struct shmNum *numptr;
+
+extern sem_t *listmutex;
+extern sem_t *nummutex;
+
+
 void updateParty(){
 	int iblue=0; //the blue[] index
 	int ired=0; //the red[] index

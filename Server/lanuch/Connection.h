@@ -17,6 +17,7 @@
 #include "../MyDB/dbcpp/DBErr.h"
 #include "mLanuch.h"
 #include "Rdwr.h"
+#include "../include/InitFirst.h"
 using namespace std;
 
 //static const int MAXPROTO=256;//the proto max size
@@ -25,10 +26,15 @@ using namespace std;
 
 static void startProc(int connfd,string ip){
 
+	//every child process should call InitFirst at first
+	
+	InitFirst();
+	
+	
 	//come to the lanuch loop
 	mLanuchGame(connfd,ip);
 	
-	cout<<"lanuch success,come to publicRoom"<<endl;
+	//cout<<"lanuch success,come to publicRoom"<<endl;
 	
 	while(true){
 				
@@ -37,7 +43,7 @@ static void startProc(int connfd,string ip){
 
 			if(nread<0){
 				if(errno!=EINTR){
-						cout<<"socket disconnections...."<<endl;
+						cout<<"socket disconnections in the public room...."<<endl;
 						close(connfd);
 						exit(1);
 				}else

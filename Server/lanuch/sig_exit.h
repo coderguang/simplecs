@@ -12,7 +12,60 @@
 #include "openShm.h"
 #include "../include/struct/shmServer.h"
 #include "../MyDB/dbcpp/DBInterface.h"
-#include "../include/InitFirst.h"
+
+/**
+static struct shmList *sigList=nullptr;
+static sem_t *sigListmutex=nullptr;
+
+static struct shmNum *sigNum=nullptr;
+static sem_t *sigNummutex=nullptr;
+**/
+
+struct shmList *sigList=nullptr;
+sem_t *sigListmutex=nullptr;
+
+struct shmNum *sigNum=nullptr;
+sem_t *sigNummutex=nullptr;
+
+void InitExit(){
+		int fd;
+		
+		fd=shm_open("mshmList",O_RDWR,0644);
+		if(fd<0){
+			cout<<"open mshmList failed when init the sig_exit"<<endl;
+		}
+	
+		sigList=(struct shmList*)mmap(NULL,sizeof(struct shmList),PROT_READ|PROT_WRITE,MAP_SHARED,fd,0);
+		
+		close(fd);
+
+		sigListmutex=sem_open("msemList",0);
+
+		if(SEM_FAILED==sigListmutex){
+			cout<<"open msemList failed when init the sig_exit"<<endl;
+		}
+
+		
+		int fdd;
+		
+		fdd=shm_open("mshmNum",O_RDWR,0644);
+		if(fdd<0){
+			cout<<"open mshmNum failed when init the sig_exit"<<endl;
+		}
+	
+		sigNum=(struct shmNum*)mmap(NULL,sizeof(struct shmNum),PROT_READ|PROT_WRITE,MAP_SHARED,fdd,0);
+		
+		close(fdd);
+
+		sigNummutex=sem_open("msemNum",0);
+
+		if(SEM_FAILED==sigNummutex){
+			cout<<"open msemNum failed when init the sig_exit"<<endl;
+		}
+
+
+
+}
 
 
 //the child process exit functions
@@ -25,51 +78,42 @@ void sig_chld_exit(int signo){
 			//change the share memory 
 			cout<<"child "<<pid<<"  terminated!"<<endl;
 
-			sem_wait(listmutex);
-			cout<<"to the exit list inner"<<endl;
+			sem_wait(sigListmutex);
 
 			for(int i=0;i<MAX_USER;i++){
-
-				 //cout<<"flag["<<i<<"]="<<listptr->flag[i]<<"  id="<<listptr->id[i]<<"  pid="<<pid<<" conn="<<listptr->conn[i]<<" party="<<listptr->party[i]<<endl;
-				 cout<<"flag["<<i<<"]="<<listptr->flag[i]<<"  id="<<listptr->id[i]<<"  pid="<<pid<<endl;
-				 if(pid==listptr->pid[i]){
-						cout<<"pid==list->pid"<<endl;
-				}else{
-						cout<<"pid!=list->pid"<<endl;
-				}
-				 if(1==listptr->flag[i]&&(int)pid==listptr->pid[i]){
-							cout<<"the id="<<listptr->id[i]<<" exit!"<<endl;
-							ExitLanuch(listptr->id[i]); //change the db status
+				 if(1==sigList->flag[i]&&int(pid)==sigList->pid[i]){
+							cout<<"the id="<<sigList->id[i]<<" exit!"<<endl;
+							ExitLanuch(sigList->id[i]); //change the db status
 		
 							//change the party data
-							sem_wait(nummutex);
-							numptr->counter--;
+							sem_wait(sigNummutex);
+							sigNum->counter--;
 
-							if(BLUE==listptr->party[i])
-								numptr->blueCounter--;
-							else if(RED==listptr->party[i])
-								numptr->redCounter--;
+							if(BLUE==sigList->party[i])
+								sigNum->blueCounter--;
+							else if(RED==sigList->party[i])
+								sigNum->redCounter--;
 
-							sem_post(nummutex);
+							sem_post(sigNummutex);
 
 							//reset all things
-							listptr->flag[i]=0; //flag this free
-							listptr->id[i]=0;
-							listptr->pid[i]=0;
-							listptr->conn[i]=0;
-							listptr->party[i]=0;
+							sigList->flag[i]=0; //flag this free
+							sigList->id[i]=0;
+							sigList->pid[i]=0;
+							sigList->conn[i]=0;
+							sigList->party[i]=0;
 
 							break;
-					}				
+					}
 
 
 			}
-		sem_post(listmutex);
+		sem_post(sigListmutex);
 
 	}
 	
 	
-	return ;
+	//return ;
 
 }
 

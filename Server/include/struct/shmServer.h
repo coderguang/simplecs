@@ -31,6 +31,7 @@ struct shmList{
 	int pid[MAX_USER];	//the user process pid ,set by lanuch loop
 	int conn[MAX_USER];	//the user process socket fd
 	int party[MAX_USER];	//the user party
+	//pid_t pid[MAX_USER];
 
 };
 

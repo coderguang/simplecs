@@ -21,6 +21,10 @@ static const int BLUE=1;
 static const int RED=2;
 static const int ALL=3; 
 
+extern struct shmList *listptr;
+extern struct shmNum *numptr;
+extern sem_t *listmutex;
+extern sem_t *nummutex;
 
 //make a for loop to get the shmList's socket fd,check it flag does't it value or not
 void mBroadcast(int type,Message	*msg,size_t len){
@@ -28,10 +32,10 @@ void mBroadcast(int type,Message	*msg,size_t len){
 
 			sem_wait(listmutex);			
 			cout<<"come to the broadcast"<<endl;
-			
+			/**
 			for(int i=0;i<MAX_USER;i++){
 				cout<<"in cast:i="<<i<<" flag="<<listptr->flag[i]<<" id="<<listptr->id[i]<<" pid="<<listptr->pid[i]<<endl;
-			}
+			}**/
 
 			if(BLUE==type){  //if this should be broadcast to blue party
 						for(int i=0;i<MAX_USER;i++){

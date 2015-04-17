@@ -18,9 +18,9 @@ using namespace std;
  *date:2015/04/09
  */
 
-shmLogMsg *ptr;
+static shmLogMsg *ptr;
 
-void InitLog(){
+static void InitLog(){
 
 	int fd;
 	fd=shm_open("mlogShm",O_RDWR,0644);
@@ -33,7 +33,7 @@ void InitLog(){
 
 }
 //before call the Log,must call the InitLog before
-void Log(LogType type,Level level,string msg){
+static void Log(LogType type,Level level,string msg){
 	
 	sem_wait(&ptr->nempty);
 	sem_wait(&ptr->mutex);
