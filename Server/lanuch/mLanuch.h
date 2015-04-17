@@ -101,7 +101,7 @@ static void mLanuchGame(int connfd,string ip){
 						struct Lanuch lanResult;
 						int rNum=LanuchAccount(account,passwd,ip,lanResult);
 
-						cout<<"rNum="<<rNum<<endl;
+						//cout<<"rNum="<<rNum<<endl;
 						
 						//lanuch success
 						if(0==rNum){
@@ -112,7 +112,7 @@ static void mLanuchGame(int connfd,string ip){
 
 							//for(int i=0;i<MAX_USER;i++){
 							for(int i=0;i<3;i++){
-								cout<<"in lanuch:flag["<<i<<"]="<<listptr->flag[i]<<"  pid="<<listptr->pid[i]<<" id="<<listptr->id[i]<<endl;
+								//cout<<"in lanuch:flag["<<i<<"]="<<listptr->flag[i]<<"  pid="<<listptr->pid[i]<<" id="<<listptr->id[i]<<endl;
 								if(0==listptr->flag[i]){
 
 										//server counter ++ and decide it's party and first to avoid when the process exit cause the exception
@@ -158,9 +158,10 @@ static void mLanuchGame(int connfd,string ip){
 							}					
 
 							//for(int i=0;i<MAX_USER;i++)
+							/**
 							for(int i=0;i<3;i++)
 								cout<<"after lanuch:flag["<<i<<"]="<<listptr->flag[i]<<"  id="<<listptr->id[i]<<" pid="<<listptr->pid[i]<<endl;
-
+							**/
 							sem_post(listmutex);
 		
 

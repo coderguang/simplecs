@@ -13,4 +13,6 @@
 
 #include "Party_toc.h"
 
+#include "Chat_tocs.h"
+
 #endif

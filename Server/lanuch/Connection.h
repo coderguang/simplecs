@@ -20,6 +20,7 @@
 #include "../include/InitFirst.h"
 #include "../include/Func.h"
 #include "../publicRoom/UpdateParty.h"
+#include "../publicRoom/InRoom.h"
 using namespace std;
 
 //static const int MAXPROTO=256;//the proto max size
@@ -32,34 +33,12 @@ static void startProc(int connfd,string ip){
 	
 	InitFirst();
 	
-	
 	//come to the lanuch loop
 	mLanuchGame(connfd,ip);
 	
-	cout<<"lanuch success,come to publicRoom"<<endl;
+	//if lanuch success,go to the room loop
+	InRoomLoop(connfd);
 	
-	while(true){
-				
-			int id=0;
-			int nread=read(connfd,&id,4);
-
-			if(nread<0){
-				if(errno!=EINTR){
-						cout<<"socket disconnections in the public room...."<<endl;
-						//if in the room disconnections.update the party
-						//shouldn't do this in here ,because it doesn't call sig_exit,the flag and conn is valid,but the socket disconnects,it makes write stream error!
-						//updateParty();
-						//DelayTime(5);
-						close(connfd);
-						exit(1);
-				}else
-					 continue;			
-			}else if(0==nread)	/*EOF of the stream */
-					 continue;
-
-				
-
-	}
 
 }
 
