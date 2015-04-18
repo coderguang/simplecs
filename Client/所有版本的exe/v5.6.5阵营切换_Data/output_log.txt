@@ -1,0 +1,27 @@
+Initialize engine version: 4.5.4f1 (e036f44c54c9)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce 410M (ID=0x1054)
+    Vendor:   NVIDIA
+    VRAM:     977 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: E:\simplecs\Client\所有版本的exe\v5.6.5阵营切换_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading E:\simplecs\Client\所有版本的exe\v5.6.5阵营切换_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: E:\simplecs\Client\所有版本的exe\v5.6.5阵营切换_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading E:\simplecs\Client\所有版本的exe\v5.6.5阵营切换_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: E:\simplecs\Client\所有版本的exe\v5.6.5阵营切换_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading E:\simplecs\Client\所有版本的exe\v5.6.5阵营切换_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: E:\simplecs\Client\所有版本的exe\v5.6.5阵营切换_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
+Loading E:\simplecs\Client\所有版本的exe\v5.6.5阵营切换_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
+- Completed reload, in  0.051 seconds
+desktop: 1366x768 60Hz; virtual: 3286x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+Platform assembly: E:\simplecs\Client\所有版本的exe\v5.6.5阵营切换_Data\Managed\System.dll (this message is harmless)
+UnloadTime: 6.488760 ms
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 551.
+Total: 4.286499 ms (FindLiveObjects: 0.074834 ms CreateObjectMapping: 0.034637 ms MarkObjects: 2.067560 ms  DeleteObjects: 0.022236 ms)
+

@@ -9,7 +9,7 @@ namespace Assets.Script.Proto
 
     /*C#只支持公有继承，因此前面没有修饰符*/
     [Serializable]
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = protoID.PackSize)]
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = ProtoID.PackSize)]
     class Lanuch_tos:Message
     {
         //长度根据服务端的数据库决定
@@ -19,7 +19,7 @@ namespace Assets.Script.Proto
         public char []passwd;
 
         public Lanuch_tos(string acc,string pass) {
-            this.id = protoID.LanuchID;
+            this.id = ProtoID.LanuchID;
             this.error_code = 0;
             this.account = acc.PadRight(8, '\0').ToCharArray();
             this.passwd =  pass.PadRight(16, '\0').ToCharArray();

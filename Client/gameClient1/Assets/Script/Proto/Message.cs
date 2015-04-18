@@ -22,7 +22,7 @@ namespace Assets.Script.Proto
      * */
 
     [Serializable]
-    [StructLayoutAttribute(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = protoID.PackSize)]
+    [StructLayoutAttribute(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = ProtoID.PackSize)]
     class Message
     {
         public int id;

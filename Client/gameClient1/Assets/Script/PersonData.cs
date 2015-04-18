@@ -5,7 +5,7 @@ public class PersonData : MonoBehaviour {
     //角色属性，挂载在GobalOb对象上
 
     public static int m_ID=0;  //和服务器DB内的ID一致
-    public static int m_Party;//阵营  1：代表蓝方  2：代表红方
+    public static int m_Party;//阵营  1：代表蓝方  2：代表红方,和PartyType一致
     public static string m_Name=null;
     public static string m_LastTime=null;//上次登录时间
     public static string m_LastIP=null;//上次登录IP

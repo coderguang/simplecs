@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.Script.Proto
 {
-    static class protoID
+    static class ProtoID
     {
 
         public const int PackSize = 1; //统一控制协议的对齐方式
@@ -14,6 +14,8 @@ namespace Assets.Script.Proto
        public const int LanuchResultID = 1001;
 
        public const int PartyID = 1500;//房间用户列表
+
+       public const int PartyChangeID = 1600;//用户阵营改变
 
        public const int ChatID = 1800;//房间内的聊天信息
 

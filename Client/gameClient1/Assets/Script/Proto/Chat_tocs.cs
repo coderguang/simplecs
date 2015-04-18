@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 namespace Assets.Script.Proto
 {
     [Serializable]
-    [StructLayoutAttribute(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = protoID.PackSize)]
+    [StructLayoutAttribute(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = ProtoID.PackSize)]
 
 
     class Chat_tocs:Message
@@ -18,7 +18,7 @@ namespace Assets.Script.Proto
         public char[] msg;
 
         public Chat_tocs(int id, PartyType t, string ms) {
-            this.id = protoID.ChatID;
+            this.id = ProtoID.ChatID;
             this.error_code = 0;
             this.user_id = id;
             this.type = (int)t;

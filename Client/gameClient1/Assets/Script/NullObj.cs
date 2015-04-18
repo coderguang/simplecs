@@ -63,19 +63,21 @@ public class NullObj : MonoBehaviour {
                 //具体的业务逻辑处理
                 //超恶心switch
                 switch (id) {
-                    case protoID.ErrID://错误情况
+                    case ProtoID.ErrID://错误情况
                         {
                             if (ErrCode.ACCOUNT_ERR_PASSWD == msg.error_code||ErrCode.ACCOUNT_HAD_LANUCH==msg.error_code||ErrCode.SERVER_FULL==msg.error_code||ErrCode.SERVER_IN_GAME==msg.error_code) {
                                 //LanuchGame.GetInstance().err_code=msg.error_code;
                                 //LanuchGame.GetInstance().tipFlag = true;
                                 LanuchGame.err_code = msg.error_code;
                                 LanuchGame.tipFlag = true;
-                                
+                            }
+                            else if (ErrCode.PARTY_IS_FULL == msg.error_code || ErrCode.PARTY_NO_CHANGE == msg.error_code) {
+                                UpdateParty.tipFlag = true;//中心显示阵营切换失败
                             }                        
                         
                         }
                         break;
-                    case protoID.LanuchResultID: //登录正确
+                    case ProtoID.LanuchResultID: //登录正确
                         {                                                         
                             LanuchResult_toc temp=(LanuchResult_toc)msg;
                             /**
@@ -95,7 +97,7 @@ public class NullObj : MonoBehaviour {
                             Application.LoadLevel("PublicRoom");
                         }
                         break;
-                    case protoID.PartyID://更新分组信息
+                    case ProtoID.PartyID://更新分组信息
                         {
                             Party_toc temp = (Party_toc)msg;
 
@@ -130,7 +132,7 @@ public class NullObj : MonoBehaviour {
 
                         }
                         break;
-                    case protoID.ChatID://房间聊天信息
+                    case ProtoID.ChatID://房间聊天信息
                         {
                             Chat_tocs temp = (Chat_tocs)msg;
 
@@ -142,7 +144,16 @@ public class NullObj : MonoBehaviour {
                             Send_Btn.flag = true;
                         }
                         break;
-
+                    case ProtoID.PartyChangeID://阵营改变
+                        { 
+                            //直接改变阵营即可
+                            if ((int)PartyType.BLUE == PersonData.m_Party)
+                                PersonData.m_Party = (int)PartyType.RED;
+                            else
+                                PersonData.m_Party = (int)PartyType.BLUE;
+                        
+                        }
+                        break;
                 
                 
                 
