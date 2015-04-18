@@ -14,6 +14,7 @@ public class JoinRed : MonoBehaviour {
      * 改用一个label显示，因为往textList中直接add没反应
      * 
      * **/
+    
     //private UITextList textList;
 
     private UILabel Join_Label;

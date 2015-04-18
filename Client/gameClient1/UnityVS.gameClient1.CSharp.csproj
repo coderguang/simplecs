@@ -206,6 +206,7 @@
     <Compile Include="Assets\Script\Proto\Chat_tocs.cs" />
     <Compile Include="Assets\Script\Proto\ErrCode.cs" />
     <Compile Include="Assets\Script\Proto\Err_toc.cs" />
+    <Compile Include="Assets\Script\Proto\GameStart_tocs.cs" />
     <Compile Include="Assets\Script\Proto\LanuchResult_toc.cs" />
     <Compile Include="Assets\Script\Proto\Lanuch_tos.cs" />
     <Compile Include="Assets\Script\Proto\MTransform.cs" />

@@ -154,6 +154,11 @@ public class NullObj : MonoBehaviour {
                         
                         }
                         break;
+                    case ProtoID.GameStart://开始游戏
+                        {
+                            Application.LoadLevel("GameMap"); 
+                        }
+                        break;
                 
                 
                 

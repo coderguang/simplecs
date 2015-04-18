@@ -19,6 +19,8 @@ namespace Assets.Script.Proto
 
        public const int ChatID = 1800;//房间内的聊天信息
 
+       public const int GameStart = 1900;//开启游戏，仅sg具有该权限，本地与服务器都检测是否具有权限
+
        public const int ErrID = 3999;//错误协议
     }
 }

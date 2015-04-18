@@ -14,14 +14,36 @@ Platform assembly: E:\simplecs\Client\所有版本的exe\v5.8.5阵营切换-fina
 Loading E:\simplecs\Client\所有版本的exe\v5.8.5阵营切换-final_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
 Platform assembly: E:\simplecs\Client\所有版本的exe\v5.8.5阵营切换-final_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
 Loading E:\simplecs\Client\所有版本的exe\v5.8.5阵营切换-final_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
-- Completed reload, in  0.063 seconds
+- Completed reload, in  0.074 seconds
 desktop: 1366x768 60Hz; virtual: 3286x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 Platform assembly: E:\simplecs\Client\所有版本的exe\v5.8.5阵营切换-final_Data\Managed\System.dll (this message is harmless)
-UnloadTime: 2.124861 ms
+UnloadTime: 2.582846 ms
 Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
 Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 551.
-Total: 1.243529 ms (FindLiveObjects: 0.026085 ms CreateObjectMapping: 0.010262 ms MarkObjects: 0.597817 ms  DeleteObjects: 0.008124 ms)
+Total: 1.299120 ms (FindLiveObjects: 0.023946 ms CreateObjectMapping: 0.010262 ms MarkObjects: 0.613639 ms  DeleteObjects: 0.009835 ms)
+
+UnloadTime: 1.491978 ms
+No idle animation found. Turning off animations.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+No walk animation found. Turning off animations.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+No run animation found. Turning off animations.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+No jump animation found and the character has canJump enabled. Turning off animations.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 773.
+Total: 1.332475 ms (FindLiveObjects: 0.041907 ms CreateObjectMapping: 0.012401 ms MarkObjects: 0.335256 ms  DeleteObjects: 0.057729 ms)
 

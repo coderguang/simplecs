@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Script.Proto;
+using Assets.Script;
 
 public class PublicRoom : MonoBehaviour {
  //用于设置公共房间的内容及接收开始或者退出游戏指令
@@ -7,6 +9,8 @@ public class PublicRoom : MonoBehaviour {
     private UILabel user_name;
     private UILabel time;
     private UILabel ip;
+
+    private UILabel Reject_Label;//非sg无法开启游戏
 
     public static bool publicRoomFlag = false;
     public static string nameStr;
@@ -19,6 +23,7 @@ public class PublicRoom : MonoBehaviour {
         user_name = GameObject.Find("UI Root/Window/Right/name").GetComponent<UILabel>();
         time = GameObject.Find("UI Root/Window/Right/time").GetComponent<UILabel>();
         ip = GameObject.Find("UI Root/Window/Right/ip").GetComponent<UILabel>();
+        Reject_Label = GameObject.Find("UI Root/Window/Left/startBtn/Reject_Label").GetComponent<UILabel>();
     }
 
 
@@ -46,9 +51,18 @@ public class PublicRoom : MonoBehaviour {
            
         }
     }
-
+    /**
+     * 只有sg具有开启游戏的权利
+     * 
+     * **/
     public void StartGame() {
-        Application.LoadLevel("GameMap");    
+        if (1000 != PersonData.m_ID)
+            Reject_Label.text = "[ff0000]只有账号sg具有开启游戏权限[-]";
+        else {
+            GameStart_tocs temp = new GameStart_tocs();
+            MConnection.GetInstance().Send(temp);
+        }
+               
     }
 
     public void ExitGame() {
