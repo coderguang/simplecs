@@ -28,7 +28,9 @@ namespace Assets.Script.Proto
 
         public const int SERVER_IN_GAME = 6600;//游戏已经开始，无法进入
 
-        public const int NULL_USER = 7000;//代表公共房间内的用户列表为空
+        public const int PARTY_IS_FULL= 7000;//代表另一阵营人数已满
+
+        public const int PARTY_NO_CHANGE = 7100;//没有进行阵营切换
 
 
 

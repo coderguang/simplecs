@@ -230,7 +230,7 @@ namespace Assets.Script
 
                 switch (id)
                 {
-                    case protoID.ErrID://错误toc
+                    case ProtoID.ErrID://错误toc
                         {
                             //频繁新建对象会造成很大的内存损耗，以后再解决这个问题
                             //Err_toc temp = new Err_toc();//C#貌似直接获取长度会有bug，稳妥点，直接新建一个来确定
@@ -244,7 +244,7 @@ namespace Assets.Script
                             }                                                        
                         }
                         break;
-                    case protoID.LanuchResultID://获取登录结果
+                    case ProtoID.LanuchResultID://获取登录结果
                         {
                             //LanuchResult_toc temp = new LanuchResult_toc();
                             //byte[] buf = new byte[Marshal.SizeOf(temp)];
@@ -267,7 +267,7 @@ namespace Assets.Script
 
                         }
                         break;
-                    case protoID.PartyID://获取房间分组信息
+                    case ProtoID.PartyID://获取房间分组信息
                         {
                             Party_toc temp = (Party_toc)MTransform.BytesToStruct(buffer, typeof(Party_toc));
                             lock (objLock)
@@ -278,7 +278,7 @@ namespace Assets.Script
 
                         }
                         break;
-                    case protoID.ChatID://房间内的聊天信息
+                    case ProtoID.ChatID://房间内的聊天信息
                         { 
                             Chat_tocs temp=(Chat_tocs)MTransform.BytesToStruct(buffer,typeof(Chat_tocs));
                             lock (objLock)

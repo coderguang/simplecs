@@ -46,5 +46,6 @@ public class Send_Btn : MonoBehaviour {
         
         Chat_tocs temp = new Chat_tocs(PersonData.m_ID, PartyType.ALL, str);
         MConnection.GetInstance().Send(temp);
-            }  
+
+    }  
 }

@@ -211,8 +211,11 @@
     <Compile Include="Assets\Script\Proto\MTransform.cs" />
     <Compile Include="Assets\Script\Proto\Message.cs" />
     <Compile Include="Assets\Script\Proto\PartyType.cs" />
+    <Compile Include="Assets\Script\Proto\Party_change_tocs.cs" />
     <Compile Include="Assets\Script\Proto\Party_toc.cs" />
     <Compile Include="Assets\Script\Proto\protoID.cs" />
+    <Compile Include="Assets\Script\PublicRoom\JoinBlue.cs" />
+    <Compile Include="Assets\Script\PublicRoom\JoinRed.cs" />
     <Compile Include="Assets\Script\PublicRoom\PublicRoom.cs" />
     <Compile Include="Assets\Script\PublicRoom\Send_Btn.cs" />
     <Compile Include="Assets\Script\PublicRoom\UpdateParty.cs" />
