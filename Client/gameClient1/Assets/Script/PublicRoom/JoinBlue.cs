@@ -30,7 +30,7 @@ public class JoinBlue : MonoBehaviour {
 
     void OnClick() {
         //先判断自身阵营是否和要加入的阵营一致
-        if ((int)PartyType.BLUE == PersonData.m_Party)
+        if (PartyType.BLUE == PersonData.m_Party)
         {
             flag = true;
         }

@@ -17,11 +17,11 @@ namespace Assets.Script.Proto
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
         public char[] msg;
 
-        public Chat_tocs(int id, PartyType t, string ms) {
+        public Chat_tocs(int id, int t, string ms) {
             this.id = ProtoID.ChatID;
             this.error_code = 0;
             this.user_id = id;
-            this.type = (int)t;
+            this.type = t;
             this.msg =ms.PadRight(32, '\0').ToCharArray();        
         }
         

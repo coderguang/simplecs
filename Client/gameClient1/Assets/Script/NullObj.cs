@@ -147,10 +147,10 @@ public class NullObj : MonoBehaviour {
                     case ProtoID.PartyChangeID://阵营改变
                         { 
                             //直接改变阵营即可
-                            if ((int)PartyType.BLUE == PersonData.m_Party)
-                                PersonData.m_Party = (int)PartyType.RED;
+                            if (PartyType.BLUE == PersonData.m_Party)
+                                PersonData.m_Party = PartyType.RED;
                             else
-                                PersonData.m_Party = (int)PartyType.BLUE;
+                                PersonData.m_Party = PartyType.BLUE;
                         
                         }
                         break;
