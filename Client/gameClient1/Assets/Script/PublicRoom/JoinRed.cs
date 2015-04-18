@@ -37,7 +37,7 @@ public class JoinRed : MonoBehaviour {
 
     void OnClick() {
         //先判断自身阵营是否和要加入的阵营一致
-        if ((int)PartyType.RED == PersonData.m_Party)
+        if (PartyType.RED == PersonData.m_Party)
         {
             flag = true;
         }

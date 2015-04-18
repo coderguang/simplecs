@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Assets.Script.Proto
 {
-    enum PartyType{
-        BLUE=1,
-        RED=2,
-        ALL=3        
+    class PartyType{
+        public const int BLUE=1;
+        public const int RED=2;
+        public const int ALL = 3;
     }
 }

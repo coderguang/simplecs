@@ -288,6 +288,16 @@ namespace Assets.Script
                         
                         }
                         break;
+                    case ProtoID.PartyChangeID://更改分组信息
+                        {
+                            Party_change_tocs temp = (Party_change_tocs)MTransform.BytesToStruct(buffer, typeof(Party_change_tocs));
+                            lock (objLock)
+                            {
+                                package.Enqueue(temp);
+                            }
+                        
+                        }
+                        break;
 
 
 

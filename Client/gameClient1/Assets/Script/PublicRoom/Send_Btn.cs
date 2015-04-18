@@ -44,7 +44,7 @@ public class Send_Btn : MonoBehaviour {
     {
         string str = input_Label.GetComponent<UILabel>().text;
         
-        Chat_tocs temp = new Chat_tocs(PersonData.m_ID, PartyType.ALL, str);
+        Chat_tocs temp = new Chat_tocs(PersonData.m_ID, PartyType.ALL,str);
         MConnection.GetInstance().Send(temp);
 
     }  
