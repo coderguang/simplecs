@@ -80,7 +80,7 @@ void sig_chld_exit(int signo){
 	while((pid=waitpid(-1,&stat,WNOHANG))>0){
 			
 			//change the share memory 
-			cout<<"child "<<pid<<"  terminated!"<<endl;
+			//cout<<"child "<<pid<<"  terminated!"<<endl;
 
 			sem_wait(sigListmutex);
 
@@ -118,10 +118,10 @@ void sig_chld_exit(int signo){
 
 		sem_wait(mstatusmutex);
 		if(IN_ROOM==mstatusptr->status){
-				cout<<"update when exit"<<endl;
+				//cout<<"update when exit"<<endl;
 				updateParty();
 		}else{
-				cout<<"status ="<<mstatusptr->status<<endl;
+				//cout<<"status ="<<mstatusptr->status<<endl;
 		}
 		sem_post(mstatusmutex);
 

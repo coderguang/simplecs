@@ -63,7 +63,8 @@ static ssize_t writen(int connfd,void *vptr,size_t len){
 						nwritten=0;
 				}else{
 						cout<<"write to stream error"<<endl;
-						exit(0);
+						break;
+						//exit(0);
 				}
 
 		}

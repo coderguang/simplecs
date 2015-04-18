@@ -31,7 +31,7 @@ void mBroadcast(int type,Message	*msg,size_t len){
 			
 
 			sem_wait(listmutex);			
-			cout<<"come to the broadcast,type="<<type<<endl;
+			//cout<<"come to the broadcast,type="<<type<<endl;
 			/**
 			for(int i=0;i<MAX_USER;i++){
 				cout<<"in cast:i="<<i<<" flag="<<listptr->flag[i]<<" id="<<listptr->id[i]<<" pid="<<listptr->pid[i]<<endl;
@@ -58,7 +58,7 @@ void mBroadcast(int type,Message	*msg,size_t len){
 			}else if(ALL==type){  //if this should be broadcast to blue party
 						for(int i=0;i<MAX_USER;i++){
 								if(1==listptr->flag[i]){  //if this is value
-													cout<<"i="<<i<<" write to all"<<listptr->conn[i]<<endl;
+													cout<<"i="<<i<<" write to all "<<listptr->conn[i]<<endl;
 													writen(listptr->conn[i],msg,len);	//broadcast this proto to the socket fd;
 								}	
 
@@ -67,7 +67,7 @@ void mBroadcast(int type,Message	*msg,size_t len){
 		
 			sem_post(listmutex);
 						
-			cout<<"out of broadcast"<<endl;
+			//cout<<"out of broadcast"<<endl;
 }
 		
 

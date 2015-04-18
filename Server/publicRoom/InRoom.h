@@ -33,7 +33,7 @@ void InRoomLoop(int connfd){
 			int id=0;
 			int nread=read(connfd,&id,4);
 			
-			//cout<<"the id is "<<id<<endl;
+		//cout<<"the id is "<<id<<endl;
 
 			if(nread<0){
 				if(errno!=EINTR){
@@ -77,7 +77,7 @@ void InRoomLoop(int connfd){
 					//if perhaps make the death lock,if someone exit in here
 					sem_wait(nummutex);//get the aother party's counter,if it is full,reject,otherwise,change the
 
-					cout<<"come to num shm"<<endl;
+					//cout<<"come to num shm"<<endl;
 					if(BLUE==PersonData::m_Party){
 							if(numptr->redCounter>=(MAX_USER/2)){//if another party if full
 									Err_toc *temp=new Err_toc(PARTY_IS_FULL);
@@ -95,6 +95,7 @@ void InRoomLoop(int connfd){
 													listptr->party[i]=RED;	
 													//should change the PersonData
 													PersonData::m_Party=RED;
+													cout<<"change to red"<<endl;
 										}					
 
 									}
@@ -123,6 +124,8 @@ void InRoomLoop(int connfd){
 										if(1==listptr->flag[i]&&PersonData::m_ID==listptr->id[i]){
 													listptr->party[i]=BLUE;	
 													PersonData::m_Party=BLUE;
+													cout<<"change to Blue"<<endl;
+				
 										}					
 
 									}
@@ -137,6 +140,11 @@ void InRoomLoop(int connfd){
 							}
 				}
 				sem_post(nummutex);							
+
+			}else{//some error sream ,receive it and do nothing
+					char buf[128];
+					readn(connfd,&buf,128);
+
 
 			}
 				
