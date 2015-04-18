@@ -33,7 +33,7 @@ void InRoomLoop(int connfd){
 			int id=0;
 			int nread=read(connfd,&id,4);
 			
-			cout<<"the id is "<<id<<endl;
+			//cout<<"the id is "<<id<<endl;
 
 			if(nread<0){
 				if(errno!=EINTR){
@@ -51,7 +51,7 @@ void InRoomLoop(int connfd){
 					 continue;
 			
 			if(pChatID==id){
-					cout<<"receive the chat in the room"<<endl;
+					//cout<<"receive the chat in the room"<<endl;
 
 					Chat_tocs *temp=new Chat_tocs();
 					memset(temp,'\0',sizeof(Chat_tocs));
@@ -67,6 +67,77 @@ void InRoomLoop(int connfd){
 
 					mBroadcast(ALL,temp,sizeof(Chat_tocs));
 					
+			}else if(partyChangeID==id){//get the party change tos
+					
+					Party_change_tocs *temp=new Party_change_tocs();
+					readn(connfd,&temp->error_code,sizeof(Party_change_tocs)-4);
+					
+					cout<<"get the party change proto"<<endl;
+
+					//if perhaps make the death lock,if someone exit in here
+					sem_wait(nummutex);//get the aother party's counter,if it is full,reject,otherwise,change the
+
+					cout<<"come to num shm"<<endl;
+					if(BLUE==PersonData::m_Party){
+							if(numptr->redCounter>=(MAX_USER/2)){//if another party if full
+									Err_toc *temp=new Err_toc(PARTY_IS_FULL);
+									writen(connfd,&temp->id,sizeof(Err_toc));
+							}else{//change the party
+									numptr->blueCounter--;
+									numptr->redCounter++;
+
+									//reset the list
+									sem_wait(listmutex);
+
+									cout<<"come to list shm in blue"<<endl;
+									for(int i=0;i<MAX_USER;i++){
+										if(1==listptr->flag[i]&&PersonData::m_ID==listptr->id[i]){
+													listptr->party[i]=RED;	
+													//should change the PersonData
+													PersonData::m_Party=RED;
+										}					
+
+									}
+									sem_post(listmutex);
+									
+									updateParty();
+
+									//talk to the client ,he's party is change
+									Party_change_tocs *t=new Party_change_tocs();
+									writen(connfd,&t->id,sizeof(Party_change_tocs));
+
+							}
+					}else if(RED==PersonData::m_Party){
+							if(numptr->blueCounter>=(MAX_USER/2)){//if another party if full
+									Err_toc *temp=new Err_toc(PARTY_IS_FULL);
+									writen(connfd,&temp->id,sizeof(Err_toc));
+							}else{//change the party
+									numptr->blueCounter++;
+									numptr->redCounter--;
+
+									//reset the list
+									sem_wait(listmutex);
+									cout<<"come to list shm in blue"<<endl;
+
+									for(int i=0;i<MAX_USER;i++){
+										if(1==listptr->flag[i]&&PersonData::m_ID==listptr->id[i]){
+													listptr->party[i]=BLUE;	
+													PersonData::m_Party=BLUE;
+										}					
+
+									}
+									sem_post(listmutex);
+
+									updateParty();
+
+									//talk to the client ,he's party is change
+									Party_change_tocs *t=new Party_change_tocs();
+									writen(connfd,&t->id,sizeof(Party_change_tocs));
+
+							}
+				}
+				sem_post(nummutex);							
+
 			}
 				
 

@@ -20,6 +20,10 @@ static const int ACCOUNT_HAD_LANUCH=6300;//the account is lanuch and using now
 
 static const int SERVER_IN_GAME=6600;//game is running,the game status is 2
 
+static const int PARTY_IS_FULL=7000;//the party is full of user,can't join in
+
+static const int PARTY_NO_CHANGE=7100;//party no change
+
 #pragma pack(1)
 //#pragma pack(PACKSIZE)
 class Err_toc:public Message{

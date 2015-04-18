@@ -10,8 +10,10 @@ public:
 	  static int m_ID;
 		static int m_Party;
 	  static string m_Name;
-	  static string m_lastTime;
+	  static string m_LastTime;
 	  static string m_LastIP;
+		//update 5 set by mLanuch.h
+
 	  static int m_HP;	
 	  static int m_Eat;
 	  static int m_Kill;
@@ -27,9 +29,9 @@ public:
 
 	int PersonData::m_ID=0;
 	int PersonData::m_Party=0;
-	string PersonData::m_Name=nullptr;
-	string PersonData::m_lastTime=nullptr;
-	string PersonData::m_LastIP=nullptr;
+	string PersonData::m_Name="";
+	string PersonData::m_LastTime="";
+	string PersonData::m_LastIP="";
 	int PersonData::m_HP=0;	
 	int PersonData::m_Eat=0;
 	int PersonData::m_Kill=0;

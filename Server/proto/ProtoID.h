@@ -10,6 +10,8 @@ static const int pLanuchResultID=1001;
 
 static const int partyID=1500;
 
+static const int partyChangeID=1600;
+
 static const int pChatID=1800;
 
 

@@ -22,6 +22,7 @@
 #include "../include/BroadcastInterface.h"
 #include "../publicRoom/UpdateParty.h"
 #include "../include/InitGameStatus.h"
+#include "../struct/PersonData.h"
 
 using namespace std;
 
@@ -63,7 +64,7 @@ static void mLanuchGame(int connfd,string ip){
 	sem_wait(nummutex);
 	//check the user counter  in the server
 	if(numptr->counter>=MAX_USER){
-			cout<<"come to server full!"<<endl;
+			cout<<"server full! can't accept anyone"<<endl;
 			Err_toc *temp=new Err_toc(SERVER_FULL);
 			writen(connfd,&temp->id,sizeof(Err_toc));
 			sem_post(nummutex);
@@ -82,7 +83,7 @@ static void mLanuchGame(int connfd,string ip){
 
 			if(nread<0){
 				if(errno!=EINTR&&errno==EPIPE){
-						cout<<"socket disconnections...."<<endl;
+						cout<<"socket disconnections when try to lanuch...."<<endl;
 						close(connfd);
 						exit(1);
 				}else
@@ -91,6 +92,7 @@ static void mLanuchGame(int connfd,string ip){
 					 continue;
 
 			if(pLanuchID==id){
+
 						Lanuch_tos *ptr=new Lanuch_tos();
 						memset(ptr,'\0',sizeof(Lanuch_tos));
 						readn(connfd,&ptr->error_code,sizeof(Lanuch_tos)-4);
@@ -151,26 +153,35 @@ static void mLanuchGame(int connfd,string ip){
 										listptr->pid[i]=(int)pid;
 										listptr->conn[i]=connfd;
 
-										cout<<"id="<<listptr->id[i]<<" in the listptr,the party is "<<listptr->party[i]<<endl;
+										//cout<<"id="<<listptr->id[i]<<" in the listptr,the party is "<<listptr->party[i]<<endl;
 
 										break;
 								}
 							}					
 
-							//for(int i=0;i<MAX_USER;i++)
-							/**
-							for(int i=0;i<3;i++)
-								cout<<"after lanuch:flag["<<i<<"]="<<listptr->flag[i]<<"  id="<<listptr->id[i]<<" pid="<<listptr->pid[i]<<endl;
-							**/
+
 							sem_post(listmutex);
 		
 
 							LanuchResult_toc *result=new LanuchResult_toc(lanResult.name,lanResult.lastlanuch,lanResult.lastIP,lanResult.setting,lanResult.id);
-							cout<<"name="<<result->name<<"  lastlanuch="<<result->lastLanuch<<"  lastip="<<result->lastIP<<"  setting="<<result->setting<<endl<<endl;
+							//cout<<"name="<<result->name<<"  lastlanuch="<<result->lastLanuch<<"  lastip="<<result->lastIP<<"  setting="<<result->setting<<endl<<endl;
 							
 							result->party=partyTemp;
 							result->error_code=0;
 							writen(connfd,&result->id,sizeof(LanuchResult_toc));
+
+
+							//set the static PersonData
+							PersonData::m_ID=result->account_id;
+							PersonData::m_Party=result->party;
+							PersonData::m_Name=lanResult.name;
+							PersonData::m_LastTime=lanResult.lastlanuch;
+							PersonData::m_LastIP=lanResult.lastIP;
+							
+							//set success!
+							//cout<<"Person id="<<PersonData::m_ID<<" party="<<PersonData::m_Party<<" name="<<PersonData::m_Name<<"lastlanuch="<<PersonData::m_LastTime<<" ip="<<PersonData::m_LastIP<<endl;
+
+							
 
 							//if it lanuch right,break this loop and come to the public room loop
 							//send the Party_toc
@@ -187,6 +198,10 @@ static void mLanuchGame(int connfd,string ip){
 							Err_toc *err=new Err_toc(rNum);
 							writen(connfd,&err->id,sizeof(Err_toc));
 						}
+					}else{//if receive the other proto or error stream,read it and throw is to memset the socket stream
+						 char errbuf[64];
+						 readn(connfd,&errbuf,64);
+
 					}
 				
 

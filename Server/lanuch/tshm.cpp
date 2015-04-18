@@ -7,7 +7,7 @@
  *
  * **/
 
-#include "../include/struct/shmServer.h"
+#include "../struct/ShmServer.h"
 #include <sys/types.h>
 #include <sys/mman.h>
 #include <fcntl.h>
@@ -49,12 +49,18 @@ int main(){
 
 		//init the list array
 		//
+		
 		cout<<"now the list is "<<endl;
+
+		sem_wait(listmutex);
 		for(int i=0;i<MAX_USER;i++){
-			cout<<"flag["<<i<<"]="<<listptr->flag[i]<<"  id="<<listptr->id[i]<<"  pid="<<listptr->pid[i]<<endl;
+			cout<<"flag["<<i<<"]="<<listptr->flag[i]<<"  id="<<listptr->id[i]<<"  pid="<<listptr->pid[i]<<" conn="<<listptr->conn[i]<<endl;
 		}
-/**
+		sem_post(listmutex);
+		
+
 		//open shmNum 
+		
 		int fdd;
 		
 		fdd=shm_open("mshmNum",O_RDWR,0644);
@@ -70,7 +76,11 @@ int main(){
 		if(SEM_FAILED==nummutex){
 			cout<<"open msemNum failed when init"<<endl;
 		}
-	**/
+
+		sem_wait(nummutex);
+		cout<<"sum="<<numptr->counter<<" blue="<<numptr->blueCounter<<" red="<<numptr->redCounter<<endl;
+		sem_post(nummutex);
+
 
 }
 
