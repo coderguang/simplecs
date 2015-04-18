@@ -15,6 +15,7 @@ static const int partyChangeID=1600;
 static const int pChatID=1800;
 
 
+static const int gameStartID=1900;
 
 static const int errCodeID=3999;
 #endif

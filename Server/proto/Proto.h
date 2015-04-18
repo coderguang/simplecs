@@ -17,4 +17,6 @@
 
 #include "Party_change_tocs.h"
 
+#include "GameStart_tocs.h"
+
 #endif

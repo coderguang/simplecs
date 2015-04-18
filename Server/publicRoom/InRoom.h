@@ -141,6 +141,23 @@ void InRoomLoop(int connfd){
 				}
 				sem_post(nummutex);							
 
+			}else if(gameStartID==id){//receive the start game proto
+
+				GameStart_tocs *temp=new GameStart_tocs();
+				readn(connfd,&temp->error_code,sizeof(GameStart_tocs)-4);
+
+				if(1000==PersonData::m_ID){//check if this proto from sg
+
+					Chat_tocs *t=new Chat_tocs(1000,ALL,"game start after 10 seconds");
+					mBroadcast(ALL,t,sizeof(Chat_tocs));
+
+					DelayTime(10);
+
+					//broadcast the GameStart_tocs to every client
+					mBroadcast(ALL,temp,sizeof(Chat_tocs));
+					
+				}
+
 			}else{//some error sream ,receive it and do nothing
 					char buf[128];
 					readn(connfd,&buf,128);
