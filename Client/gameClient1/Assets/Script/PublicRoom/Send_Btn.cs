@@ -8,6 +8,7 @@ public class Send_Btn : MonoBehaviour {
 
     public UITextList textList;
 
+    private GameObject input_Label;
     
     public static bool flag = false;
 
@@ -26,6 +27,7 @@ public class Send_Btn : MonoBehaviour {
     // Use this for initialization  
     void Start()
     {
+        input_Label = GameObject.Find("Input_Label");
 
     }
 
@@ -40,13 +42,9 @@ public class Send_Btn : MonoBehaviour {
 
     void OnClick()
     {
-        GameObject input_Label = GameObject.Find("Input_Label");
-        //string text_str = "[00ff00]"+"Some say:[-] " + "[ff0000]"+input_Label.GetComponent<UILabel>().text+"[-]";
         string str = input_Label.GetComponent<UILabel>().text;
         
         Chat_tocs temp = new Chat_tocs(PersonData.m_ID, PartyType.ALL, str);
         MConnection.GetInstance().Send(temp);
-        
-        //textList.Add(text_str);
-    }  
+            }  
 }

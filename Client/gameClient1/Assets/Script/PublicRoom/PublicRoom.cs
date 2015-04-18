@@ -4,21 +4,23 @@ using System.Collections;
 public class PublicRoom : MonoBehaviour {
  //用于设置公共房间的内容及接收开始或者退出游戏指令
 
-    public UILabel user_name;
-    public UILabel time;
-    public UILabel ip;
+    private UILabel user_name;
+    private UILabel time;
+    private UILabel ip;
 
-    [HideInInspector]
     public static bool publicRoomFlag = false;
-    [HideInInspector]
     public static string nameStr;
-    [HideInInspector]
     public static string timeStr;
-    [HideInInspector]
+    
     public static string ipStr;
-
-
     private static PublicRoom _instance;
+
+    void Start() {
+        user_name = GameObject.Find("UI Root/Window/Right/name").GetComponent<UILabel>();
+        time = GameObject.Find("UI Root/Window/Right/time").GetComponent<UILabel>();
+        ip = GameObject.Find("UI Root/Window/Right/ip").GetComponent<UILabel>();
+    }
+
 
     private PublicRoom() {    
     
