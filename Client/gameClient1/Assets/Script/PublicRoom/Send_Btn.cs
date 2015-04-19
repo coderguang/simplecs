@@ -43,7 +43,7 @@ public class Send_Btn : MonoBehaviour {
     void OnClick()
     {
         string str = input_Label.GetComponent<UILabel>().text;
-        
+        Debug.Log("获得输入:"+str);
         Chat_tocs temp = new Chat_tocs(PersonData.m_ID, PartyType.ALL,str);
         MConnection.GetInstance().Send(temp);
 
