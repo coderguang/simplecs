@@ -45,15 +45,24 @@ static ssize_t readn(int connfd,void *vptr,size_t len){
 
 };
 
+
 //write the stream into the connfd
 static ssize_t writen(int connfd,void *vptr,size_t len){
+
+	static int rwTimes=0;//user for controller the rewrite times,
 
 	//cout<<"writen len="<<len<<endl;
 	size_t nleft;
 	ssize_t nwritten;
+
+	
 	
 	const char *ptr;
+	void *rptr=vptr; //use for rwrite if it write to stream error!
+
 	ptr=(char*)vptr;
+
+
 	nleft=len;
 
 	while(nleft>0){
@@ -62,8 +71,19 @@ static ssize_t writen(int connfd,void *vptr,size_t len){
 						cout<<"nwritten<0"<<endl;
 						nwritten=0;
 				}else{
-						cout<<"write to stream error"<<endl;
-						return -1;
+						cout<<"write to stream error,rewriten..at "<<rwTimes<<endl;
+
+						if(rwTimes<5){
+							rwTimes++;
+							writen(connfd,rptr,len);
+						}else{
+							cout<<"rewrite still error,give up try!"<<endl;
+							rwTimes=0;
+							return -1;
+						}
+						
+						
+					//	return -1;
 				}
 
 		}
@@ -73,6 +93,11 @@ static ssize_t writen(int connfd,void *vptr,size_t len){
 
 
 	}
+
+	//reset the rwTimes
+	
+	rwTimes=0;
+
 	return (len-nwritten);
 
 }
