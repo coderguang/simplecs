@@ -19,6 +19,7 @@
 #include "../publicRoom/UpdateParty.h"
 #include "../proto/ProtoID.h"
 #include "../struct/PersonData.h"
+#include "../struct/ShmServer.h"
 using namespace std;
 
 //when the game in room ,belown loop solve the proto
@@ -178,12 +179,28 @@ void InRoomLoop(int connfd){
 
 			}else if(gameStartID==id){//receive the start game proto
 
+
 				GameStart_tocs *temp=new GameStart_tocs();
+
 				readn(connfd,&temp->error_code,sizeof(GameStart_tocs)-4);
 
 				if(1000==PersonData::m_ID){//check if this proto from sg
 
+					//cout<<"receive the game start from sg"<<endl;
+					//change ths game status
+						
+					
+					sem_wait(statusmutex);
+					//cout<<"get the status mutex"<<endl;
+					statusptr->status=IN_GAME;
+					//cout<<"set the status mutex"<<endl;
+					sem_post(statusmutex);
+
+					//broadcast the GameStart_tocs to every client
+					//
 					Chat_tocs *t=new Chat_tocs(1000,ALL,"game start after 10 seconds");
+				
+					mBroadcast(ALL,t,sizeof(Chat_tocs));
 
 					/**
 					for(int i=0;i<20;i++){
@@ -192,13 +209,7 @@ void InRoomLoop(int connfd){
 					 }**/
 
 					DelayTime(10);
-					//change ths game status
-						
-					sem_wait(statusmutex);
-					statusptr->status=IN_GAME;
-					sem_post(statusmutex);
 
-					//broadcast the GameStart_tocs to every client
 					mBroadcast(ALL,temp,sizeof(GameStart_tocs));
 					
 				}

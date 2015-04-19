@@ -36,8 +36,11 @@ using namespace std;
 
 extern struct shmList *listptr;
 extern struct shmNum *numptr;
+extern struct shmStatus *statusptr;
+
 extern sem_t *listmutex;
 extern sem_t *nummutex;
+extern sem_t *statusmutex;
 
 
 static void mLanuchGame(int connfd,string ip){
@@ -45,16 +48,16 @@ static void mLanuchGame(int connfd,string ip){
 	//check the game status,if it is running or is in the result,reject the lanuch
 	//
 	//only when in the room accept the lanuch
-	sem_wait(mstatusmutex);
+	sem_wait(statusmutex);
 	if(IN_ROOM!=mstatusptr->status){
-			sem_post(mstatusmutex);
+			sem_post(statusmutex);
 			Err_toc *temp=new Err_toc(SERVER_IN_GAME);
 			writen(connfd,&temp->id,sizeof(Err_toc));
 			DelayTime(5);
 			exit(1);
 
 	}
-	sem_post(mstatusmutex);
+	sem_post(statusmutex);
 
 
 
