@@ -129,7 +129,7 @@ public class NullObj : MonoBehaviour {
                              * */
                             UpdateParty.flag = true;
 
-                            Debug.Log("更新分组");
+                            //Debug.Log("更新分组");
 
                         }
                         break;
@@ -139,8 +139,8 @@ public class NullObj : MonoBehaviour {
 
                             string str = new string(temp.msg);
                             Send_Btn.str = str;
-                            Debug.Log("收到消息:" + str);
-                            Debug.Log("收到消息:");
+                            //Debug.Log("收到消息:" + str);
+                           // Debug.Log("收到消息:");
                             Send_Btn.uid = temp.user_id;
                             //Send_Btn.str = new string(temp.msg);
                             Send_Btn.flag = true;
@@ -154,12 +154,13 @@ public class NullObj : MonoBehaviour {
                             else
                                 PersonData.m_Party = PartyType.BLUE;
 
-                            Debug.Log("自身阵营改变、当前阵营：" + PersonData.m_Party);
+                            //Debug.Log("自身阵营改变、当前阵营：" + PersonData.m_Party);
                         
                         }
                         break;
                     case ProtoID.GameStart://开始游戏
                         {
+                            Debug.Log("开始游戏");
                             Application.LoadLevel("GameMap"); 
                         }
                         break;

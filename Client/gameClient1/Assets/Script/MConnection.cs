@@ -127,7 +127,7 @@ namespace Assets.Script
             if (!msocket.Connected)
             {
                     MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "网络断开...");
-                    UnityEngine.Debug.LogError("网络断开...退出游戏...");
+                    //UnityEngine.Debug.LogError("网络断开...退出游戏...");
                     Application.Quit();          
             }
 
@@ -229,7 +229,7 @@ namespace Assets.Script
 
             int id = System.BitConverter.ToInt32(idByte, 0);
 
-            UnityEngine.Debug.Log("收到新协议：" + id.ToString());
+            //UnityEngine.Debug.Log("收到新协议：" + id.ToString());
 
                 switch (id)
                 {
@@ -274,13 +274,13 @@ namespace Assets.Script
                         {
                             Party_toc temp = (Party_toc)MTransform.BytesToStruct(buffer, typeof(Party_toc));
                           
-                            UnityEngine.Debug.Log("收到更新分组协议：");
+                            //UnityEngine.Debug.Log("收到更新分组协议：");
 
                             lock (objLock)
                             {
                                 //加入到List中
                                 package.Enqueue(temp);
-                                UnityEngine.Debug.Log("分组协议加入队列成功：");
+                               // UnityEngine.Debug.Log("分组协议加入队列成功：");
                             }
 
                         }
@@ -307,6 +307,7 @@ namespace Assets.Script
                         break;
                     case ProtoID.GameStart://开始游戏信号
                         {
+                            UnityEngine.Debug.Log("收到开始游戏信号");
                             GameStart_tocs temp = (GameStart_tocs)MTransform.BytesToStruct(buffer, typeof(GameStart_tocs));
                             lock (objLock)
                             {
