@@ -71,6 +71,11 @@ static ssize_t writen(int connfd,void *vptr,size_t len){
 						cout<<"nwritten<0"<<endl;
 						nwritten=0;
 				}else{
+						cout<<"write to stream error! "<<rwTimes<<endl;
+						return -1;
+
+					/**
+ 					//should not do rewriten.it will make the loop again and again
 						cout<<"write to stream error,rewriten..at "<<rwTimes<<endl;
 
 						if(rwTimes<5){
@@ -81,7 +86,7 @@ static ssize_t writen(int connfd,void *vptr,size_t len){
 							rwTimes=0;
 							return -1;
 						}
-						
+					**/
 						
 					//	return -1;
 				}

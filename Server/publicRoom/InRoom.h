@@ -88,11 +88,11 @@ void InRoomLoop(int connfd){
 					
 					if(BLUE==PersonData::m_Party){
 
-							cout<<"now he is blue"<<endl;
+							//cout<<"now he is blue"<<endl;
 
 							if(numptr->redCounter>=(MAX_USER/2)){//if another party if full
 								
-									cout<<"can't join red,full!"<<endl;
+									//cout<<"can't join red,full!"<<endl;
 
 									Err_toc *temp=new Err_toc(PARTY_IS_FULL);
 									writen(connfd,&temp->id,sizeof(Err_toc));
@@ -109,7 +109,7 @@ void InRoomLoop(int connfd){
 									//reset the list
 									//sem_wait(listmutex); //the mutex order is listmutex-->nummutex to avoid the death lock
 
-									cout<<"come to list shm in blue"<<endl;
+									//cout<<"come to list shm in blue"<<endl;
 
 									for(int i=0;i<MAX_USER;i++){
 										if(1==listptr->flag[i]&&PersonData::m_ID==listptr->id[i]){
@@ -147,7 +147,7 @@ void InRoomLoop(int connfd){
 
 									//reset the list
 								//	sem_wait(listmutex);
-									cout<<"come to list shm in red"<<endl;
+									//cout<<"come to list shm in red"<<endl;
 
 									for(int i=0;i<MAX_USER;i++){
 										if(1==listptr->flag[i]&&PersonData::m_ID==listptr->id[i]){
@@ -185,15 +185,21 @@ void InRoomLoop(int connfd){
 
 					Chat_tocs *t=new Chat_tocs(1000,ALL,"game start after 10 seconds");
 
+					/**
 					for(int i=0;i<20;i++){
 						mBroadcast(ALL,t,sizeof(Chat_tocs));
 						DelayTime(5);
-					}
+					 }**/
 
 					DelayTime(10);
+					//change ths game status
+						
+					sem_wait(statusmutex);
+					statusptr->status=IN_GAME;
+					sem_post(statusmutex);
 
 					//broadcast the GameStart_tocs to every client
-//					mBroadcast(ALL,temp,sizeof(Chat_tocs));
+					mBroadcast(ALL,temp,sizeof(GameStart_tocs));
 					
 				}
 
