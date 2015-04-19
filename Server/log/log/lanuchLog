@@ -518,3 +518,66 @@ Sun Apr 19 13:38:56 2015
  Info:lanuch sg  success!
 Sun Apr 19 13:39:42 2015
  Info:lanuch sg3  success!
+Sun Apr 19 23:33:45 2015
+ Info:lanuch sg  success!
+Sun Apr 19 23:35:04 2015
+ Info:lanuch sg  success!
+Sun Apr 19 23:35:50 2015
+ Info:lanuch sg  success!
+Sun Apr 19 23:39:00 2015
+ Info:lanuch sg  success!
+Sun Apr 19 23:42:01 2015
+ Info:account:sgL not match the passwd
+Sun Apr 19 23:42:09 2015
+ Info:lanuch sg  success!
+Sun Apr 19 23:47:40 2015
+ Info:account:sgÙ®*Ùsgp8 not match the passwd
+Sun Apr 19 23:47:45 2015
+ Info:account:sgL not match the passwd
+Sun Apr 19 23:47:51 2015
+ Info:account:sg^»p1sgùÌÊÎUBÇâ¯£hr( not match the passwd
+Sun Apr 19 23:47:55 2015
+ Info:account:sg^»p1sgùÌÊÎUBÇâ¯£hr(0 not match the passwd
+Sun Apr 19 23:48:03 2015
+ Info:lanuch sg  success!
+Sun Apr 19 23:54:41 2015
+ Info:do sql query error! select name,lastlanuch,lastIP,setting,id,status from accounts where account='sgK'' AND passwd='sg'
+  You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sg'' at line 1
+Sun Apr 19 23:56:33 2015
+ Info:lanuch sg  success!
+Sun Apr 19 23:58:54 2015
+ Info:lanuch sg  success!
+Mon Apr 20 00:02:39 2015
+ Info:lanuch sg  success!
+Mon Apr 20 00:08:17 2015
+ Info:lanuch sg  success!
+Mon Apr 20 00:18:33 2015
+ Info:account:sg not match the passwd
+Mon Apr 20 00:18:36 2015
+ Info:lanuch sg  success!
+Mon Apr 20 00:19:36 2015
+ Info:account:sgL not match the passwd
+Mon Apr 20 00:19:38 2015
+ Info:account:sgL not match the passwd
+Mon Apr 20 00:19:45 2015
+ Info:account:sg^»p1sgùÌÊÎUBÇâ¯£hr( not match the passwd
+Mon Apr 20 00:19:48 2015
+ Info:account:sg1»p1sg1ÌÊÎUBÇâ¯£hr(0 not match the passwd
+Mon Apr 20 00:19:56 2015
+ Info:account:sg not match the passwd
+Mon Apr 20 00:20:04 2015
+ Info:lanuch sg  success!
+Mon Apr 20 00:24:05 2015
+ Info:account:sgL not match the passwd
+Mon Apr 20 00:24:08 2015
+ Info:account:sgL not match the passwd
+Mon Apr 20 00:24:11 2015
+ Info:lanuch sg  success!
+Mon Apr 20 00:26:13 2015
+ Info:lanuch sg  success!
+Mon Apr 20 00:27:43 2015
+ Info:account:sgL not match the passwd
+Mon Apr 20 00:27:46 2015
+ Info:lanuch sg  success!
+Mon Apr 20 00:31:56 2015
+ Info:lanuch sg  success!

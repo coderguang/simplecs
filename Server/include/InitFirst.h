@@ -81,6 +81,9 @@ static void InitFirst(){
 
 
 		int fddd;
+	
+		fddd=shm_open("mshmStatus",O_RDWR,0644);// forget this comment,make the InRoom.h exception
+
 		if(fddd<0){
 			cout<<"open mshmStatus failed when init"<<endl;
 		}
