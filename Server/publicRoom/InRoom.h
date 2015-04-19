@@ -18,6 +18,7 @@
 #include "../include/Func.h"
 #include "../publicRoom/UpdateParty.h"
 #include "../proto/ProtoID.h"
+#include "../struct/PersonData.h"
 using namespace std;
 
 //when the game in room ,belown loop solve the proto
@@ -60,7 +61,7 @@ void InRoomLoop(int connfd){
 						
 					temp->id=pChatID;
 					
-					cout<<"uid="<<temp->user_id<<"  msg="<<temp->msg<<endl;
+					cout<<"receive chat:uid="<<temp->user_id<<"  msg="<<temp->msg<<" err_code="<<temp->error_code<<endl;
 
 					//writen(connfd,&temp->id,sizeof(Chat_tocs));
 					//broadcast this msg to the all
@@ -74,22 +75,42 @@ void InRoomLoop(int connfd){
 					
 					cout<<"get the party change proto"<<endl;
 
+
+					//to avoid the death lock,the mutex order is listmutex-->nummutex;
+					//get the listmutex first to avoid the death lock
+
+					sem_wait(listmutex);
+
 					//if perhaps make the death lock,if someone exit in here
 					sem_wait(nummutex);//get the aother party's counter,if it is full,reject,otherwise,change the
 
-					//cout<<"come to num shm"<<endl;
+					cout<<"come to shm"<<endl;
+					
 					if(BLUE==PersonData::m_Party){
+
+							cout<<"now he is blue"<<endl;
+
 							if(numptr->redCounter>=(MAX_USER/2)){//if another party if full
+								
+									cout<<"can't join red,full!"<<endl;
+
 									Err_toc *temp=new Err_toc(PARTY_IS_FULL);
 									writen(connfd,&temp->id,sizeof(Err_toc));
+		
+									//post the mutex,the order is nummutex-->listmutex
+									sem_post(nummutex);
+									sem_post(listmutex);		
+	
 							}else{//change the party
+
 									numptr->blueCounter--;
 									numptr->redCounter++;
 
 									//reset the list
-									sem_wait(listmutex);
+									//sem_wait(listmutex); //the mutex order is listmutex-->nummutex to avoid the death lock
 
 									cout<<"come to list shm in blue"<<endl;
+
 									for(int i=0;i<MAX_USER;i++){
 										if(1==listptr->flag[i]&&PersonData::m_ID==listptr->id[i]){
 													listptr->party[i]=RED;	
@@ -99,9 +120,12 @@ void InRoomLoop(int connfd){
 										}					
 
 									}
+
+									sem_post(nummutex);
 									sem_post(listmutex);
 									
-									updateParty();
+									updateParty();//this need the listmutex,so must post before this
+
 
 									//talk to the client ,he's party is change
 									Party_change_tocs *t=new Party_change_tocs();
@@ -112,13 +136,18 @@ void InRoomLoop(int connfd){
 							if(numptr->blueCounter>=(MAX_USER/2)){//if another party if full
 									Err_toc *temp=new Err_toc(PARTY_IS_FULL);
 									writen(connfd,&temp->id,sizeof(Err_toc));
+									
+									sem_post(nummutex);
+									sem_post(listmutex);
+
+
 							}else{//change the party
 									numptr->blueCounter++;
 									numptr->redCounter--;
 
 									//reset the list
-									sem_wait(listmutex);
-									cout<<"come to list shm in blue"<<endl;
+								//	sem_wait(listmutex);
+									cout<<"come to list shm in red"<<endl;
 
 									for(int i=0;i<MAX_USER;i++){
 										if(1==listptr->flag[i]&&PersonData::m_ID==listptr->id[i]){
@@ -129,6 +158,8 @@ void InRoomLoop(int connfd){
 										}					
 
 									}
+
+									sem_post(nummutex);
 									sem_post(listmutex);
 
 									updateParty();
@@ -138,8 +169,12 @@ void InRoomLoop(int connfd){
 									writen(connfd,&t->id,sizeof(Party_change_tocs));
 
 							}
+				}else{//if get something wrong and didn't cast any befor,post the mutex
+
+							cout<<"didn't match any party!"<<endl;
+							sem_post(nummutex);
+							sem_post(listmutex);
 				}
-				sem_post(nummutex);							
 
 			}else if(gameStartID==id){//receive the start game proto
 
@@ -149,12 +184,16 @@ void InRoomLoop(int connfd){
 				if(1000==PersonData::m_ID){//check if this proto from sg
 
 					Chat_tocs *t=new Chat_tocs(1000,ALL,"game start after 10 seconds");
-					mBroadcast(ALL,t,sizeof(Chat_tocs));
+
+					for(int i=0;i<20;i++){
+						mBroadcast(ALL,t,sizeof(Chat_tocs));
+						DelayTime(5);
+					}
 
 					DelayTime(10);
 
 					//broadcast the GameStart_tocs to every client
-					mBroadcast(ALL,temp,sizeof(Chat_tocs));
+//					mBroadcast(ALL,temp,sizeof(Chat_tocs));
 					
 				}
 

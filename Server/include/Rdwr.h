@@ -58,13 +58,12 @@ static ssize_t writen(int connfd,void *vptr,size_t len){
 
 	while(nleft>0){
 		if((nwritten=write(connfd,ptr,nleft))<=0){
-				if(nwritten<0&&errno==EINTR){
+				if(nwritten<0&&errno==EINTR){ //EINTR,write again
 						cout<<"nwritten<0"<<endl;
 						nwritten=0;
 				}else{
 						cout<<"write to stream error"<<endl;
-						break;
-						//exit(0);
+						return -1;
 				}
 
 		}

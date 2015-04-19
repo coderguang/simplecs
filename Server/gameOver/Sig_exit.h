@@ -108,10 +108,11 @@ void sig_chld_exit(int signo){
 							sigList->party[i]=0;
 
 							break;
-					}
+				}
 
 
-			}
+		}
+
 		sem_post(sigListmutex);
 
 		//if the game status is 1(in the public room ,it should be update the Party)

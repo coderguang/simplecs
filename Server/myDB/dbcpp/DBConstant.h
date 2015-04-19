@@ -1,9 +1,9 @@
-/**this is db constant by chenshiguang
-include database user,passwd
-*/
-
-#ifndef DB_CONSTANT
-#define DB_CONSTANT 
+#ifndef DB_CONSTANT_H_
+#define DB_CONSTANT_H_ 
+/**
+ * this is db constant by chenshiguang 
+ * include database user,passwd
+ */
 
 
 
@@ -14,17 +14,21 @@ include database user,passwd
 #include <string>
 using namespace std;
 
-static char* server_args[] = {
+#ifdef _cpluscplus
+extern "c"{
+char* server_args[] = {
 	"this program",
 	"--datadir=.",
 	"--key_buffer_size=32M"
 };
-static char* server_groups[] = {
+char* server_groups[] = {
 	"embedded",
 	"server",
 	"this_program_SERVER",
 	(char*)NULL
 };
+}
+#endif
 
 //MSQL struct 
 struct MMYSQL{

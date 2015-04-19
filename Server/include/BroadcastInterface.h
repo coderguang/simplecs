@@ -41,7 +41,7 @@ void mBroadcast(int type,Message	*msg,size_t len){
 						for(int i=0;i<MAX_USER;i++){
 								if(1==listptr->flag[i]){  //if this is value
 										if(BLUE==listptr->party[i]){
-													cout<<"i="<<i<<" write to blue "<<listptr->conn[i]<<endl;
+													cout<<"i="<<i<<" write to blue id="<<listptr->id[i]<<endl;
 													writen(listptr->conn[i],msg,len);	//broadcast this proto to the socket fd;
 											}	
 								}
@@ -50,7 +50,7 @@ void mBroadcast(int type,Message	*msg,size_t len){
 						for(int i=0;i<MAX_USER;i++){
 								if(1==listptr->flag[i]){  //if this is value
 										if(RED==listptr->party[i]){
-													cout<<"i="<<i<<" write to red "<<listptr->conn[i]<<endl;
+													cout<<"i="<<i<<" write to red id="<<listptr->id[i]<<endl;
 													writen(listptr->conn[i],msg,len);	//broadcast this proto to the socket fd;
 											}	
 								}
@@ -58,7 +58,7 @@ void mBroadcast(int type,Message	*msg,size_t len){
 			}else if(ALL==type){  //if this should be broadcast to blue party
 						for(int i=0;i<MAX_USER;i++){
 								if(1==listptr->flag[i]){  //if this is value
-													cout<<"i="<<i<<" write to all "<<listptr->conn[i]<<endl;
+													cout<<"i="<<i<<" write to all id="<<listptr->id[i]<<endl;
 													writen(listptr->conn[i],msg,len);	//broadcast this proto to the socket fd;
 								}	
 
