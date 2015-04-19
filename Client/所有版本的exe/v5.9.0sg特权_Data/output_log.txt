@@ -14,36 +14,14 @@ Platform assembly: E:\simplecs\Client\所有版本的exe\v5.9.0sg特权_Data\Man
 Loading E:\simplecs\Client\所有版本的exe\v5.9.0sg特权_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
 Platform assembly: E:\simplecs\Client\所有版本的exe\v5.9.0sg特权_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
 Loading E:\simplecs\Client\所有版本的exe\v5.9.0sg特权_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
-- Completed reload, in  0.067 seconds
+- Completed reload, in  0.073 seconds
 desktop: 1366x768 60Hz; virtual: 3286x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 Platform assembly: E:\simplecs\Client\所有版本的exe\v5.9.0sg特权_Data\Managed\System.dll (this message is harmless)
-UnloadTime: 2.398540 ms
+UnloadTime: 2.507177 ms
 Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
 Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 555.
-Total: 1.214023 ms (FindLiveObjects: 0.022236 ms CreateObjectMapping: 0.010690 ms MarkObjects: 0.590548 ms  DeleteObjects: 0.005986 ms)
-
-UnloadTime: 9.144731 ms
-No idle animation found. Turning off animations.
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-No walk animation found. Turning off animations.
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-No run animation found. Turning off animations.
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-No jump animation found and the character has canJump enabled. Turning off animations.
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
-
-Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 774.
-Total: 1.453065 ms (FindLiveObjects: 0.062860 ms CreateObjectMapping: 0.017532 ms MarkObjects: 0.349368 ms  DeleteObjects: 0.062433 ms)
+Total: 1.254230 ms (FindLiveObjects: 0.021381 ms CreateObjectMapping: 0.011545 ms MarkObjects: 0.651703 ms  DeleteObjects: 0.005131 ms)
 

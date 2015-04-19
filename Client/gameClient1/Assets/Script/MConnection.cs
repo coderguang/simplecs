@@ -126,8 +126,9 @@ namespace Assets.Script
 
             if (!msocket.Connected)
             {
-                    MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "网络未连接...");
-                    return -2;
+                    MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "网络断开...");
+                    UnityEngine.Debug.LogError("网络断开...退出游戏...");
+                    Application.Quit();          
             }
 
             byte[] buffer = MTransform.StructToBytes(mproto);
@@ -228,6 +229,8 @@ namespace Assets.Script
 
             int id = System.BitConverter.ToInt32(idByte, 0);
 
+            UnityEngine.Debug.Log("收到新协议：" + id.ToString());
+
                 switch (id)
                 {
                     case ProtoID.ErrID://错误toc
@@ -270,10 +273,14 @@ namespace Assets.Script
                     case ProtoID.PartyID://获取房间分组信息
                         {
                             Party_toc temp = (Party_toc)MTransform.BytesToStruct(buffer, typeof(Party_toc));
+                          
+                            UnityEngine.Debug.Log("收到更新分组协议：");
+
                             lock (objLock)
                             {
                                 //加入到List中
                                 package.Enqueue(temp);
+                                UnityEngine.Debug.Log("分组协议加入队列成功：");
                             }
 
                         }

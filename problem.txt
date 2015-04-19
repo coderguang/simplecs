@@ -13,6 +13,8 @@
 12、阵营改变
 13、用户List每次登陆置空问题(在InitFirst那里置空了)
 14、sig_exit中的List不一致
+15、死锁
+16、writen to stream error的重传
 
 
 客户端:
