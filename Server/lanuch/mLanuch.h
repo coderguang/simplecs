@@ -103,7 +103,7 @@ static void mLanuchGame(int connfd,string ip){
 						struct Lanuch lanResult;
 						int rNum=LanuchAccount(account,passwd,ip,lanResult);
 
-						//cout<<"rNum="<<rNum<<endl;
+						cout<<"rNum="<<rNum<<endl;
 						
 						//lanuch success
 						if(0==rNum){

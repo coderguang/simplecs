@@ -1,0 +1,2 @@
+./reset
+g++ -g server.cpp ../publicRoom/InRoom.h ../struct/PersonData.h -o servers $(mysql_config --cflags) $(mysql_config --libs) ../lib/libdb.a -std=c++11 -lrt -lpthread

@@ -1,4 +1,8 @@
 #include "DBConnections.h"
+#include "DBConstant.h"
+
+extern char* server_args[];
+extern char *server_groups[];
 
 DBConnections *DBConnections::dbInstance=nullptr;
 void DBConnections::initDB(){ 
