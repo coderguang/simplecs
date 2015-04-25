@@ -57,7 +57,8 @@ int main(){
 	signal(SIGCHLD,sig_chld_exit);
 
 	//open the share memory of mshmNum and mshmList
-	openShmFunc();//in openShm.h
+	//only main process will call this function
+	openShmFunc();//in openShm.h  
 
 
 	//must create sharememory first

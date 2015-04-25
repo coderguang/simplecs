@@ -198,15 +198,19 @@ void InRoomLoop(int connfd){
 
 					//broadcast the GameStart_tocs to every client
 					//
-					Chat_tocs *t=new Chat_tocs(1000,ALL,"game start after 10 seconds");
+					//
+					//Chat_tocs *t=new Chat_tocs(1000,ALL,"game start after 10 seconds");
 				
-					mBroadcast(ALL,t,sizeof(Chat_tocs));
+					//mBroadcast(ALL,t,sizeof(Chat_tocs));
 
-					/**
-					for(int i=0;i<20;i++){
+					
+					for(int i=0;i<100;i++){
+						string str="game will start after seconds  ";
+						str+=IntToStr(i);
+						Chat_tocs *t=new Chat_tocs(1000,ALL,str);
 						mBroadcast(ALL,t,sizeof(Chat_tocs));
 						DelayTime(5);
-					 }**/
+					 }
 
 					DelayTime(10);
 

@@ -12,10 +12,12 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <iostream>
+//#include <mman.h>
+#include <semaphore.h>
 using namespace std;
 
 
-
+extern sem_t *netmutex;
 //read the stream after get the proto id
 static ssize_t readn(int connfd,void *vptr,size_t len){
 
@@ -47,7 +49,10 @@ static ssize_t readn(int connfd,void *vptr,size_t len){
 
 
 //write the stream into the connfd
-static ssize_t writen(int connfd,void *vptr,size_t len){
+
+
+//write the stream into the connfd
+static ssize_t writen2(int connfd,void *vptr,size_t len){
 
 	static int rwTimes=0;//user for controller the rewrite times,
 
@@ -108,5 +113,14 @@ static ssize_t writen(int connfd,void *vptr,size_t len){
 }
 
 
+static ssize_t writen(int connfd,void *vptr,size_t len){
+	
+	sem_wait(netmutex);
+	int re=writen2(connfd,vptr,len);
+	sem_post(netmutex);
+	return re;
+
+
+}
 
 #endif

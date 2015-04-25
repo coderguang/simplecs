@@ -95,7 +95,18 @@ static void openShmFunc(){
 
 	sem_close(mmmutex);	
 
+//open the netmutex sem
+	
+	sem_t *netmutex;
+	sem_unlink("netmutex");
+	
+	netmutex=sem_open("netmutex",O_CREAT|O_EXCL,0644,1); //this is when a process write proto to client 
+	
+	sem_close(netmutex);
+	
+
 	cout<<"open shmServer complete in openShm.h!"<<endl;
+
 
 }
 
