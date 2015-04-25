@@ -31,6 +31,8 @@ sem_t *nummutex=nullptr;
 struct shmStatus *statusptr=nullptr;
 sem_t *statusmutex=nullptr;
 
+sem_t *netmutex=nullptr;//every process writen must get this sem
+
 static void InitFirst(){
 		//open shmList 
 		int fd;
@@ -96,6 +98,12 @@ static void InitFirst(){
 		if(SEM_FAILED==statusmutex){
 			cout<<"open msemStatus failed when init"<<endl;
 		}
+
+		netmutex=sem_open("netmutex",0);
+		if(SEM_FAILED==netmutex){
+			cout<<"open netmutex failed when init"<<endl;
+		}
+
 }
 
 

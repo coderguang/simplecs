@@ -186,3 +186,9 @@ Sun Apr 19 00:45:53 2015
  Fatal:identity sg1 failed!
 Sun Apr 19 00:45:53 2015
  Fatal:identity sg1 failed!
+Sun Apr 26 00:00:23 2015
+ Fatal:lanuch sg  success!
+Sun Apr 26 00:00:49 2015
+ Fatal:account:sg1 not match the passwd
+Sun Apr 26 00:00:57 2015
+ Fatal:lanuch sg2  success!
