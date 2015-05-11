@@ -45,7 +45,7 @@ public class JoinRed : MonoBehaviour {
         else
         {
             Party_change_tocs temp = new Party_change_tocs();
-            MConnection.GetInstance().Send(temp);     
+            Connection.GetInstance().Send(temp);     
 
         }
     

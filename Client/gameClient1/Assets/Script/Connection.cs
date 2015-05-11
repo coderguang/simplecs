@@ -17,31 +17,27 @@ namespace Assets.Script
      * 将所有收到的协议先解包，然后加入到List里面去，然后在主线程update中执行实际的业务逻辑
      * 
      * */
-    class MConnection
-    {
-        
-        //public delegate void DoAction(object sender, EventArgs e);
-
-        private static MConnection _instance=null;
+    class Connection
+    {       
+        private static Connection _instance=null;
         private const string ipAddr = "182.254.233.115";
         private const int port = 9201;
         private Socket msocket=null;
         private Thread thread;
 
         //所有受到的协议包经过解码之后放到这里，然后主线程中某个一直存在的空对象脚本update里面执行
-        //public List<Message> package=new List<Message>();
         public Queue<Message> package = new Queue<Message>();
         //用于控制队列访问(添加，删除）的锁
         public static object objLock = new object();
 
        
-        private MConnection() {
+        private Connection() {
             Init();
         }
-        public static MConnection GetInstance()
+        public static Connection GetInstance()
         {
             if (null == _instance)
-                _instance = new MConnection();
+                _instance = new Connection();
             return _instance;
 
         }
@@ -78,7 +74,7 @@ namespace Assets.Script
                 bool success = result.AsyncWaitHandle.WaitOne(10000, true);
                 if (success)
                 {
-                    MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.LanuchLog, "异步socket任务开启..");
+                    GameLog.Log(Log.GameLogLevel.INFO, Log.GameLogType.Conect, "异步socket任务开启..");
 
                     //开启线程接收数据
                     /**先调好协议，传输时不会出现bug(协议数据的后面会有莫名的字符)再说**/
@@ -95,18 +91,16 @@ namespace Assets.Script
                         msocket.Close();                        
                     }
                     msocket = null;
-                    MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.LanuchLog, "连接服务器超时..");
+                    GameLog.Log(Log.GameLogLevel.ERROR, Log.GameLogType.Conect, "连接服务器超时..");
                 }
             }
             catch {
-                MLogger.Log(Log.MLogLevel.ERROR, Log.MLogType.LanuchLog, "出现异常，连接服务器失败..");
+                GameLog.Log(Log.GameLogLevel.ERROR, Log.GameLogType.Conect, "出现异常，连接服务器失败..");
             }
 
 
             //检测socket是否处于连接状态
-            if (!msocket.Connected) {
-                //LanuchGame.GetInstance().err_code = ErrCode.NETWORD_ERROR;
-                //LanuchGame.GetInstance().tipFlag = true;
+            if (!msocket.Connected) {;
                 LanuchGame.err_code = ErrCode.NETWORD_ERROR;
                 LanuchGame.tipFlag = true;
             }
@@ -116,7 +110,7 @@ namespace Assets.Script
         }
 
         public void connectCallBack(IAsyncResult asyncConnect) {
-            MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "建立异步连接成功");
+            GameLog.Log(Log.GameLogLevel.INFO, Log.GameLogType.Conect, "建立异步连接成功");
         }
         
 
@@ -126,8 +120,7 @@ namespace Assets.Script
 
             if (!msocket.Connected)
             {
-                    MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "网络断开...");
-                    //UnityEngine.Debug.LogError("网络断开...退出游戏...");
+                    GameLog.Log(Log.GameLogLevel.FATAL, Log.GameLogType.Conect, "网络断开...");
                     Application.Quit();          
             }
 
@@ -140,13 +133,13 @@ namespace Assets.Script
                 //超时监控
                 bool success = asySend.AsyncWaitHandle.WaitOne(5000, true);
                 if(success)
-                    MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, mproto.GetType().ToString() + " proto send success!protoID="+mproto.GetID());
+                    GameLog.Log(Log.GameLogLevel.INFO, Log.GameLogType.Conect, mproto.GetType().ToString() + " proto send success!protoID="+mproto.GetID());
                 else
-                   MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, mproto.GetType().ToString() + " proto send timeout! protoID=" + mproto.GetID());
+                   GameLog.Log(Log.GameLogLevel.ERROR, Log.GameLogType.Conect, mproto.GetType().ToString() + " proto send timeout! protoID=" + mproto.GetID());
                 return 0;
             }
             catch {
-                MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, mproto.GetType().ToString() + " proto send failed! protoID="+mproto.GetID());
+                GameLog.Log(Log.GameLogLevel.ERROR, Log.GameLogType.ProtoLog, mproto.GetType().ToString() + " proto send failed! protoID="+mproto.GetID());
                 return -1;
             }
         }
@@ -166,7 +159,7 @@ namespace Assets.Script
             {
                 //如果和服务器断开了连接，就跳出循环
                 if (!msocket.Connected&&null!=msocket) {
-                    MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "已经和服务器断开连接.....");
+                    GameLog.Log(Log.GameLogLevel.ERROR, Log.GameLogType.Conect, "已经和服务器断开连接.....");
                     msocket.Close();
                     break;
                 }
@@ -180,7 +173,7 @@ namespace Assets.Script
                     int rid = msocket.Receive(buffer);
                     if (rid <= 0)
                     {
-                        MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "收到错误的包...，客户端主动断开连接....");
+                        GameLog.Log(Log.GameLogLevel.INFO, Log.GameLogType.Conect, "收到错误的包...，客户端主动断开连接....");
                         msocket.Close();
                         break;
                     }
@@ -190,7 +183,7 @@ namespace Assets.Script
                 }
                 catch (Exception e)
                 {
-                    MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "get the proto exceptions " + e.Message);
+                    GameLog.Log(Log.GameLogLevel.INFO, Log.GameLogType.Conect, "get the proto exceptions " + e.Message);
                     break;
                 }
 
@@ -228,9 +221,6 @@ namespace Assets.Script
             }
 
             int id = System.BitConverter.ToInt32(idByte, 0);
-
-            //UnityEngine.Debug.Log("收到新协议：" + id.ToString());
-
                 switch (id)
                 {
                     case ProtoID.ErrID://错误toc
@@ -265,22 +255,18 @@ namespace Assets.Script
                                 string time = new string(tp.lastLanuch);
                                 string ip = new string(tp.lastIP);
 
-                                MLogger.Log(Log.MLogLevel.INFO, Log.MLogType.ProtoLog, "err_code=" + tp.error_code + "  name=" + name + " last time=" + time + "  ip=" + ip + "  setting=" + tp.setting);                         
+                                GameLog.Log(Log.GameLogLevel.INFO, Log.GameLogType.ProtoLog, "err_code=" + tp.error_code + "  name=" + name + " last time=" + time + "  ip=" + ip + "  setting=" + tp.setting);                         
 
 
                         }
                         break;
                     case ProtoID.PartyID://获取房间分组信息
                         {
-                            Party_toc temp = (Party_toc)MTransform.BytesToStruct(buffer, typeof(Party_toc));
-                          
-                            //UnityEngine.Debug.Log("收到更新分组协议：");
-
+                            Party_toc temp = (Party_toc)MTransform.BytesToStruct(buffer, typeof(Party_toc));                            
                             lock (objLock)
                             {
                                 //加入到List中
                                 package.Enqueue(temp);
-                               // UnityEngine.Debug.Log("分组协议加入队列成功：");
                             }
 
                         }
@@ -306,8 +292,7 @@ namespace Assets.Script
                         }
                         break;
                     case ProtoID.GameStart://开始游戏信号
-                        {
-                            UnityEngine.Debug.Log("收到开始游戏信号");
+                        {                            
                             GameStart_tocs temp = (GameStart_tocs)MTransform.BytesToStruct(buffer, typeof(GameStart_tocs));
                             lock (objLock)
                             {

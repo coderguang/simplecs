@@ -25,8 +25,8 @@ namespace Assets.Script
         private void Init(){           
 
             MTimer.GetInstance();
-            MLogger.GetInstance();
-            MConnection.GetInstance();       
+            GameLog.GetInstance();
+            Connection.GetInstance();       
      
 
            

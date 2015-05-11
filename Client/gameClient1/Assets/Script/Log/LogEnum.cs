@@ -9,14 +9,15 @@ namespace Assets.Script.Log
      * Log的类型
      * 
      */
-    public enum MLogLevel : int { 
+    public enum GameLogLevel : int { 
         FATAL,
         ERROR,
         WARN,
         INFO,
         DEBUG
     };
-    public enum MLogType : int { 
+    public enum GameLogType : int { 
+        Conect,
         LanuchLog,  //the log happen when lanuch
         RegitLog,   
         RoomLog,    

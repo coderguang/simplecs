@@ -61,7 +61,7 @@ namespace Assets.Script.Proto
                 return obj;
             }
             catch (Exception e){
-                MLogger.Log(Log.MLogLevel.ERROR, Log.MLogType.ProtoLog, "解析toc出现异常" + type.ToString() + "  " + e.Message);
+                GameLog.Log(Log.GameLogLevel.ERROR, Log.GameLogType.ProtoLog, "解析toc出现异常" + type.ToString() + "  " + e.Message);
                 return null;
             }
             finally {

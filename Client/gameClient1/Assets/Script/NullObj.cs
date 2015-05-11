@@ -17,17 +17,6 @@ public class NullObj : MonoBehaviour {
 
     private static NullObj _instance=null;
 
-    /**
-    private NullObj() { 
-        
-    }
-    private static NullObj GetInstance() {
-        if (null == _instance)
-            _instance = new NullObj();
-        return _instance;    
-    }
-    **/
-
     void Awake() {
         if(null==_instance){
             _instance = this;
@@ -48,17 +37,17 @@ public class NullObj : MonoBehaviour {
 	void Update () {
 
         //如果缓存中有协议
-        if (MConnection.GetInstance().package.Count>0) {
+        if (Connection.GetInstance().package.Count>0) {
             try
             {   Message msg ;
-                lock (MConnection.objLock)
+                lock (Connection.objLock)
                 {
                     //获取并删除第一个元素
-                   msg = MConnection.GetInstance().package.Dequeue();
+                   msg = Connection.GetInstance().package.Dequeue();
                 }
 
                 int id = msg.id;
-                MLogger.Log(MLogLevel.INFO, MLogType.ProtoLog, "update 处理到协议:" + id);
+                GameLog.Log(GameLogLevel.INFO, GameLogType.ProtoLog, "update 处理到协议:" +ProtoID.GetName(id));
 
                 //具体的业务逻辑处理
                 //超恶心switch
@@ -66,8 +55,6 @@ public class NullObj : MonoBehaviour {
                     case ProtoID.ErrID://错误情况
                         {
                             if (ErrCode.ACCOUNT_ERR_PASSWD == msg.error_code||ErrCode.ACCOUNT_HAD_LANUCH==msg.error_code||ErrCode.SERVER_FULL==msg.error_code||ErrCode.SERVER_IN_GAME==msg.error_code) {
-                                //LanuchGame.GetInstance().err_code=msg.error_code;
-                                //LanuchGame.GetInstance().tipFlag = true;
                                 LanuchGame.err_code = msg.error_code;
                                 LanuchGame.tipFlag = true;
                             }
@@ -79,14 +66,7 @@ public class NullObj : MonoBehaviour {
                         break;
                     case ProtoID.LanuchResultID: //登录正确
                         {                                                         
-                            LanuchResult_toc temp=(LanuchResult_toc)msg;
-                            /**
-                            PublicRoom.GetInstance();
-                            PublicRoom.nameStr = new string(temp.name);
-                            PublicRoom.timeStr = new string(temp.lastLanuch);
-                            PublicRoom.ipStr = new string(temp.lastIP);
-                             **/
-                            //PersonData.m_Name=new string(temp.name);
+                            LanuchResult_toc temp=(LanuchResult_toc)msg;                           
                             PersonData.m_ID = temp.account_id;
                             PersonData.m_Name = PersonName.GetName(temp.account_id);
                             PersonData.m_LastTime = new string(temp.lastLanuch);
@@ -113,23 +93,9 @@ public class NullObj : MonoBehaviour {
                             UpdateParty.r_3ID = temp.r3;
                             UpdateParty.r_4ID = temp.r4;
                             UpdateParty.r_5ID = temp.r5;
-
-                            /**
-                            UpdateParty.b_1ID = temp.blue[0];
-                            UpdateParty.b_2ID = temp.blue[1];
-                            UpdateParty.b_3ID = temp.blue[2];
-                            UpdateParty.b_4ID = temp.blue[3];
-                            UpdateParty.b_5ID = temp.blue[4];
-
-                            UpdateParty.r_1ID = temp.red[0];
-                            UpdateParty.r_2ID = temp.red[1];
-                            UpdateParty.r_3ID = temp.red[2];
-                            UpdateParty.r_4ID = temp.red[3];
-                            UpdateParty.r_5ID = temp.red[4];
-                             * */
                             UpdateParty.flag = true;
 
-                            //Debug.Log("更新分组");
+                            GameLog.Log(GameLogLevel.INFO, GameLogType.ProtoLog, "收到更新分组协议");
 
                         }
                         break;
@@ -139,10 +105,8 @@ public class NullObj : MonoBehaviour {
 
                             string str = new string(temp.msg);
                             Send_Btn.str = str;
-                            //Debug.Log("收到消息:" + str);
-                           // Debug.Log("收到消息:");
+                            GameLog.Log(GameLogLevel.INFO,GameLogType.ProtoLog,"收到聊天消息:" + str);
                             Send_Btn.uid = temp.user_id;
-                            //Send_Btn.str = new string(temp.msg);
                             Send_Btn.flag = true;
                         }
                         break;
@@ -154,13 +118,13 @@ public class NullObj : MonoBehaviour {
                             else
                                 PersonData.m_Party = PartyType.BLUE;
 
-                            //Debug.Log("自身阵营改变、当前阵营：" + PersonData.m_Party);
+                          GameLog.Log(GameLogLevel.INFO,GameLogType.ProtoLog,"自身阵营改变、当前阵营：" + PersonData.m_Party);
                         
                         }
                         break;
                     case ProtoID.GameStart://开始游戏
                         {
-                            Debug.Log("开始游戏");
+                            GameLog.Log(GameLogLevel.INFO, GameLogType.ProtoLog, "收到开始游戏toc");
                             Application.LoadLevel("GameMap"); 
                         }
                         break;
@@ -177,7 +141,7 @@ public class NullObj : MonoBehaviour {
 
             }
             catch (Exception e) {
-                MLogger.Log(MLogLevel.INFO, MLogType.ProtoLog, "队列无协议:" + e.Message);
+                GameLog.Log(GameLogLevel.INFO, GameLogType.ProtoLog, "队列无协议:" + e.Message);
             }
 
 
@@ -189,7 +153,7 @@ public class NullObj : MonoBehaviour {
 
     void OnDestroy() {
 
-        MConnection.GetInstance().Destroy();
+        Connection.GetInstance().Destroy();
     }
 
 

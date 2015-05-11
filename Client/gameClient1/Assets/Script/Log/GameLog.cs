@@ -3,23 +3,28 @@ using System.Collections;
 using System.IO;
 using Assets.Script.Time;
 using Assets.Script.Log;
-public class MLogger {
+public class GameLog {    
 
     private static string file = "log.txt";
     private static FileStream myFs;
     private static StreamWriter mySw;
 
-    private static MLogger _instance=null;
+    private static GameLog _instance=null;
 
     //控制log是否被打印
-    private const bool fatalFlag = true;
-    private const bool errorFlag = true;
-    private const bool warnFlag = true;
-    private const bool infoFlag = true;
-    private const bool debugFlag = false;
+    private const bool _Connect = true;
+    private const bool _Fatal = true;
+    private const bool _Error = true;
+    private const bool _Warn = true;
+    private const bool _Info = true;
+    private const bool _Debug = false;
+
+    private const bool isPrint = true;//打印到Unity
 
 
-    private MLogger() {
+
+
+    private GameLog() {
         Init();
     
     }
@@ -30,9 +35,9 @@ public class MLogger {
             myFs = new FileStream(file, FileMode.Create);
         }
         mySw = new StreamWriter(file, true, System.Text.Encoding.GetEncoding("utf-8"));
-    }
+    }    
 
-    public static void Log(MLogLevel level,MLogType type,string msg)
+    public static void Log(GameLogLevel level,GameLogType type,string msg)
     {
         /*判断该级别的log是否要被打印*/
 
@@ -40,28 +45,28 @@ public class MLogger {
         string msgType=null; 
         
         switch(level){
-            case MLogLevel.DEBUG:
-                if (!debugFlag)
+            case GameLogLevel.DEBUG:
+                if (!_Debug)
                     return ;
                 msgType="Debug  ";
                 break;
-            case MLogLevel.ERROR:
-                if (!errorFlag)
+            case GameLogLevel.ERROR:
+                if (!_Error)
                     return;
                 msgType = "Error  ";
                 break;
-            case MLogLevel.FATAL:
-                if (!fatalFlag)
+            case GameLogLevel.FATAL:
+                if (!_Fatal)
                     return;
                 msgType = "Fatal  ";
                 break;
-            case MLogLevel.INFO:
-                if (!infoFlag)
+            case GameLogLevel.INFO:
+                if (!_Info)
                     return;
                 msgType = "Info  ";
                 break;
-            case MLogLevel.WARN:
-                if (!warnFlag)
+            case GameLogLevel.WARN:
+                if (!_Warn)
                     return;
                 msgType = "Warn  ";
                 break;
@@ -69,40 +74,38 @@ public class MLogger {
         
         }
         switch (type) { 
-            case MLogType.GameLog:
+            case GameLogType.GameLog:
                 msgType += "GameLog:";
                 break;
-            case MLogType.LanuchLog:
+            case GameLogType.LanuchLog:
                 msgType += "LanuchLog:";
                 break;
-            case MLogType.RegitLog:
+            case GameLogType.RegitLog:
                 msgType += "RegitLog:";
                 break;
-            case MLogType.ResultLog:
+            case GameLogType.ResultLog:
                 msgType +="ResultLog:";
                 break;
-            case MLogType.RoomLog:
+            case GameLogType.RoomLog:
                 msgType +="RoomLog:";
                 break;
         }
-        /**
-        mySw.Write(msgType);
-        for (int i = 0; i < msg.Length; i++) { 
-            if('\0'!=msg[i])    
-                mySw.Write(msg[i]);
-        }
-        mySw.WriteLine();**/
         mySw.WriteLine(msgType + msg);
         mySw.Flush();
+
+        if (isPrint) {
+            Debug.Log(msgType + msg);
+        }
+
     }
     public static void Destroy() {
         mySw.Close();
         myFs.Close();
     }
 
-    public static MLogger GetInstance() { 
+    public static GameLog GetInstance() { 
         if(null==_instance)
-              _instance=new MLogger();
+              _instance=new GameLog();
         return _instance;
     
     }

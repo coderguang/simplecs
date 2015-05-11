@@ -194,11 +194,11 @@
     <Compile Include="Assets\NGUI\Scripts\UI\UITexture.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
+    <Compile Include="Assets\Script\Connection.cs" />
     <Compile Include="Assets\Script\Game\CreateMan.cs" />
     <Compile Include="Assets\Script\Lanuch\LanuchGame.cs" />
+    <Compile Include="Assets\Script\Log\GameLog.cs" />
     <Compile Include="Assets\Script\Log\LogEnum.cs" />
-    <Compile Include="Assets\Script\Log\MLogger.cs" />
-    <Compile Include="Assets\Script\MConnection.cs" />
     <Compile Include="Assets\Script\MFactory.cs" />
     <Compile Include="Assets\Script\NullObj.cs" />
     <Compile Include="Assets\Script\PersonData.cs" />

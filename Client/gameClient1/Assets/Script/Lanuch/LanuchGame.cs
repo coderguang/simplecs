@@ -70,7 +70,7 @@ public class LanuchGame : MonoBehaviour {
         string username = user.text;
         string passname = passwd.value;
         Lanuch_tos temp=new Lanuch_tos(username,passname);
-        MConnection.GetInstance().Send(temp);
+        Connection.GetInstance().Send(temp);
 
         
     }
