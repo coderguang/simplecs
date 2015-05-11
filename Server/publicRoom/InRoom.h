@@ -63,11 +63,18 @@ void InRoomLoop(int connfd){
 					temp->id=pChatID;
 					
 					cout<<"receive chat:uid="<<temp->user_id<<"  msg="<<temp->msg<<" err_code="<<temp->error_code<<endl;
+					
+					Chat_tocs *chat=new Chat_tocs();
+					strcpy(chat->msg,temp->msg);
+
+					cout<<"chat id="<<chat->user_id<<"  msg="<<chat->msg<<" err_code="<<temp->error_code<<endl;
 
 					//writen(connfd,&temp->id,sizeof(Chat_tocs));
 					//broadcast this msg to the all
 
-					mBroadcast(ALL,temp,sizeof(Chat_tocs));
+					mBroadcast(ALL,chat,sizeof(Chat_tocs));
+
+					//mBroadcast(ALL,temp,sizeof(Chat_tocs));
 					
 			}else if(partyChangeID==id){//get the party change tos
 					
@@ -204,8 +211,8 @@ void InRoomLoop(int connfd){
 					//mBroadcast(ALL,t,sizeof(Chat_tocs));
 
 					
-					for(int i=0;i<100;i++){
-						string str="game will start after seconds  ";
+					for(int i=0;i<40;i++){
+						string str="game start after seconds  ";
 						str+=IntToStr(i);
 						Chat_tocs *t=new Chat_tocs(1000,ALL,str);
 						mBroadcast(ALL,t,sizeof(Chat_tocs));
