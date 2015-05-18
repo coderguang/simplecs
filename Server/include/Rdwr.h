@@ -32,10 +32,14 @@ static ssize_t readn(int connfd,void *vptr,size_t len){
 	
 	while(nleft>0){
 		if((nread=read(connfd,ptr,nleft))<0){
-				if(errno==EINTR)
+				if(errno==EINTR){
 					nread=0;
-				else
+				}else if(errno==EWOULDBLOCK){
+						cout<<"receive time out£¡"<<endl;
+						continue;
+				}else{
 					return -1;
+				}
 		}else if(0==nread){
 				break;
 		}
@@ -75,25 +79,13 @@ static ssize_t writen2(int connfd,void *vptr,size_t len){
 				if(nwritten<0&&errno==EINTR){ //EINTR,write again
 						cout<<"nwritten<0"<<endl;
 						nwritten=0;
+				}else if(nwritten<0&&errno==EWOULDBLOCK){
+						cout<<"writen time out£¡"<<endl;
+						continue;
 				}else{
 						cout<<"write to stream error! "<<rwTimes<<endl;
 						return -1;
 
-					/**
- 					//should not do rewriten.it will make the loop again and again
-						cout<<"write to stream error,rewriten..at "<<rwTimes<<endl;
-
-						if(rwTimes<5){
-							rwTimes++;
-							writen(connfd,rptr,len);
-						}else{
-							cout<<"rewrite still error,give up try!"<<endl;
-							rwTimes=0;
-							return -1;
-						}
-					**/
-						
-					//	return -1;
 				}
 
 		}

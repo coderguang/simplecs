@@ -65,6 +65,13 @@ int main(){
 	InitExit();//for sig_chld_exit share memory and semphor and init the game status
 	
 	InitFirst();//for sig_chld to updateParty it must open then
+
+
+	//struct timeval tv=new timeval{5,0};
+	struct timeval tv;
+	tv.tv_sec=5;
+	tv.tv_usec=0;
+	
 	
 	while(true){
 		
@@ -78,8 +85,34 @@ int main(){
 				//close(connfd);
 				//exit(0);
 				//cout<<"connfd="<<connfd<<endl;
-				string ip=inet_ntoa(cliaddr.sin_addr);
+				string ip=inet_ntoa(cliaddr.sin_addr);	
+/**
+				if(0==setsockopt(listenfd,SOL_SOCKET,SO_RCVTIMEO,&tv,sizeof(int))){
+					cout<<"set receive timeout sucess:connfd="<<connfd<<endl;
+				}else{
+					cout<<"set receive timeout fail:connfd="<<connfd<<endl;
+				}
+
+				if(0==setsockopt(listenfd,SOL_SOCKET,SO_SNDTIMEO,&tv,sizeof(int))){
+					cout<<"set send timeout sucess:connfd="<<connfd<<endl;
+				}else{
+					cout<<"set receive timeout fail:connfd="<<connfd<<endl;
+				}
+**/
+				if(0==setsockopt(connfd,SOL_SOCKET,SO_RCVTIMEO,(char*)&tv,sizeof(int))){
+					cout<<"set receive timeout sucess:connfd="<<connfd<<endl;
+				}else{
+					cout<<"set receive timeout fail:connfd="<<connfd<<endl;
+				}
+
+				if(0==setsockopt(connfd,SOL_SOCKET,SO_SNDTIMEO,(char*)&tv,sizeof(int))){
+					cout<<"set send timeout sucess:connfd="<<connfd<<endl;
+				}else{
+					cout<<"set receive timeout fail:connfd="<<connfd<<endl;
+				}
+
 				startProc(connfd,ip);
+				
 				//exit(0);
 
 		}
