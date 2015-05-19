@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Script.Log;
 
 public class CreateMan : MonoBehaviour {
 
@@ -41,6 +42,10 @@ public class CreateMan : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+        Transform  tran=itself.GetComponent<Transform>();
+        float x=tran.position.x;
+        float y=tran.position.y;
+        float z=tran.position.z;
+	    GameLog.Log(GameLogLevel.INFO,GameLogType.GameLog,"x="+x+"  y="+y+"  z="+z);
 	}
 }

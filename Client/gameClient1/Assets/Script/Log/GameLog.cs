@@ -12,7 +12,7 @@ public class GameLog {
     private static GameLog _instance=null;
 
     //控制log是否被打印
-    private const bool _Connect = true;
+    private const bool _Connect = false;
     private const bool _Fatal = true;
     private const bool _Error = true;
     private const bool _Warn = true;

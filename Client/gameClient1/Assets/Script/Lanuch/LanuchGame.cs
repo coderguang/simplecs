@@ -70,12 +70,12 @@ public class LanuchGame : MonoBehaviour {
         string username = user.text;
         string passname = passwd.value;
         Lanuch_tos temp=new Lanuch_tos(username,passname);
+        GameLog.Log(GameLogLevel.INFO,GameLogType.LanuchLog,"登录 account="+username+"  passwd="+passname);
         Connection.GetInstance().Send(temp);
 
         
     }
 
-	
 	
 	// Update is called once per frame
 	void Update () {
