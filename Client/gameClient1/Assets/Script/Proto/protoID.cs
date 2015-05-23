@@ -28,25 +28,25 @@ namespace Assets.Script.Proto
            {
                case LanuchID:
                    return "登录tos";
-                   break;
+                  // break;
                case LanuchResultID:
                    return "登录结果toc";
-                   break;
+                  // break;
                case PartyID:
                    return "房间列表toc";
-                   break;
+                   //break;
                case PartyChangeID:
                    return "阵营改变toc";
-                   break;
+                   //break;
                case ChatID:
                    return "聊天信息toc";
-                   break;
+                   //break;
                case GameStart:
                    return "开启游戏toc";
-                   break;
+                   //break;
                case ErrID:
                    return "错误toc";
-                   break;
+                   //break;
            }
            return "no catch";
        

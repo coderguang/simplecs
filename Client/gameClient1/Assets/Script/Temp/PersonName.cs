@@ -27,37 +27,37 @@ namespace Assets.Script.Temp
             switch (id) { 
                 case 1000:
                     return SG;
-                    break;
+                    //break;
                 case 1001:
                     return SG1;
-                    break;
+                    //break;
                 case 1002:
                     return SG2;
-                    break;
+                    //break;
                 case 1003:
                     return SG3;
-                    break;
+                    //break;
                 case 1004:
                     return SG4;
-                    break;
+                    //break;
                 case 1005:
                     return SG5;
-                    break;
+                    //break;
                 case 1006:
                     return SG6;
-                    break;
+                    //break;
                 case 1007:
                     return SG7;
-                    break;
+                    //break;
                 case 1008:
                     return SG8;
-                    break;
+                    //break;
                 case 1009:
                     return SG9;
-                    break;
+                    //break;
                 default:
                     return "";
-                    break;            
+                    //break;            
             
             }  
         }
