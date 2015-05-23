@@ -29,6 +29,9 @@ sem_t *sigListmutex=nullptr;
 struct shmNum *sigNum=nullptr;
 sem_t *sigNummutex=nullptr;
 
+extern struct shmStatus *statusptr;
+extern sem_t *statusmutex;
+
 void InitExit(){
 		int fd;
 		
@@ -97,7 +100,13 @@ void sig_chld_exit(int signo){
 								sigNum->blueCounter--;
 							else if(RED==sigList->party[i])
 								sigNum->redCounter--;
-
+								
+							if(0==sigNum->counter){
+								sem_wait(statusmutex);
+								statusptr->status=IN_ROOM;
+								sem_post(statusmutex);
+							}
+								
 							sem_post(sigNummutex);
 
 							//reset all things

@@ -211,8 +211,8 @@ void InRoomLoop(int connfd){
 					//mBroadcast(ALL,t,sizeof(Chat_tocs));
 
 					
-					for(int i=0;i<40;i++){
-						string str="game start after seconds  ";
+					for(int i=0;i<5;i++){
+						string str="game start after seconds ";
 						str+=IntToStr(i);
 						Chat_tocs *t=new Chat_tocs(1000,ALL,str);
 						mBroadcast(ALL,t,sizeof(Chat_tocs));
