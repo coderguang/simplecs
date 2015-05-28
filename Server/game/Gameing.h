@@ -20,6 +20,7 @@
 #include "../proto/ProtoID.h"
 #include "../struct/PersonData.h"
 #include "../struct/ShmServer.h"
+
 using namespace std;
 
 void InGameLoop(int connfd){
@@ -47,9 +48,27 @@ void InGameLoop(int connfd){
 				}else{
 					 continue;			
 				}
-			}else if(0==nread)	/*EOF of the stream */
+			}else if(0==nread){	/*EOF of the stream */
 					 continue;
+			}
+
 			
+			if(posID==id){
+				Pos_tocs *temp=new Pos_tocs();
+				temp->id=posID;
+				readn(connfd,&temp->error_code,sizeof(Pos_tocs)-4);
+
+				DelayTime(1);
+				if(PersonData::m_Party==RED){
+					cout<<"get red the pos tos"<<endl;
+					mBroadcast(BLUE,temp,sizeof(Pos_tocs));
+				}else{
+					cout<<"get blue the pos tos"<<endl;
+					mBroadcast(RED,temp,sizeof(Pos_tocs));
+				}
+				cout<<"tempid="<<temp->id<<" x="<<temp->x<<" y="<<temp->y<<" z="<<temp->z<<endl;
+			}	
+				
 				
 
 	}

@@ -19,4 +19,6 @@
 
 #include "GameStart_tocs.h"
 
+#include "Pos_tocs.h"
+
 #endif
