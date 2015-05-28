@@ -19,7 +19,8 @@ namespace Assets.Script.Time
         public static string GetTime() {
             return DateTime.Now.ToString();
         }
-        
+              
+
 
 
 

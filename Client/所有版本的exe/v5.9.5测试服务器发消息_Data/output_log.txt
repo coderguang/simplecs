@@ -14,30 +14,38 @@ Platform assembly: E:\simplecs\Client\所有版本的exe\v5.9.5测试服务器�
 Loading E:\simplecs\Client\所有版本的exe\v5.9.5测试服务器发消息_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
 Platform assembly: E:\simplecs\Client\所有版本的exe\v5.9.5测试服务器发消息_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
 Loading E:\simplecs\Client\所有版本的exe\v5.9.5测试服务器发消息_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
-- Completed reload, in  0.055 seconds
+- Completed reload, in  0.062 seconds
 desktop: 1366x768 60Hz; virtual: 3286x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 Platform assembly: E:\simplecs\Client\所有版本的exe\v5.9.5测试服务器发消息_Data\Managed\System.dll (this message is harmless)
-UnloadTime: 4.443900 ms
+UnloadTime: 3.317062 ms
 Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 556.
-Total: 2.358791 ms (FindLiveObjects: 0.043190 ms CreateObjectMapping: 0.021381 ms MarkObjects: 1.025449 ms  DeleteObjects: 0.009835 ms)
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 568.
+Total: 1.392764 ms (FindLiveObjects: 0.029505 ms CreateObjectMapping: 0.012401 ms MarkObjects: 0.637156 ms  DeleteObjects: 0.008552 ms)
 
-获得输入:tewt
+获得输入:sgegs
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
-获得输入:aett
+获得输入:sgesg
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
-获得输入:sure
+获得输入:wrwr
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
-获得输入:sge
+获得输入:342t62ywty
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+获得输入:euy546
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+获得输入:ey543uru
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 

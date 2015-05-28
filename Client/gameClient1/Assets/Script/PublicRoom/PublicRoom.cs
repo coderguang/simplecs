@@ -56,13 +56,16 @@ public class PublicRoom : MonoBehaviour {
      * 
      * **/
     public void StartGame() {
+        /**
         if (1000 != PersonData.m_ID)
             Reject_Label.text = "[ff0000]只有账号sg具有开启游戏权限[-]";
         else {
             GameStart_tocs temp = new GameStart_tocs();
             Connection.GetInstance().Send(temp);
         }
-               
+            **/
+        GameStart_tocs temp = new GameStart_tocs();
+        Connection.GetInstance().Send(temp);
     }
 
     public void ExitGame() {
