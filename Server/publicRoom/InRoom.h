@@ -20,6 +20,7 @@
 #include "../proto/ProtoID.h"
 #include "../struct/PersonData.h"
 #include "../struct/ShmServer.h"
+#include "../game/Gameing.h"
 using namespace std;
 
 //when the game in room ,belown loop solve the proto
@@ -31,6 +32,14 @@ void InRoomLoop(int connfd){
 	cout<<"lanuch success,come to publicRoom"<<endl;
 	
 	while(true){
+
+			sem_wait(statusmutex);
+			if(IN_GAME==statusptr->status){
+				sem_post(statusmutex);
+				InGameLoop(connfd);
+				break;
+			}
+			sem_post(statusmutex);
 				
 			int id=0;
 			int nread=read(connfd,&id,4);
@@ -191,7 +200,7 @@ void InRoomLoop(int connfd){
 
 				readn(connfd,&temp->error_code,sizeof(GameStart_tocs)-4);
 
-				if(1000==PersonData::m_ID){//check if this proto from sg
+				//if(1000==PersonData::m_ID){//check if this proto from sg
 
 					//cout<<"receive the game start from sg"<<endl;
 					//change ths game status
@@ -216,14 +225,18 @@ void InRoomLoop(int connfd){
 						str+=IntToStr(i);
 						Chat_tocs *t=new Chat_tocs(1000,ALL,str);
 						mBroadcast(ALL,t,sizeof(Chat_tocs));
-						DelayTime(5);
+						DelayTime(2);
 					 }
 
-					DelayTime(10);
+					//DelayTime(2);
 
 					mBroadcast(ALL,temp,sizeof(GameStart_tocs));
+
+					sem_wait(statusmutex);
+					statusptr->status=IN_GAME;
+					sem_post(statusmutex);
 					
-				}
+				//}
 
 			}else{//some error sream ,receive it and do nothing
 					char buf[128];
