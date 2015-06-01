@@ -414,7 +414,7 @@ namespace Assets.Script
 
                     }
                     break;
-                case ProtoID.GameStart://开始游戏信号
+                case ProtoID.GameStartID://开始游戏信号
                     {
                         GameStart_tocs temp = (GameStart_tocs)MTransform.BytesToStruct(buffer, typeof(GameStart_tocs));
                         lock (objLock)
@@ -423,7 +423,7 @@ namespace Assets.Script
                         }
                     }
                     break;
-
+                
 
 
             }

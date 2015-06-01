@@ -6,77 +6,87 @@ using Assets.Script.Log;
 using Assets.Script.Temp;
 using System;
 
-public class NullObj : MonoBehaviour {
+public class NullObj : MonoBehaviour
+{
 
     //该对象的生命周期为整个游戏的生命周期
     //从游戏一开始加载就加载
     //场景变化该对象也不会销毁
     //在update中进行协议包的业务处理
-	// Use this for initialization
+    // Use this for initialization
 
 
-    private static NullObj _instance=null;
+    private static NullObj _instance = null;
 
-    void Awake() {
-        if(null==_instance){
+    void Awake()
+    {
+        if (null == _instance)
+        {
             _instance = this;
             //切换场景时，该对象不消失
             DontDestroyOnLoad(transform.gameObject);
         }
-    
+
     }
 
 
-	void Start () {
+    void Start()
+    {
         MFactory.GetInstance();
-	
-	}
-	
-	// Update is called once per frame
+
+    }
+
+    // Update is called once per frame
     //在Update中进行业务逻辑处理
-	void Update () {
+    void Update()
+    {
 
         //如果缓存中有协议
-        if (Connection.GetInstance().package.Count>0) {
+        if (Connection.GetInstance().package.Count > 0)
+        {
             try
-            {   Message msg ;
+            {
+                Message msg;
                 lock (Connection.objLock)
                 {
                     //获取并删除第一个元素
-                   msg = Connection.GetInstance().package.Dequeue();
+                    msg = Connection.GetInstance().package.Dequeue();
                 }
 
                 int id = msg.id;
-                GameLog.Log(GameLogLevel.INFO, GameLogType.ProtoLog, "update 处理到协议:" +ProtoID.GetName(id));
+                GameLog.Log(GameLogLevel.INFO, GameLogType.ProtoLog, "update 处理到协议:" + ProtoID.GetName(id));
 
                 //具体的业务逻辑处理
                 //超恶心switch
-                switch (id) {
+                switch (id)
+                {
                     case ProtoID.ErrID://错误情况
                         {
-                            if (ErrCode.ACCOUNT_ERR_PASSWD == msg.error_code||ErrCode.ACCOUNT_HAD_LANUCH==msg.error_code||ErrCode.SERVER_FULL==msg.error_code||ErrCode.SERVER_IN_GAME==msg.error_code) {
+                            if (ErrCode.ACCOUNT_ERR_PASSWD == msg.error_code || ErrCode.ACCOUNT_HAD_LANUCH == msg.error_code || ErrCode.SERVER_FULL == msg.error_code || ErrCode.SERVER_IN_GAME == msg.error_code)
+                            {
                                 LanuchGame.err_code = msg.error_code;
                                 LanuchGame.tipFlag = true;
                             }
-                            else if (ErrCode.PARTY_IS_FULL == msg.error_code || ErrCode.PARTY_NO_CHANGE == msg.error_code) {
+                            else if (ErrCode.PARTY_IS_FULL == msg.error_code || ErrCode.PARTY_NO_CHANGE == msg.error_code)
+                            {
                                 UpdateParty.tipFlag = true;//中心显示阵营切换失败
-                            }                        
-                        
+                            }
+
                         }
                         break;
                     case ProtoID.LanuchResultID: //登录正确
-                        {                             
+                        {
                             //开启接收广播的后台线程
                             Connection.GetInstance().BeginBoardcastSocket();
 
-                            LanuchResult_toc temp=(LanuchResult_toc)msg;                           
+                            LanuchResult_toc temp = (LanuchResult_toc)msg;
                             PersonData.m_ID = temp.account_id;
                             PersonData.m_Name = PersonName.GetName(temp.account_id);
                             PersonData.m_LastTime = new string(temp.lastLanuch);
-                            PersonData.m_LastIP= new string(temp.lastIP);
+                            PersonData.m_LastIP = new string(temp.lastIP);
                             PublicRoom.publicRoomFlag = true;
 
-                            PersonData.m_Party= temp.party; //标记当前阵营 ,用于判断阵容变化
+                            PersonData.m_Party = temp.party; //标记当前阵营 ,用于判断阵容变化
                             Application.LoadLevel("PublicRoom");
                         }
                         break;
@@ -84,7 +94,7 @@ public class NullObj : MonoBehaviour {
                         {
                             Party_toc temp = (Party_toc)msg;
 
-                            
+
                             UpdateParty.b_1ID = temp.b1;
                             UpdateParty.b_2ID = temp.b2;
                             UpdateParty.b_3ID = temp.b3;
@@ -108,32 +118,42 @@ public class NullObj : MonoBehaviour {
 
                             string str = new string(temp.msg);
                             Send_Btn.str = str;
-                            GameLog.Log(GameLogLevel.INFO,GameLogType.ProtoLog,"收到聊天消息:" + str);
+                            GameLog.Log(GameLogLevel.INFO, GameLogType.ProtoLog, "收到聊天消息:" + str);
                             Send_Btn.uid = temp.user_id;
                             Send_Btn.flag = true;
                         }
                         break;
                     case ProtoID.PartyChangeID://阵营改变
-                        { 
+                        {
                             //直接改变阵营即可
                             if (PartyType.BLUE == PersonData.m_Party)
                                 PersonData.m_Party = PartyType.RED;
                             else
                                 PersonData.m_Party = PartyType.BLUE;
 
-                          GameLog.Log(GameLogLevel.INFO,GameLogType.ProtoLog,"自身阵营改变、当前阵营：" + PersonData.m_Party);
-                        
+                            GameLog.Log(GameLogLevel.INFO, GameLogType.ProtoLog, "自身阵营改变、当前阵营：" + PersonData.m_Party);
+
                         }
                         break;
-                    case ProtoID.GameStart://开始游戏
+                    case ProtoID.GameStartID://开始游戏
                         {
                             GameLog.Log(GameLogLevel.INFO, GameLogType.ProtoLog, "收到开始游戏toc");
-                            Application.LoadLevel("GameMap"); 
+                            Application.LoadLevel("GameMap");
                         }
                         break;
-                
-                
-                
+                    case ProtoID.PosID:
+                        {
+                            GameLog.Log(GameLogLevel.INFO, GameLogType.ProtoLog, "位置变化:");
+                            Pos_tocs temp = (Pos_tocs)msg;
+                            GameLog.Log(GameLogLevel.INFO, GameLogType.ProtoLog, "位置变化:x=" + temp.x + "  y=" + temp.y + "  z=" + temp.z);
+                            Gameing.flag = true;
+                            Gameing.ax = temp.x;
+                            Gameing.ay = temp.y;
+                            Gameing.az = temp.z;                            
+                        }
+                        break;
+
+
                 }
 
 
@@ -143,7 +163,8 @@ public class NullObj : MonoBehaviour {
 
 
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 GameLog.Log(GameLogLevel.INFO, GameLogType.ProtoLog, "队列无协议:" + e.Message);
             }
 
@@ -151,10 +172,11 @@ public class NullObj : MonoBehaviour {
         }
 
 
-	}
+    }
 
 
-    void OnDestroy() {
+    void OnDestroy()
+    {
 
         Connection.GetInstance().Destroy();
     }

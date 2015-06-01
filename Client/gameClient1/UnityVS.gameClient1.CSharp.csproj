@@ -196,6 +196,7 @@
     <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
     <Compile Include="Assets\Script\Connection.cs" />
     <Compile Include="Assets\Script\Game\Bullet.cs" />
+    <Compile Include="Assets\Script\Game\Death.cs" />
     <Compile Include="Assets\Script\Game\Gameing.cs" />
     <Compile Include="Assets\Script\Lanuch\LanuchGame.cs" />
     <Compile Include="Assets\Script\Log\GameLog.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="Assets\Script\Proto\PartyType.cs" />
     <Compile Include="Assets\Script\Proto\Party_change_tocs.cs" />
     <Compile Include="Assets\Script\Proto\Party_toc.cs" />
+    <Compile Include="Assets\Script\Proto\Pos_tocs.cs" />
     <Compile Include="Assets\Script\Proto\protoID.cs" />
     <Compile Include="Assets\Script\PublicRoom\JoinBlue.cs" />
     <Compile Include="Assets\Script\PublicRoom\JoinRed.cs" />

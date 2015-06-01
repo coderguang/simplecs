@@ -29,7 +29,7 @@ namespace Assets.Script.Proto
 
         public GameStart_tocs()
         {
-            this.id = ProtoID.GameStart;
+            this.id = ProtoID.GameStartID;
             this.error_code = 0;
 
         }
