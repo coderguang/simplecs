@@ -1,1 +1,0 @@
-g++ -g testdb.cpp -o test ../lib/libdb.a $(mysql_config --cflags) $(mysql_config --libs) -std=c++11 -lpthread -lrt
