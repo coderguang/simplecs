@@ -99,6 +99,9 @@ static void mLanuchGame(int connfd,string ip){
 						Lanuch_tos *ptr=new Lanuch_tos();
 						memset(ptr,'\0',sizeof(Lanuch_tos));
 						readn(connfd,&ptr->error_code,sizeof(Lanuch_tos)-4);
+						
+						ptr->account[ptr->acclen]='\0';
+						ptr->passwd[ptr->paslen]='\0';
 
 						cout<<"try lanuch:accounts="<<ptr->account<<"  passwd="<<ptr->passwd<<endl;
 						string account=ptr->account;

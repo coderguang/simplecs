@@ -18,8 +18,11 @@ public:
 		int setting;
 		int party;
 		char name[NAMESIZE];
+		int namelen;
 		char lastIP[LASTIPSIZE];
+		int iplen;
 		char lastLanuch[LASTLANUCHSIZE];
+		int timelen;
 		
 		LanuchResult_toc(){
 			id=pLanuchResultID;
@@ -32,8 +35,11 @@ public:
 				//belown had happen somethings make the value exception
 				//Don't use sizeof to get the length of string ,user it's lenght
 				id=pLanuchResultID;
+				namelen=n.length();
 				memcpy(name,n.c_str(),n.length()+1);	
+				timelen=lastTime.length();
 				memcpy(lastLanuch,lastTime.c_str(),lastTime.length()+1);	
+				iplen=lastip.length();
 				memcpy(lastIP,lastip.c_str(),lastip.length()+1);
 				//cout<<"time size="<<sizeof(lastTime.c_str())<<endl;
 				//cout<<"timestr size="<<sizeof(lastTime)<<endl;

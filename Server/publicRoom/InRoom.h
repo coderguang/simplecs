@@ -70,20 +70,21 @@ void InRoomLoop(int connfd){
 					readn(connfd,&temp->error_code,sizeof(Chat_tocs)-4);
 						
 					temp->id=pChatID;
+					temp->msg[temp->msglen]='\0';
 					
 					cout<<"receive chat:uid="<<temp->user_id<<"  msg="<<temp->msg<<" err_code="<<temp->error_code<<endl;
 					
-					Chat_tocs *chat=new Chat_tocs();
-					strcpy(chat->msg,temp->msg);
+					//Chat_tocs *chat=new Chat_tocs();
+					//strcpy(chat->msg,temp->msg);
 
-					cout<<"chat id="<<chat->user_id<<"  msg="<<chat->msg<<" err_code="<<temp->error_code<<endl;
+					//cout<<"chat id="<<chat->user_id<<"  msg="<<chat->msg<<" err_code="<<temp->error_code<<endl;
 
 					//writen(connfd,&temp->id,sizeof(Chat_tocs));
 					//broadcast this msg to the all
 
-					mBroadcast(ALL,chat,sizeof(Chat_tocs));
+					//mBroadcast(ALL,chat,sizeof(Chat_tocs));
 
-					//mBroadcast(ALL,temp,sizeof(Chat_tocs));
+					mBroadcast(ALL,temp,sizeof(Chat_tocs));
 					
 			}else if(partyChangeID==id){//get the party change tos
 					

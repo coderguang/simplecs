@@ -12,7 +12,9 @@ class Lanuch_tos:public Message
 {
 	public:
 		char account[ACCOUNTSIZE];
+		int acclen;
 		char passwd[PASSWDSIZE];
+		int paslen;
 
 		Lanuch_tos(){
 		}

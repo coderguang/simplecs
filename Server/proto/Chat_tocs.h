@@ -15,6 +15,7 @@ public:
 		int user_id;//who send this chat
 		int type;//the party
 		char msg[MAX_CHAT_SIZE];
+		int msglen;
 		
 		Chat_tocs(){
 			id=pChatID;
@@ -26,6 +27,7 @@ public:
 			error_code=0;
 			user_id=uid;
 			type=t;
+			msglen=ms.length();
 			memcpy(msg,ms.c_str(),ms.length()+1);
 
 		}
