@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{22648878-F20B-A513-5F89-320EA08F4BAA}</ProjectGuid>
+	<ProjectGuid>{7838E64E-4E19-9474-2162-444C1B27F3B4}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -180,20 +180,35 @@
      <Compile Include="Assets\NGUI\Scripts\UI\UITexture.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
+     <Compile Include="Assets\Script\Connection.cs" />
+     <Compile Include="Assets\Script\Game\Bullet.cs" />
+     <Compile Include="Assets\Script\Game\Death.cs" />
+     <Compile Include="Assets\Script\Game\Gameing.cs" />
      <Compile Include="Assets\Script\Lanuch\LanuchGame.cs" />
+     <Compile Include="Assets\Script\Log\GameLog.cs" />
      <Compile Include="Assets\Script\Log\LogEnum.cs" />
-     <Compile Include="Assets\Script\Log\MLogger.cs" />
-     <Compile Include="Assets\Script\MConnection.cs" />
      <Compile Include="Assets\Script\MFactory.cs" />
+     <Compile Include="Assets\Script\NullObj.cs" />
+     <Compile Include="Assets\Script\PersonData.cs" />
+     <Compile Include="Assets\Script\Proto\Chat_tocs.cs" />
      <Compile Include="Assets\Script\Proto\ErrCode.cs" />
+     <Compile Include="Assets\Script\Proto\Err_toc.cs" />
+     <Compile Include="Assets\Script\Proto\GameStart_tocs.cs" />
      <Compile Include="Assets\Script\Proto\LanuchResult_toc.cs" />
-     <Compile Include="Assets\Script\Proto\LanuchResult_tos.cs" />
-     <Compile Include="Assets\Script\Proto\Lanuch_toc.cs" />
      <Compile Include="Assets\Script\Proto\Lanuch_tos.cs" />
      <Compile Include="Assets\Script\Proto\MTransform.cs" />
-     <Compile Include="Assets\Script\Proto\Message_toc.cs" />
-     <Compile Include="Assets\Script\Proto\Message_tos.cs" />
+     <Compile Include="Assets\Script\Proto\Message.cs" />
+     <Compile Include="Assets\Script\Proto\PartyType.cs" />
+     <Compile Include="Assets\Script\Proto\Party_change_tocs.cs" />
+     <Compile Include="Assets\Script\Proto\Party_toc.cs" />
+     <Compile Include="Assets\Script\Proto\Pos_tocs.cs" />
      <Compile Include="Assets\Script\Proto\protoID.cs" />
+     <Compile Include="Assets\Script\PublicRoom\JoinBlue.cs" />
+     <Compile Include="Assets\Script\PublicRoom\JoinRed.cs" />
+     <Compile Include="Assets\Script\PublicRoom\PublicRoom.cs" />
+     <Compile Include="Assets\Script\PublicRoom\Send_Btn.cs" />
+     <Compile Include="Assets\Script\PublicRoom\UpdateParty.cs" />
+     <Compile Include="Assets\Script\Temp\PersonName.cs" />
      <Compile Include="Assets\Script\Time\mTimer.cs" />
      <None Include="Assets\NGUI\Examples\Shaders\Unlit - Depth Cutout.shader" />
      <None Include="Assets\NGUI\ReadMe - 3.6.8.txt" />
@@ -205,8 +220,10 @@
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored 2.shader" />
      <None Include="Assets\NGUI\Examples\Shaders\Unlit - Masked Colored.shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 3.shader" />
+     <None Include="Assets\Wood texture floor_01\readme.txt" />
      <None Include="Assets\NGUI\Examples\Atlases\Wooden\Arimo18.txt" />
      <None Include="Assets\NGUI\Examples\Atlases\SciFi\SciFi Font - Header.txt" />
+     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored 1.shader" />
      <None Include="Assets\NGUI\Examples\Atlases\Fantasy\Fantasy Font - Normal.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored 3.shader" />
@@ -222,13 +239,20 @@
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed.shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 3.shader" />
      <None Include="Assets\NGUI\Examples\Shaders\Unlit - Additive Colored.shader" />
-     <None Include="Assets\Comment.txt" />
+     <None Include="Assets\Scence\Comment.txt" />
      <None Include="Assets\NGUI\Examples\Atlases\Refractive\Refractive Font - Header.txt" />
      <None Include="Assets\NGUI\Examples\Shaders\Refractive.shader" />
      <None Include="Assets\NGUI\Examples\Shaders\Unlit - Depth.shader" />
      <None Include="Assets\NGUI\Examples\Atlases\SciFi\SciFi Font - Normal.txt" />
      <None Include="Assets\NGUI\Examples\Models\Orc Armor\Orc Armor.shader" />
      <None Include="Assets\NGUI\Examples\Resources\Localization.txt" />
+ <Reference Include="Assembly-UnityScript-firstpass">
+ <HintPath>E:/simplecs/Client/gameClient1/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
+      <Project>{5033E188-6545-76E2-081D-8850522D36F6}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

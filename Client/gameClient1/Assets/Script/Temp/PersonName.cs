@@ -12,7 +12,7 @@ namespace Assets.Script.Temp
      * */
     class PersonName
     {
-        public static string SG = "sg(房主)";
+        public static string SG = "sg";
         public static string SG1 = "sg1";
         public static string SG2 = "sg2";
         public static string SG3 = "sg3";

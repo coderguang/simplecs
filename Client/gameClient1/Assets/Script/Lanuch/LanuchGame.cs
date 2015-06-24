@@ -67,7 +67,7 @@ public class LanuchGame : MonoBehaviour {
 
     //点击登录按钮将调用该函数
     public void Login() {
-        string username = user.text;
+        string username = user.value;
         string passname = passwd.value;
         Lanuch_tos temp=new Lanuch_tos(username,passname);
         GameLog.Log(GameLogLevel.INFO,GameLogType.LanuchLog,"登录 account="+username+"  passwd="+passname);

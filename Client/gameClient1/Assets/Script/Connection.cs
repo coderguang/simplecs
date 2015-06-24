@@ -10,15 +10,13 @@ using System.Threading;
 using UnityEngine;
 using System.Diagnostics;
 
-namespace Assets.Script
-{
+namespace Assets.Script {
     /**
      * 客户端的网络模块，包括socket的发起，协议的收发
      * 将所有收到的协议先解包，然后加入到List里面去，然后在主线程update中执行实际的业务逻辑
      * 
      * */
-    class Connection
-    {
+    class Connection {
         private static Connection _instance = null;
         private const string ipAddr = "182.254.233.115";
         private const int port = 9201;//接收本用户的port
@@ -36,12 +34,10 @@ namespace Assets.Script
         public static object objLock = new object();
 
 
-        private Connection()
-        {
+        private Connection() {
             Init();
         }
-        public static Connection GetInstance()
-        {
+        public static Connection GetInstance() {
             if (null == _instance)
                 _instance = new Connection();
             return _instance;
@@ -52,8 +48,7 @@ namespace Assets.Script
         //由NullObj脚本对象释放时调用
         //否则编辑器会假死，socket未断开，后台线程似乎也不会关闭
         /**http://blog.sina.com.cn/s/blog_62cff5e00102v3px.html **/
-        public void Destroy()
-        {
+        public void Destroy() {
             if (msocket.Connected)
                 msocket.Close();
             if (mthread.IsAlive)
@@ -67,14 +62,12 @@ namespace Assets.Script
 
         }
         //在Init中建立普通socket tcp连接
-        private void Init()
-        {
+        private void Init() {
             IPAddress ip = IPAddress.Parse(ipAddr);
             msocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             //尝试连接
-            try
-            {
+            try {
                 /*http://www.xuanyusong.com/archives/1948*/
                 //异步建立TCP
                 IPEndPoint ipEndPoint = new IPEndPoint(ip, port);
@@ -84,8 +77,7 @@ namespace Assets.Script
 
                 //超时检测
                 bool success = result.AsyncWaitHandle.WaitOne(10000, true);
-                if (success)
-                {
+                if (success) {
                     GameLog.Log(Log.GameLogLevel.INFO, Log.GameLogType.Conect, "异步普通socket任务开启..");
 
                     //开启线程接收数据
@@ -95,28 +87,22 @@ namespace Assets.Script
                     mthread.IsBackground = true;
                     mthread.Start();
 
-                }
-                else
-                {
+                } else {
                     //关闭socket
-                    if (msocket != null && msocket.Connected)
-                    {
+                    if (msocket != null && msocket.Connected) {
                         msocket.Shutdown(SocketShutdown.Both);
                         msocket.Close();
                     }
                     msocket = null;
                     GameLog.Log(Log.GameLogLevel.ERROR, Log.GameLogType.Conect, "连接服务器超时..");
                 }
-            }
-            catch
-            {
+            } catch {
                 GameLog.Log(Log.GameLogLevel.ERROR, Log.GameLogType.Conect, "出现异常，连接服务器失败..");
             }
 
 
             //检测socket是否处于连接状态
-            if (!msocket.Connected)
-            {
+            if (!msocket.Connected) {
                 LanuchGame.err_code = ErrCode.NETWORD_ERROR;
                 LanuchGame.tipFlag = true;
             }
@@ -126,14 +112,12 @@ namespace Assets.Script
         }
 
         //登录正确时，开启接收广播信息的socket，该socket仅负责接收广播消息
-        public void BeginBoardcastSocket()
-        {
+        public void BeginBoardcastSocket() {
             IPAddress ip = IPAddress.Parse(ipAddr);
             bsocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             //尝试连接
-            try
-            {
+            try {
                 /*http://www.xuanyusong.com/archives/1948*/
                 //异步建立TCP
                 IPEndPoint ipEndPoint = new IPEndPoint(ip, boardcastPort);
@@ -143,8 +127,7 @@ namespace Assets.Script
 
                 //超时检测
                 bool success = result.AsyncWaitHandle.WaitOne(10000, true);
-                if (success)
-                {
+                if (success) {
                     GameLog.Log(Log.GameLogLevel.INFO, Log.GameLogType.Conect, "异步广播socket任务开启..");
 
                     //开启线程接收数据
@@ -154,52 +137,42 @@ namespace Assets.Script
                     bthread.IsBackground = true;
                     bthread.Start();
 
-                }
-                else
-                {
+                } else {
                     //关闭socket
-                    if (bsocket != null && bsocket.Connected)
-                    {
+                    if (bsocket != null && bsocket.Connected) {
                         bsocket.Shutdown(SocketShutdown.Both);
                         bsocket.Close();
                     }
                     bsocket = null;
                     GameLog.Log(Log.GameLogLevel.ERROR, Log.GameLogType.Conect, "广播socket连接服务器超时..");
                 }
-            }
-            catch
-            {
+            } catch {
                 GameLog.Log(Log.GameLogLevel.ERROR, Log.GameLogType.Conect, "广播socket出现异常，连接服务器失败..");
             }
         }
 
 
 
-        public void mconnectCallBack(IAsyncResult asyncConnect)
-        {
+        public void mconnectCallBack(IAsyncResult asyncConnect) {
             GameLog.Log(Log.GameLogLevel.INFO, Log.GameLogType.Conect, "建立普通异步连接成功");
         }
 
-        public void bconnectCallBack(IAsyncResult asyncConnect)
-        {
+        public void bconnectCallBack(IAsyncResult asyncConnect) {
             GameLog.Log(Log.GameLogLevel.INFO, Log.GameLogType.Conect, "建立广播异步连接成功");
         }
 
 
         //发送协议
 
-        public int Send(Message mproto)
-        {
+        public int Send(Message mproto) {
 
-            if (!msocket.Connected)
-            {
+            if (!msocket.Connected) {
                 GameLog.Log(Log.GameLogLevel.FATAL, Log.GameLogType.Conect, "网络断开...");
                 Application.Quit();
             }
 
             byte[] buffer = MTransform.StructToBytes(mproto);
-            try
-            {
+            try {
                 //使用异步来send协议
                 //msocket.Send(buffer);
                 IAsyncResult asySend = msocket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(sendCallback), msocket);
@@ -210,45 +183,37 @@ namespace Assets.Script
                 else
                     GameLog.Log(Log.GameLogLevel.ERROR, Log.GameLogType.Conect, mproto.GetType().ToString() + " proto send timeout! protoID=" + mproto.GetID());
                 return 0;
-            }
-            catch
-            {
+            } catch {
                 GameLog.Log(Log.GameLogLevel.ERROR, Log.GameLogType.ProtoLog, mproto.GetType().ToString() + " proto send failed! protoID=" + mproto.GetID());
                 return -1;
             }
         }
 
         //send callback
-        private static void sendCallback(IAsyncResult ar)
-        {
+        private static void sendCallback(IAsyncResult ar) {
             //发送返回不做任何事情
             //throw new NotImplementedException();
         }
 
 
         //客户端将在后台线程中执行该函数，直到普通协议过来，进行相应的内容
-        public void mReceive()
-        {
+        public void mReceive() {
 
-            while (true)
-            {
+            while (true) {
                 //如果和服务器断开了连接，就跳出循环
-                if (!msocket.Connected && null != msocket)
-                {
+                if (!msocket.Connected && null != msocket) {
                     GameLog.Log(Log.GameLogLevel.ERROR, Log.GameLogType.Conect, "普通socket已经和服务器断开连接.....");
                     msocket.Close();
                     break;
                 }
 
-                try
-                {
+                try {
                     //首先获取协议的ID
                     //先获取一整个的包
                     byte[] buffer = new byte[512];
                     //Receive是阻塞的，知道数据过来才会继续执行
                     int rid = msocket.Receive(buffer);
-                    if (rid <= 0)
-                    {
+                    if (rid <= 0) {
                         GameLog.Log(Log.GameLogLevel.INFO, Log.GameLogType.Conect, "普通socket收到错误的包...，客户端主动断开连接....");
                         msocket.Close();
                         break;
@@ -256,9 +221,7 @@ namespace Assets.Script
 
                     MPack(ref(buffer));
 
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     GameLog.Log(Log.GameLogLevel.INFO, Log.GameLogType.Conect, "普通socket get the proto exceptions " + e.Message);
                     break;
                 }
@@ -268,28 +231,23 @@ namespace Assets.Script
         }
 
         //客户端将在后台线程中执行该函数，直到广播协议过来，进行相应的内容
-        public void bReceive()
-        {
+        public void bReceive() {
 
-            while (true)
-            {
+            while (true) {
                 //如果和服务器断开了连接，就跳出循环
-                if (!bsocket.Connected && null != bsocket)
-                {
+                if (!bsocket.Connected && null != bsocket) {
                     GameLog.Log(Log.GameLogLevel.ERROR, Log.GameLogType.Conect, "广播socket已经和服务器断开连接.....");
                     bsocket.Close();
                     break;
                 }
 
-                try
-                {
+                try {
                     //首先获取协议的ID
                     //先获取一整个的包
                     byte[] buffer = new byte[512];
                     //bReceive是阻塞的，知道数据过来才会继续执行
                     int rid = msocket.Receive(buffer);
-                    if (rid <= 0)
-                    {
+                    if (rid <= 0) {
                         GameLog.Log(Log.GameLogLevel.INFO, Log.GameLogType.Conect, "广播socket收到错误的包...，客户端主动断开连接....");
                         bsocket.Close();
                         break;
@@ -297,9 +255,7 @@ namespace Assets.Script
 
                     MPack(ref(buffer));
 
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     GameLog.Log(Log.GameLogLevel.INFO, Log.GameLogType.Conect, "广播socket get the proto exceptions " + e.Message);
                     break;
                 }
@@ -311,10 +267,8 @@ namespace Assets.Script
 
 
         //无法由更高层次的转为低层次的类别，该函数无用
-        private void AddToPack(ref Message msg)
-        {
-            lock (objLock)
-            {
+        private void AddToPack(ref Message msg) {
+            lock (objLock) {
                 package.Enqueue(msg);
             }
 
@@ -329,8 +283,7 @@ namespace Assets.Script
 
         /**http://xiehuawei.me/blog/2014/11/20/unity-multithread/ **/
 
-        protected void MPack(ref byte[] buffer)
-        {
+        protected void MPack(ref byte[] buffer) {
 
             byte[] idByte = new byte[idSize];
 
@@ -338,14 +291,12 @@ namespace Assets.Script
                 return;
 
 
-            for (int i = 0; i < idSize; i++)
-            {
+            for (int i = 0; i < idSize; i++) {
                 idByte[i] = buffer[i];
             }
 
             int id = System.BitConverter.ToInt32(idByte, 0);
-            switch (id)
-            {
+            switch (id) {
                 case ProtoID.ErrID://错误toc
                     {
                         //频繁新建对象会造成很大的内存损耗，以后再解决这个问题
@@ -354,8 +305,7 @@ namespace Assets.Script
 
                         Err_toc temp = (Err_toc)MTransform.BytesToStruct(buffer, typeof(Err_toc));
 
-                        lock (objLock)
-                        {
+                        lock (objLock) {
                             package.Enqueue(temp);
                         }
                     }
@@ -368,15 +318,13 @@ namespace Assets.Script
 
                         // Type type = typeof(LanuchResult_toc);
                         LanuchResult_toc tp = (LanuchResult_toc)MTransform.BytesToStruct(buffer, typeof(LanuchResult_toc));
-
-                        lock (objLock)
-                        {
+                        lock (objLock) {
                             //加入到List中
                             package.Enqueue(tp);
                         }
-                        string name = new string(tp.name);
-                        string time = new string(tp.lastLanuch);
-                        string ip = new string(tp.lastIP);
+                        string name = new string(tp.name,0,tp.namelen);
+                        string time = new string(tp.lastLanuch,0,tp.timelen);
+                        string ip = new string(tp.lastIP,0,tp.iplen);
 
                         GameLog.Log(Log.GameLogLevel.INFO, Log.GameLogType.ProtoLog, "err_code=" + tp.error_code + "  name=" + name + " last time=" + time + "  ip=" + ip + "  setting=" + tp.setting);
 
@@ -386,8 +334,7 @@ namespace Assets.Script
                 case ProtoID.PartyID://获取房间分组信息
                     {
                         Party_toc temp = (Party_toc)MTransform.BytesToStruct(buffer, typeof(Party_toc));
-                        lock (objLock)
-                        {
+                        lock (objLock) {
                             //加入到List中
                             package.Enqueue(temp);
                         }
@@ -397,8 +344,7 @@ namespace Assets.Script
                 case ProtoID.ChatID://房间内的聊天信息
                     {
                         Chat_tocs temp = (Chat_tocs)MTransform.BytesToStruct(buffer, typeof(Chat_tocs));
-                        lock (objLock)
-                        {
+                        lock (objLock) {
                             package.Enqueue(temp);
                         }
 
@@ -407,8 +353,7 @@ namespace Assets.Script
                 case ProtoID.PartyChangeID://更改分组信息
                     {
                         Party_change_tocs temp = (Party_change_tocs)MTransform.BytesToStruct(buffer, typeof(Party_change_tocs));
-                        lock (objLock)
-                        {
+                        lock (objLock) {
                             package.Enqueue(temp);
                         }
 
@@ -417,13 +362,19 @@ namespace Assets.Script
                 case ProtoID.GameStartID://开始游戏信号
                     {
                         GameStart_tocs temp = (GameStart_tocs)MTransform.BytesToStruct(buffer, typeof(GameStart_tocs));
-                        lock (objLock)
-                        {
+                        lock (objLock) {
                             package.Enqueue(temp);
                         }
                     }
                     break;
-                
+                case ProtoID.PosID: {
+                    Pos_tocs temp = (Pos_tocs)MTransform.BytesToStruct(buffer, typeof(Pos_tocs));
+                        lock (objLock) {
+                            package.Enqueue(temp);
+                        }
+                    }
+                    break;
+
 
 
             }

@@ -105,9 +105,8 @@ public class Gameing : MonoBehaviour
         if (Math.Abs(curTime - lastTime) > 8)
         {
             lastTime = curTime;
-            //Connection.GetInstance().Send(temp);
+            Connection.GetInstance().Send(temp);
             //GameLog.Log(GameLogLevel.INFO, GameLogType.GameLog, "x=" + x + "  y=" + y + "  z=" + z);
-
             Instantiate(otherManPrefab, bornR.transform.position, bornR.transform.rotation);
         }
 

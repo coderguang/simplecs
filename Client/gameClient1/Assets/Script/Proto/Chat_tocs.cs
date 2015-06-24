@@ -16,13 +16,15 @@ namespace Assets.Script.Proto
         public int type;//消息类型  公共，阵营
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
         public char[] msg;
+        public int msglen;
 
         public Chat_tocs(int id, int t, string ms) {
             this.id = ProtoID.ChatID;
             this.error_code = 0;
             this.user_id = id;
             this.type = t;
-            this.msg =ms.PadRight(32, '\0').ToCharArray();        
+            this.msg =ms.PadRight(32, '\0').ToCharArray();
+            msglen = ms.Length;
         }
         
     }

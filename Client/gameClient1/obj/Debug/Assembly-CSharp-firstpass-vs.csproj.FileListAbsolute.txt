@@ -1,0 +1,11 @@
+E:\simplecs\Client\gameClient1\Temp\bin\Debug\Assembly-CSharp-firstpass.dll
+E:\simplecs\Client\gameClient1\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
+E:\simplecs\Client\gameClient1\Temp\bin\Debug\UnityEditor.dll
+E:\simplecs\Client\gameClient1\Temp\bin\Debug\UnityEngine.dll
+E:\simplecs\Client\gameClient1\Temp\bin\Debug\Mono.Cecil.dll
+E:\simplecs\Client\gameClient1\Temp\bin\Debug\nunit.framework.dll
+E:\simplecs\Client\gameClient1\Temp\bin\Debug\Unity.DataContract.dll
+E:\simplecs\Client\gameClient1\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+E:\simplecs\Client\gameClient1\obj\Debug\Assembly-CSharp-firstpass-vs.csprojResolveAssemblyReference.cache
+E:\simplecs\Client\gameClient1\obj\Debug\Assembly-CSharp-firstpass.dll
+E:\simplecs\Client\gameClient1\obj\Debug\Assembly-CSharp-firstpass.pdb

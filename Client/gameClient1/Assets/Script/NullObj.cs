@@ -81,9 +81,9 @@ public class NullObj : MonoBehaviour
 
                             LanuchResult_toc temp = (LanuchResult_toc)msg;
                             PersonData.m_ID = temp.account_id;
-                            PersonData.m_Name = PersonName.GetName(temp.account_id);
-                            PersonData.m_LastTime = new string(temp.lastLanuch);
-                            PersonData.m_LastIP = new string(temp.lastIP);
+                            PersonData.m_Name = new string(temp.name,0,temp.namelen);//PersonName.GetName(temp.account_id);
+                            PersonData.m_LastTime = new string(temp.lastLanuch,0,temp.timelen);
+                            PersonData.m_LastIP = new string(temp.lastIP,0,temp.iplen);
                             PublicRoom.publicRoomFlag = true;
 
                             PersonData.m_Party = temp.party; //标记当前阵营 ,用于判断阵容变化
@@ -116,7 +116,7 @@ public class NullObj : MonoBehaviour
                         {
                             Chat_tocs temp = (Chat_tocs)msg;
 
-                            string str = new string(temp.msg);
+                            string str = new string(temp.msg,0,temp.msglen);
                             Send_Btn.str = str;
                             GameLog.Log(GameLogLevel.INFO, GameLogType.ProtoLog, "收到聊天消息:" + str);
                             Send_Btn.uid = temp.user_id;

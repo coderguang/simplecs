@@ -1,2 +1,3 @@
-4.5.4f1:1.9.8.0
+4.5.4f1:1.9.9.0
+StandaloneWindows64
 D:/Editor/Data/Managed/UnityEditor.Graphs.dll

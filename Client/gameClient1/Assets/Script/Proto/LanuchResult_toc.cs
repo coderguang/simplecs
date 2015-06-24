@@ -15,10 +15,13 @@ namespace Assets.Script.Proto
         public int party;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
         public char[] name;
+        public int namelen;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
         public char[] lastIP;
+        public int iplen;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
         public char[] lastLanuch;
+        public int timelen;
               
 
 
