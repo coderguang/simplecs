@@ -99,6 +99,7 @@ int main(){
 					cout<<"set receive timeout fail:connfd="<<connfd<<endl;
 				}
 **/
+				/**
 				if(0==setsockopt(connfd,SOL_SOCKET,SO_RCVTIMEO,(char*)&tv,sizeof(int))){
 					cout<<"set receive timeout sucess:connfd="<<connfd<<endl;
 				}else{
@@ -110,7 +111,7 @@ int main(){
 				}else{
 					cout<<"set receive timeout fail:connfd="<<connfd<<endl;
 				}
-
+				**/
 				startProc(connfd,ip);
 				
 				//exit(0);

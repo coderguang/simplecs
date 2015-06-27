@@ -59,13 +59,19 @@ void InGameLoop(int connfd){
 				readn(connfd,&temp->error_code,sizeof(Pos_tocs)-4);
 
 				DelayTime(1);
+				/**
 				if(PersonData::m_Party==RED){
 					cout<<"get red the pos tos"<<endl;
 					mBroadcast(BLUE,temp,sizeof(Pos_tocs));
 				}else{
 					cout<<"get blue the pos tos"<<endl;
 					mBroadcast(RED,temp,sizeof(Pos_tocs));
-				}
+				}**/
+				temp->userID=PersonData::m_ID;
+
+				mBroadcast(ALL,temp,sizeof(Pos_tocs));
+
+
 				cout<<"tempid="<<temp->id<<" x="<<temp->x<<" y="<<temp->y<<" z="<<temp->z<<endl;
 			}	
 				
