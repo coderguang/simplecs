@@ -31,10 +31,11 @@ public class Bullet : MonoBehaviour {
         {
             GameLog.Log(GameLogLevel.INFO, GameLogType.GameLog, "打死人了enter");
         }
+        /**
         else
         {
             GameLog.Log(GameLogLevel.INFO, GameLogType.GameLog, "bum===" + other.gameObject.name);
-        }
+        }**/
     }
 
     void OnTriggerStay(Collider other)

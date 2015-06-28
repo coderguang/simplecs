@@ -184,6 +184,8 @@
      <Compile Include="Assets\Script\Game\Bullet.cs" />
      <Compile Include="Assets\Script\Game\Death.cs" />
      <Compile Include="Assets\Script\Game\Gameing.cs" />
+     <Compile Include="Assets\Script\Game\RoleBlue.cs" />
+     <Compile Include="Assets\Script\Game\RoleRed.cs" />
      <Compile Include="Assets\Script\Lanuch\LanuchGame.cs" />
      <Compile Include="Assets\Script\Log\GameLog.cs" />
      <Compile Include="Assets\Script\Log\LogEnum.cs" />

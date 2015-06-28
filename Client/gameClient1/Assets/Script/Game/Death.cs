@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Assets.Script.Time;
+using Assets.Script.Game;
 
 public class Death : MonoBehaviour {
 
@@ -29,6 +30,7 @@ public class Death : MonoBehaviour {
         if (isDeath) {
             isDeath = false;
             //obj.transform.Translate(1,0,1);
+            //Destroy(obj);
             Destroy(obj);
         }
 
